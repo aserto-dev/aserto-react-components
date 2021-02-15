@@ -6,7 +6,7 @@ import './ApplicationCard.css'
 const ApplicationCard = ({application, onClick, ...props}) => 
   <Card className='application-card' onClick={onClick} {...props}>
     <div className='display-flex'>
-      <Card.Img src={appicon} alt="logo" />
+      <Card.Img src={appicon} alt='application' />
       <Card.Title>{application}</Card.Title>
     </div>
   </Card>
