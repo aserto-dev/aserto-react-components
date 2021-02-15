@@ -1,0 +1,21 @@
+button.aserto-button, 
+button.aserto-button:focus, 
+button.aserto-button:active, 
+button.aserto-button:visited {
+  border: 1px solid #35393d;
+  border-radius: 4px;
+  background-color: #35393d66;
+  background-size: cover;
+  font-family: Roboto;
+  font-size: 14px;
+  color: #d7d8d8;
+  text-decoration: none solid rgb(215, 216, 216);
+  text-align: center;
+  box-shadow: none;
+  outline: none;
+}
+
+button.aserto-button:hover {
+  background-color: #35393d;
+  border: 1px solid #35393d;
+}

@@ -1,0 +1,13 @@
+.react-select {
+  font-family: Roboto;
+  font-size: 14px;
+  color: #d7d8d8;
+  text-decoration: none solid rgb(215, 216, 216);  
+}
+
+div.react-select {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;  
+  border-color: white;
+}

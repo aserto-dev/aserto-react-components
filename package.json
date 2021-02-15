@@ -1,0 +1,50 @@
+{
+  "name": "@aserto/aserto-react-components",
+  "version": "0.1.0",
+  "description": "Aserto React component",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "cross-env NODE_ENV=production babel ./src --out-dir ./dist --copy-files -s inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aserto-dev/aserto-react-components.git"
+  },
+  "files": [
+    "src/*",
+    "dist/*"
+  ],
+  "homepage": "https://github.com/aserto-dev/aserto-react-components#readme",
+  "keywords": [
+    "aserto",
+    "authorization",
+    "react"
+  ],
+  "author": "Aserto",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": "^16.14.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "react": "^16.14.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "bootstrap": "^4.5.3",
+    "font-awesome": "^4.7.0",
+    "highlight.js": "^10.5.0",
+    "react": "^16.14",
+    "react-bootstrap": "^1.4.3",
+    "react-dom": "^16.14",
+    "react-router-dom": "^5.2.0",
+    "react-select": "^4.0.2"
+  }
+}

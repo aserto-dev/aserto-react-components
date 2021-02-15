@@ -1,0 +1,9 @@
+.page-title {
+  font-family: 'Open Sans';
+  font-size: 32px;
+  color: #d7d8d8;
+  text-decoration: none solid rgb(215, 216, 216);
+  line-height: 42px;  
+  margin-left: 20px;
+  margin-right: 20px;
+}

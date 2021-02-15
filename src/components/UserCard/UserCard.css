@@ -1,0 +1,29 @@
+.card.user-card {
+  min-width: 428px;
+  max-width: 428px;
+  height: 104px;
+  border-radius: 5px;
+  background-color: #35393d66;
+  background-size: cover;
+  margin: 0px 20px 20px 0px !important;
+}
+
+.card.user-card:hover {
+  background-color: #35393d;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.card.user-card .card-title {
+  color: #d7d8d8;
+  font-family: Roboto;
+  font-size: 18px;
+  vertical-align: middle;
+  text-decoration: none solid rgb(215, 216, 216);
+}
+
+.card.user-card .user-card-image {
+  margin: 10px;
+  width: 82px;
+  background-image: url('./user.svg');
+}

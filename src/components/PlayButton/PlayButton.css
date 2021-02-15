@@ -1,0 +1,10 @@
+.play-button {
+  margin-top: 9px;
+  width: 42px;
+  height: 42px;
+  fill: #298A8E;
+}
+
+.play-button:hover {
+  fill: #32a9ad;
+}

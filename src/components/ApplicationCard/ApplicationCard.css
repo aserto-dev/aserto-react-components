@@ -1,0 +1,30 @@
+.card.application-card {
+  max-width: 428px;
+  height: 104px;
+  border-radius: 5px;
+  background-color: #35393d66;
+  background-size: cover;
+  margin: 0px 20px 20px 0px !important;
+}
+
+.card.application-card:hover {
+  background-color: #35393d;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.card.application-card .card-img {
+  margin: 10px;
+  width: 82px;
+}
+
+.card.application-card .card-title {
+  color: #d7d8d8;
+  font-family: Roboto;
+  font-size: 14px;
+  vertical-align: middle;
+  line-height: 80px;
+  font-size: 14px;
+  text-decoration: none solid rgb(215, 216, 216);
+  margin: 10px;
+}
