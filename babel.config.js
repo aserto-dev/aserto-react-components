@@ -8,7 +8,14 @@ module.exports = function (api) {
 
 	presets.push('@babel/preset-react');
 
-	const plugins = [];
+	const plugins = [
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ]
+  ];
 
 	api.cache(false);
 
