@@ -1,6 +1,6 @@
 import React from 'react'
-import PageTitle from './PageTitle'
-import RefreshButton from './RefreshButton'
+import PageTitle from '../PageTitle'
+import RefreshButton from '../RefreshButton'
 import './PageHeader.css'
 
 const PageHeader = ({title, load, loading, children}) => 
