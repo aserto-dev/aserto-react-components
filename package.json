@@ -1,7 +1,7 @@
 {
   "name": "@aserto/aserto-react-components",
-  "version": "0.1.1",
-  "description": "Aserto React component",
+  "version": "0.1.0",
+  "description": "Aserto React components",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,20 +31,17 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "cross-env": "^5.2.0",
-    "react": "^16.14.0"
+    "cross-env": "^5.2.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
-    "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^4.5.3",
     "font-awesome": "^4.7.0",
     "highlight.js": "^10.5.0",
+    "jquery": "^3",
+    "popper.js": "^1.16.1",
     "react": "^16.14",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^16.14",
-    "react-router-dom": "^5.2.0",
     "react-select": "^4.0.2"
   }
 }
