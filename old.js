@@ -7,6 +7,7 @@ module.exports = function (api) {
 	}
 
 	presets.push('@babel/preset-react');
+	presets.push('@babel/preset-typescript');
 
 	const plugins = [
     [
