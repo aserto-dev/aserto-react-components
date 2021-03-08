@@ -4,6 +4,6 @@ import './Button.css'
 
 export type ButtonProps = BootstrapButtonProps
 
-export const Button: React.FC<BootstrapButtonProps> = ({...props}) =>
-  <BootstrapButton className='aserto-button btn-secondary' { ...props } />
-
+export const Button: React.FC<BootstrapButtonProps> = ({ ...props }) => (
+  <BootstrapButton className="aserto-button btn-secondary" {...props} />
+)

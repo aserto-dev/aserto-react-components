@@ -1,32 +1,32 @@
-import React from 'react';
-import {Meta, Story} from '@storybook/react/types-6-0';
-import {TextArea, TextAreaProps} from "../components/TextArea";
+import React from 'react'
+import { Meta, Story } from '@storybook/react/types-6-0'
+import { TextArea, TextAreaProps } from '../components/TextArea'
 
 export default {
-    title: 'Common/TextArea',
-    component: TextArea,
-} as Meta;
+  title: 'Common/TextArea',
+  component: TextArea,
+} as Meta
 
-const Template: Story<TextAreaProps> = (args) => <TextArea {...args} />;
+const Template: Story<TextAreaProps> = (args) => <TextArea {...args} />
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
-    placeholder:'JWT'
-};
+  placeholder: 'JWT',
+}
 
-export const PrimaryWithValue = Template.bind({});
+export const PrimaryWithValue = Template.bind({})
 PrimaryWithValue.args = {
-    value: 'Hey, TextArea!'
-};
+  value: 'Hey, TextArea!',
+}
 
-export const PrimaryWithDisabled = Template.bind({});
+export const PrimaryWithDisabled = Template.bind({})
 PrimaryWithDisabled.args = {
-    placeholder:'JWT',
-    disabled: true
-};
-export const PrimaryWithDisabledAndValue = Template.bind({});
+  placeholder: 'JWT',
+  disabled: true,
+}
+export const PrimaryWithDisabledAndValue = Template.bind({})
 PrimaryWithDisabledAndValue.args = {
-    placeholder:'JWT',
-    value: 'Hey, TextArea!',
-    disabled: true
-};
+  placeholder: 'JWT',
+  value: 'Hey, TextArea!',
+  disabled: true,
+}

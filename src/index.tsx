@@ -7,7 +7,7 @@ import './index.css'
 
 import { ApplicationCard } from './components/ApplicationCard'
 import { Breadcrumb } from './components/Breadcrumb'
-import { Button }  from './components/Button'
+import { Button } from './components/Button'
 import { Divider } from './components/Divider'
 import { Highlight } from './components/Highlight'
 import { Input } from './components/Input'
@@ -36,5 +36,5 @@ export {
   RefreshButton,
   Select,
   TextArea,
-  UserCard
+  UserCard,
 }
