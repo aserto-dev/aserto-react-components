@@ -2,8 +2,11 @@ import React from 'react'
 import { Navbar } from 'react-bootstrap'
 import './NavBar.css'
 
-const NavBar = ({children, ...props}) => {
-    console.log('v1')
+export type NavBarProps = {
+    children: React.ReactElement
+}
+
+export const NavBar = ({children, ...props}) => {
     return <div className='navbar-container' {...props}>
         <Navbar className="navbar-dark" expand="md">
             <Navbar.Brand>
@@ -23,4 +26,3 @@ const NavBar = ({children, ...props}) => {
         </Navbar>
     </div>
 }
-export default NavBar

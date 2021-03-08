@@ -4,12 +4,11 @@
   "description": "Aserto React components",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rollup -c",
+    "prepublish": "cross-env NODE_ENV=production rollup -c",
     "build-watch": "rollup -c -w",
     "start-playground": "cd playground && npm run start",
     "i-all": "npm i && cd playground && npm i",
     "dev": "npm-run-all --parallel build-watch start-playground",
-    "prepublishOnly": "cross-env NODE_ENV=production babel ./src --out-dir ./dist --copy-files -s inline",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

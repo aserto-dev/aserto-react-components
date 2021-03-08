@@ -20,7 +20,7 @@ const makeExternalPredicate = externalArr => {
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
 const config = {
-    input: ['src/index.tsx', 'src/components/**/index.js', 'src/components/**/index.tsx'],
+    input: ['src/index.tsx', 'src/components/**/index.tsx', 'src/components/**/index.tsx'],
     preserveModules: false,
     output: [{
         dir: 'dist',
