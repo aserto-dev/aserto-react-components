@@ -2,7 +2,8 @@
   "presets": [
     ["@babel/preset-env", {
       "targets": {"chrome": "58", "ie": "11"},
-      "useBuiltIns": false
+      "useBuiltIns": false,
+      "shippedProposals": true
     }],
     "@babel/preset-react",
     "@babel/preset-typescript"
@@ -15,11 +16,6 @@
       "regenerator": true,
       "useESModules": false,
       "version": "^7.8.3"
-    }],
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-classes",
-    ["@babel/plugin-proposal-optional-chaining", {
-      "loose": true
     }]
   ]
 }
