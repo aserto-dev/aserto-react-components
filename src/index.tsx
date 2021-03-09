@@ -20,6 +20,7 @@ import { RefreshButton } from './components/RefreshButton'
 import { Select } from './components/Select'
 import { TextArea } from './components/TextArea'
 import { UserCard } from './components/UserCard'
+import { theme } from './theme'
 
 export {
   ApplicationCard,
@@ -37,4 +38,5 @@ export {
   Select,
   TextArea,
   UserCard,
+  theme,
 }

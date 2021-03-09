@@ -4,7 +4,7 @@
   "description": "Aserto React components",
   "main": "dist/index.js",
   "scripts": {
-    "prepublish": "cross-env NODE_ENV=production rollup -c",
+    "prepublishOnly": "cross-env NODE_ENV=production rollup -c",
     "build-watch": "rollup -c -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
