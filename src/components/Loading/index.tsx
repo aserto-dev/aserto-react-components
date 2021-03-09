@@ -1,10 +1,10 @@
 import React from 'react'
+// @ts-ignore
 import loading from './loading.svg'
 import './Loading.css'
 
-const Loading = () =>
+export const Loading = () => (
   <div className="spinner">
     <img src={loading} alt="Loading" />
   </div>
-
-export default Loading
+)
