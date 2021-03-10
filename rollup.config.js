@@ -2,14 +2,11 @@ import external from 'rollup-plugin-peer-deps-external'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import pkg from './package.json'
 import { babel } from '@rollup/plugin-babel'
-import scss from 'rollup-plugin-scss'
 import postcss from 'rollup-plugin-postcss'
-
 import svg from 'rollup-plugin-svg'
 import image from '@rollup/plugin-image'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import commonjs from '@rollup/plugin-commonjs'
-import css from 'rollup-plugin-css-porter'
 import multiInput from 'rollup-plugin-multi-input'
 
 import typescript from 'rollup-plugin-typescript2'
@@ -86,7 +83,6 @@ const config = {
       dest: './dist/styles.css',
       plugins: [],
     }),
-    svg(),
     image(),
     multiInput(),
   ],

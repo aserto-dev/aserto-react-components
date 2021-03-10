@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-// @ts-ignore
 import appicon from './application.svg'
 import './ApplicationCard.css'
 
