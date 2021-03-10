@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar } from 'react-bootstrap'
 // @ts-ignore
 import logo from './logo.png'
-import './NavBar.css'
+import { NavBarContainer } from './styles'
 
 export type NavBarProps = {
   children: React.ReactElement
@@ -10,7 +10,7 @@ export type NavBarProps = {
 
 export const NavBar = ({ children, ...props }) => {
   return (
-    <div className="navbar-container" {...props}>
+    <NavBarContainer {...props}>
       <Navbar className="navbar-dark" expand="md">
         <Navbar.Brand>
           <img
@@ -25,6 +25,6 @@ export const NavBar = ({ children, ...props }) => {
         <Navbar.Toggle />
         <Navbar.Collapse>{children}</Navbar.Collapse>
       </Navbar>
-    </div>
+    </NavBarContainer>
   )
 }

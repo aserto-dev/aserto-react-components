@@ -21,3 +21,16 @@ PrimaryDisabled.args = {
   children: 'Button',
   disabled: true,
 }
+
+export const Secondary = Template.bind({})
+Secondary.args = {
+  variant: 'secondary',
+  children: 'Button',
+}
+
+export const SecondaryDisabled = Template.bind({})
+SecondaryDisabled.args = {
+  variant: 'secondary',
+  children: 'Button',
+  disabled: true,
+}

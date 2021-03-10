@@ -1,12 +1,23 @@
 import React from 'react'
-import './PlayButton.css'
+import styled from 'styled-components'
+import { theme } from '../../theme'
 
 export type PlayButtonProps = {
   onClick: () => void
 }
 
+const PlayButtonContainer = styled.div`
+  margin-top: 9px;
+  width: 42px;
+  height: 42px;
+  fill: ${theme.lochivarAccent3};
+  &:hover {
+    fill: ${theme.lochivarAccent1};
+  }
+`
+
 export const PlayButton: React.FC<PlayButtonProps> = ({ onClick }) => (
-  <div className="play-button" onClick={onClick}>
+  <PlayButtonContainer onClick={onClick}>
     <svg
       version="1.2"
       xmlns="http://www.w3.org/2000/svg"
@@ -26,5 +37,5 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ onClick }) => (
         </g>
       </g>
     </svg>
-  </div>
+  </PlayButtonContainer>
 )

@@ -1,9 +1,21 @@
 import React from 'react'
-import { Button as BootstrapButton, ButtonProps as BootstrapButtonProps } from 'react-bootstrap'
-import './Button.css'
+import { ButtonProps as BootstrapButtonProps } from 'react-bootstrap'
+import { PrimaryButton, SecondaryButton } from './styles'
 
-export type ButtonProps = BootstrapButtonProps
+export interface ButtonProps extends BootstrapButtonProps {
+  variant?: 'primary' | 'secondary'
+}
 
-export const Button: React.FC<BootstrapButtonProps> = ({ ...props }) => (
-  <BootstrapButton className="aserto-button btn-secondary" {...props} />
-)
+const getButtonFromVariant = (variant: string) => {
+  const variantObj = {
+    primary: PrimaryButton,
+    secondary: SecondaryButton,
+  }
+  return variantObj[variant] || variantObj.primary
+}
+
+export const Button: React.FC<ButtonProps> = ({ variant = 'primary', ...props }) => {
+  const ButtonComponent = getButtonFromVariant(variant)
+
+  return <ButtonComponent {...props} />
+}

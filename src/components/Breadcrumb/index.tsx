@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { theme } from '../../theme'
 import './Breadcrumb.css'
 
 export type BreadcrumbProps = {
@@ -8,6 +10,15 @@ export type BreadcrumbProps = {
   breadcrumbText: string
   breadcrumbUrl: string
 }
+
+const BreadcrumbContainer = styled.div`
+  font-weight: 600;
+  font-size: 24px;
+  color: ${theme.grey100};
+  text-decoration: none solid ${theme.grey100};
+  line-height: 32px;
+  margin: 20px 20px 20px 20px;
+`
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   title,
@@ -24,26 +35,26 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       const capitalizedTabName = tabName.charAt(0).toUpperCase() + tabName.slice(1)
       const breadcrumb = <Link to={`/${tabName}`}>{capitalizedTabName}</Link>
       return (
-        <div className="page-breadcrumb">
+        <BreadcrumbContainer>
           {breadcrumb} / {title}
-        </div>
+        </BreadcrumbContainer>
       )
     }
 
-    // no path to construct breadkcrumb from, so return just the title
-    return <div className="page-breadcrumb">{title}</div>
+    // no path to construct breadcrumb from, so return just the title
+    return <BreadcrumbContainer>{title}</BreadcrumbContainer>
   }
 
   // if the breadcrumb properties were passed in, construct the breadcrumb from them
   if (breadcrumbText && breadcrumbUrl) {
     const breadcrumb = <Link to={`${breadcrumbUrl}`}>{breadcrumbText}</Link>
     return (
-      <div className="page-breadcrumb">
+      <BreadcrumbContainer>
         {breadcrumb} / {title}
-      </div>
+      </BreadcrumbContainer>
     )
   }
 
   // as a last resort, just use the title
-  return <div className="page-breadcrumb">{title}</div>
+  return <BreadcrumbContainer>{title}</BreadcrumbContainer>
 }
