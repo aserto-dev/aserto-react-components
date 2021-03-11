@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactSelect from 'react-select'
-import './Select.css'
+import styled from 'styled-components'
 
 interface Option {
   value: string | number
@@ -13,13 +13,21 @@ export type SelectProps = {
   onChange: () => void
 }
 
+const ReactSelectContainer = styled(ReactSelect)`
+  font-size: 14px;
+  color: #d7d8d8;
+  text-decoration: none solid rgb(215, 216, 216);
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: white;
+`
+
 export const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange, ...props }) => {
   const removeFocusBox = {
     outline: 'none',
-    //borderColor: 'inherit',
     webkitBoxShadow: 'none',
     boxShadow: 'none',
-    //borderColor: 'white'
   }
 
   const colourStyles = {
@@ -38,7 +46,7 @@ export const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange,
         },
       }
     },
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    option: (styles, { isDisabled, isFocused, isSelected }) => {
       return {
         ...styles,
         backgroundColor: isFocused ? '#298a8e' : isSelected ? '#3e4347' : '#35393d',
@@ -50,14 +58,14 @@ export const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange,
         },
       }
     },
-    input: (styles, { isFocused }) => {
+    input: (styles) => {
       return {
         ...styles,
         borderColor: '#8a959f',
       }
     },
     placeholder: (styles) => ({ ...styles, color: '#d7d8d8' }),
-    singleValue: (styles, { data }) => ({ ...styles, color: '#d7d8d8', ...removeFocusBox }),
+    singleValue: (styles) => ({ ...styles, color: '#d7d8d8', ...removeFocusBox }),
     menu: (styles) => ({ ...styles, backgroundColor: '#35393d' }),
     dropdownIndicator: (styles) => ({ ...styles, ':focus': { color: 'white' } }),
     indicatorSeparator: (styles) => ({ ...styles, fill: 'black' }),
@@ -65,7 +73,7 @@ export const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange,
 
   return (
     <div {...props}>
-      <ReactSelect
+      <ReactSelectContainer
         className="react-select"
         options={options}
         defaultValue={defaultValue}

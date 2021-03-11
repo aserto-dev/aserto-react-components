@@ -1,13 +1,13 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { BreadCrumb, BreadCrumbProps } from '../components/Breadcrumb'
+import { Breadcrumb, BreadcrumbProps } from '../components/Breadcrumb'
 
 export default {
-  title: 'Common/BreadCrumb',
-  component: BreadCrumb,
+  title: 'Common/Breadcrumb',
+  component: Breadcrumb,
 } as Meta
 
-const Template: Story<BreadCrumbProps> = (args) => <BreadCrumb {...args} />
+const Template: Story<BreadcrumbProps> = (args) => <Breadcrumb {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
