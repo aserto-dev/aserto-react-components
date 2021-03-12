@@ -24,6 +24,9 @@ export const PrimaryButton = styled(BaseButton)`
   &:active {
     background-color: ${theme.lochivarAccent3} !important;
   }
+  &:disabled {
+    background-color: ${theme.lochivar30};
+  }
 `
 
 export const SecondaryButton = styled(BaseButton)`

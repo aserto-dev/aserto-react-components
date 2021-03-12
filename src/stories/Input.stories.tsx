@@ -30,3 +30,40 @@ PrimaryWithDisabledAndValue.args = {
   value: 'Hey, Input!',
   disabled: true,
 }
+
+export const PrimaryWithLabel = Template.bind({})
+PrimaryWithLabel.args = {
+  placeholder: 'JWT',
+  value: 'Hey, Input!',
+  label: 'Tenant Name',
+}
+
+export const PrimaryWithLabelAndInfo = Template.bind({})
+PrimaryWithLabelAndInfo.args = {
+  placeholder: 'JWT',
+  value: 'Hey, Input!',
+  label: 'Tenant Name',
+  info: 'Start with a letter. Must be 6 to 20 alphanumeric characters.',
+}
+
+export const PrimaryValid = Template.bind({})
+PrimaryValid.args = {
+  placeholder: 'JWT',
+  value: 'Hey, Input!',
+  isValid: true,
+}
+
+export const PrimaryError = Template.bind({})
+PrimaryError.args = {
+  error: 'Too short bto',
+  placeholder: 'JWT',
+  value: 'Hey, Input!',
+}
+
+export const PrimaryUnavailable = Template.bind({})
+PrimaryUnavailable.args = {
+  error: 'Name unavailable',
+  placeholder: 'JWT',
+  value: 'Hey, Input!',
+  isUnavailable: true,
+}

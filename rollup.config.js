@@ -1,15 +1,15 @@
 import external from 'rollup-plugin-peer-deps-external'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import pkg from './package.json'
 import { babel } from '@rollup/plugin-babel'
 import postcss from 'rollup-plugin-postcss'
-import svg from 'rollup-plugin-svg'
 import image from '@rollup/plugin-image'
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import commonjs from '@rollup/plugin-commonjs'
 import multiInput from 'rollup-plugin-multi-input'
 
 import typescript from 'rollup-plugin-typescript2'
+
 const makeExternalPredicate = (externalArr) => {
   if (externalArr.length === 0) return () => false
   return (id) => new RegExp(`^(${externalArr.join('|')})($|/)`).test(id)
