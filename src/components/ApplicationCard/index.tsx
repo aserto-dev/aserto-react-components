@@ -10,6 +10,7 @@ export type ApplicationCardProps = {
 }
 
 const ApplicationCardContainer = styled(Card)`
+  min-width: 428px;
   max-width: 428px;
   height: 104px;
   border-radius: 5px;
