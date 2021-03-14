@@ -6,6 +6,7 @@ import appicon from './application.svg'
 
 export type ApplicationCardProps = {
   application: string
+  repoUrl?: string
   onClick: () => void
 }
 
@@ -15,6 +16,7 @@ const ApplicationCardContainer = styled(Card)`
   height: 104px;
   border-radius: 5px;
   background-color: ${theme.grey20};
+  color: ${theme.grey100};
   background-size: cover;
   margin: 0px 20px 20px 0px !important;
   &:hover {
@@ -29,25 +31,33 @@ const ApplicationCardContainer = styled(Card)`
     margin: 10px;
     width: 82px;
   }
-  .card-title {
-    color: ${theme.grey100};
-    font-size: 14px;
-    vertical-align: middle;
-    line-height: 80px;
-    text-decoration: none solid rgb(215, 216, 216);
-    margin: 10px;
-  }
+`
+
+const CardText = styled.div<{ bold?: boolean }>`
+  font-size: 14px;
+  margin-left: 12px;
+  font-weight: ${({ bold }) => (bold ? 'bold' : 500)};
+`
+
+const TextContainer = styled.div`
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 `
 
 export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   application,
+  repoUrl,
   onClick,
   ...props
 }) => (
   <ApplicationCardContainer onClick={onClick} {...props}>
     <div>
       <Card.Img src={appicon} alt="application" />
-      <Card.Title>{application}</Card.Title>
+      <TextContainer>
+        <CardText bold>{application}</CardText>
+        {repoUrl && <CardText>{repoUrl}</CardText>}
+      </TextContainer>
     </div>
   </ApplicationCardContainer>
 )
