@@ -5,6 +5,7 @@ import { theme } from '../../theme'
 import valid from './valid.svg'
 import invalid from './invalid.svg'
 import unavaliable from './unavailable.svg'
+import { Label } from '../Label'
 
 export type InputProps = {
   placeholder?: string
@@ -50,13 +51,6 @@ const AsertoInput = styled(FormControl)<{
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
-
-const Label = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: ${theme.grey100};
 `
 
 const Info = styled.div`

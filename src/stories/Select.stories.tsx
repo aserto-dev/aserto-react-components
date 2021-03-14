@@ -28,3 +28,22 @@ export const Primary = Template.bind({})
 Primary.args = {
   options: identityOptions,
 }
+
+export const PrimaryWithLabel = Template.bind({})
+PrimaryWithLabel.args = {
+  options: identityOptions,
+  label: 'Organization',
+}
+
+export const PrimaryDisabled = Template.bind({})
+PrimaryDisabled.args = {
+  options: identityOptions,
+  disabled: true,
+}
+
+export const PrimaryDisabledWithLabel = Template.bind({})
+PrimaryDisabledWithLabel.args = {
+  options: identityOptions,
+  label: 'Organization',
+  disabled: true,
+}
