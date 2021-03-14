@@ -6,9 +6,9 @@ import './Breadcrumb.css'
 
 export type BreadcrumbProps = {
   title: string
-  usePathAsBreadcrumb: boolean
-  breadcrumbText: string
-  breadcrumbUrl: string
+  usePathAsBreadcrumb?: boolean
+  breadcrumbText?: string
+  breadcrumbUrl?: string
 }
 
 const BreadcrumbContainer = styled.div`

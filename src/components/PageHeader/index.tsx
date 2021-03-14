@@ -6,7 +6,7 @@ import { RefreshButton } from '../RefreshButton'
 
 export type PageHeaderProps = {
   title: string
-  load?: () => void
+  load?: unknown
   loading?: boolean
   children: React.ReactElement
 }
