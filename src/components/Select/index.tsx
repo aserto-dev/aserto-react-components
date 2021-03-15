@@ -1,87 +1,106 @@
 import React from 'react'
 import ReactSelect from 'react-select'
-import styled from 'styled-components'
+import { theme } from '../../theme'
+import { Label } from '../Label'
 
-interface Option {
+export type SelectOption = {
   value: string | number
   label: string
 }
 
 export type SelectProps = {
-  options: Array<Option>
+  options: Array<SelectOption>
   defaultValue?: string
-  onChange: () => void
+  onChange: (e: any) => void
+  disabled?: boolean
+  label?: string
+  isLoading?: boolean
+  ref?: any
 }
 
-const ReactSelectContainer = styled(ReactSelect)`
-  font-size: 14px;
-  color: #d7d8d8;
-  text-decoration: none solid rgb(215, 216, 216);
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-color: white;
-`
+// eslint-disable-next-line react/display-name
+export const Select = React.forwardRef<SelectProps, any>(
+  ({ options, defaultValue, onChange, label, disabled, ref, isLoading, ...props }, forRef) => {
+    const removeFocusBox = {
+      outline: 'none',
+      webkitBoxShadow: 'none',
+      boxShadow: 'none',
+    }
 
-export const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange, ...props }) => {
-  const removeFocusBox = {
-    outline: 'none',
-    webkitBoxShadow: 'none',
-    boxShadow: 'none',
+    const colourStyles = {
+      control: (styles, { isDisabled, isFocused }) => {
+        return {
+          ...styles,
+          backgroundColor: isDisabled ? theme.grey20 : theme.primaryBlack,
+          color: theme.grey100,
+          borderColor: isFocused ? theme.lochivarAccent3 : theme.grey40,
+          opacity: isDisabled ? 0.6 : 1,
+          borderWidth: 1,
+          ':hover': {
+            ...styles[':hover'],
+            backgroundColor: theme.grey10,
+            borderColor: theme.grey60,
+            color: theme.grey100,
+          },
+        }
+      },
+      option: (styles, { isDisabled, isFocused, isSelected }) => {
+        return {
+          ...styles,
+          backgroundColor: isDisabled
+            ? theme.grey20
+            : isFocused
+            ? theme.grey30
+            : isSelected
+            ? theme.grey20
+            : theme.grey20,
+          color: isFocused ? theme.grey100 : theme.grey70,
+          height: 36,
+          fontSize: 14,
+          cursor: isDisabled ? 'not-allowed' : 'default',
+          ':active': {
+            ...styles[':active'],
+            backgroundColor: theme.grey30,
+          },
+        }
+      },
+      input: (styles) => {
+        return {
+          ...styles,
+          borderColor: theme.grey60,
+        }
+      },
+      placeholder: (styles) => ({ ...styles, color: theme.grey90 }),
+      singleValue: (styles) => ({ ...styles, color: theme.grey100, ...removeFocusBox }),
+      menu: (styles) => ({ ...styles, backgroundColor: theme.primaryBlack, zIndex: 6 }),
+      dropdownIndicator: (styles, { isDisabled }) => ({
+        ...styles,
+        color: isDisabled ? theme.grey30 : theme.grey70,
+      }),
+      menuList: (style) => ({
+        ...style,
+        zIndex: 5,
+        borderRadius: 6,
+      }),
+      indicatorSeparator: (styles, { isDisabled }) => ({
+        ...styles,
+        backgroundColor: isDisabled ? theme.grey30 : theme.grey30,
+      }),
+    }
+    return (
+      <div>
+        {label && <Label disabled={disabled}>{label}</Label>}
+        <ReactSelect
+          {...props}
+          ref={forRef || ref || null}
+          isLoading={isLoading}
+          isDisabled={disabled}
+          options={options}
+          defaultValue={defaultValue}
+          onChange={onChange}
+          styles={colourStyles}
+        />
+      </div>
+    )
   }
-
-  const colourStyles = {
-    control: (styles, { isFocused }) => {
-      return {
-        ...styles,
-        backgroundColor: isFocused ? '#585f66' : '#35393d',
-        color: isFocused ? '#ffffff' : '#d7d8d8',
-        borderColor: isFocused ? '#35393d' : '#35393d',
-        borderWidth: 0,
-        ':hover': {
-          ...styles[':hover'],
-          backgroundColor: '#585f66',
-          borderColor: '#585f66',
-          color: '#ffffff',
-        },
-      }
-    },
-    option: (styles, { isDisabled, isFocused, isSelected }) => {
-      return {
-        ...styles,
-        backgroundColor: isFocused ? '#298a8e' : isSelected ? '#3e4347' : '#35393d',
-        color: isFocused || isSelected ? '#ffffff' : '#d7d8d8',
-        cursor: isDisabled ? 'not-allowed' : 'default',
-        ':active': {
-          ...styles[':active'],
-          backgroundColor: '#298a8e',
-        },
-      }
-    },
-    input: (styles) => {
-      return {
-        ...styles,
-        borderColor: '#8a959f',
-      }
-    },
-    placeholder: (styles) => ({ ...styles, color: '#d7d8d8' }),
-    singleValue: (styles) => ({ ...styles, color: '#d7d8d8', ...removeFocusBox }),
-    menu: (styles) => ({ ...styles, backgroundColor: '#35393d' }),
-    dropdownIndicator: (styles) => ({ ...styles, ':focus': { color: 'white' } }),
-    indicatorSeparator: (styles) => ({ ...styles, fill: 'black' }),
-  }
-
-  return (
-    <div {...props}>
-      <ReactSelectContainer
-        className="react-select"
-        options={options}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        styles={colourStyles}
-      />
-    </div>
-  )
-}
-
-export default Select
+)

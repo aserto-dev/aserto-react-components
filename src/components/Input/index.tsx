@@ -5,6 +5,7 @@ import { theme } from '../../theme'
 import valid from './valid.svg'
 import invalid from './invalid.svg'
 import unavaliable from './unavailable.svg'
+import { Label } from '../Label'
 
 export type InputProps = {
   placeholder?: string
@@ -31,7 +32,7 @@ const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailab
 const AsertoInput = styled(FormControl)<{
   isValid?: boolean
   isInvalid?: boolean
-  isUnavailable?: boolean
+  $isUnavailable?: boolean
 }>`
   background-color: #161719;
   color: #d7d8d8;
@@ -43,20 +44,13 @@ const AsertoInput = styled(FormControl)<{
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-  ${({ isValid, isInvalid, isUnavailable }) =>
-    getInputValueForState(isValid, isInvalid, isUnavailable)};
+  ${({ isValid, isInvalid, $isUnavailable }) =>
+    getInputValueForState(isValid, isInvalid, $isUnavailable)};
 `
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
-
-const Label = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: ${theme.grey100};
 `
 
 const Info = styled.div`
@@ -88,7 +82,7 @@ export const Input: React.FC<InputProps> = ({
       <AsertoInput
         isValid={isValid}
         isInvalid={error}
-        isUnavailable={isUnavailable}
+        $isUnavailable={isUnavailable}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
