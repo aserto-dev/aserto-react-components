@@ -5,24 +5,35 @@ import { PageTitle } from '../PageTitle'
 import { RefreshButton } from '../RefreshButton'
 
 export type PageHeaderProps = {
-  title: string
+  title?: string
   load?: unknown
   loading?: boolean
-  children: React.ReactElement
+  hasBorderBottom?: boolean
+  children?: React.ReactElement
 }
 
-const PageHeaderContainer = styled.div`
-  padding: 40px 0px 0px 0px;
+const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean }>`
+  padding: 20px;
   position: sticky;
   top: 82px;
+  ${({ $hasBorderBottom }) => ($hasBorderBottom ? `border-bottom: 1px solid ${theme.grey20}` : '')};
+  height: 100px;
+  display: flex;
+  align-items: center;
   z-index: 9;
   background-color: ${theme.primaryBlack};
 `
 
-export const PageHeader: React.FC<PageHeaderProps> = ({ title, load, loading, children }) => (
-  <PageHeaderContainer>
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  load,
+  loading,
+  hasBorderBottom,
+  children,
+}) => (
+  <PageHeaderContainer $hasBorderBottom={hasBorderBottom}>
     {load && <RefreshButton load={load} loading={loading} />}
-    <PageTitle title={title} />
+    {title && <PageTitle title={title} />}
     {children}
   </PageHeaderContainer>
 )

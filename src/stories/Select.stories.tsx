@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { Select, SelectProps, SelectWithRef } from '../components/Select'
+import { Select, SelectProps } from '../components/Select'
 
 export default {
   title: 'Common/Select',
@@ -46,23 +46,4 @@ PrimaryDisabledWithLabel.args = {
   options: identityOptions,
   label: 'Organization',
   disabled: true,
-}
-
-export const WithRef = () => {
-  const ref = useRef(null)
-  const [leke, setLeke] = useState(null)
-  console.log(0, ref)
-  return (
-    <div>
-      <Select
-        ref={ref}
-        // @ts-ignore
-        options={[{ value: 1, label: 3 }]}
-        onChange={() => {
-          ref.current.focus()
-        }}
-      />
-      <Select options={[{ value: 2, label: 2 }]} onChange={() => ref.current.focus()} />
-    </div>
-  )
 }

@@ -16,11 +16,15 @@ export type SelectProps = {
   label?: string
   isLoading?: boolean
   ref?: any
+  style?: any
 }
 
 // eslint-disable-next-line react/display-name
 export const Select = React.forwardRef<SelectProps, any>(
-  ({ options, defaultValue, onChange, label, disabled, ref, isLoading, ...props }, forRef) => {
+  (
+    { options, defaultValue, onChange, label, disabled, ref, isLoading, style, ...props },
+    forRef
+  ) => {
     const removeFocusBox = {
       outline: 'none',
       webkitBoxShadow: 'none',
@@ -88,7 +92,7 @@ export const Select = React.forwardRef<SelectProps, any>(
       }),
     }
     return (
-      <div>
+      <div style={style}>
         {label && <Label disabled={disabled}>{label}</Label>}
         <ReactSelect
           {...props}

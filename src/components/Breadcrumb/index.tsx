@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme } from '../../theme'
-import './Breadcrumb.css'
 
 export type BreadcrumbProps = {
   title: string
@@ -12,12 +11,8 @@ export type BreadcrumbProps = {
 }
 
 const BreadcrumbContainer = styled.div`
-  font-weight: 600;
   font-size: 24px;
   color: ${theme.grey100};
-  text-decoration: none solid ${theme.grey100};
-  line-height: 32px;
-  margin: 20px 20px 20px 20px;
 `
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({

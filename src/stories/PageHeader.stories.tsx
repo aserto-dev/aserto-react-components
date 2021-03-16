@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { PageHeader, PageHeaderProps } from '../components/PageHeader'
+import { Breadcrumb } from '../components/Breadcrumb'
 
 export default {
   title: 'Common/PageHeader',
@@ -24,4 +25,11 @@ export const PrimaryWithLoadFunction = Template.bind({})
 PrimaryWithLoadFunction.args = {
   title: 'Page title',
   load: console.log,
+}
+
+export const PrimaryWithBreadcrumb = Template.bind({})
+PrimaryWithBreadcrumb.args = {
+  children: (
+    <Breadcrumb breadcrumbText="Applications" title="Create application" breadcrumbUrl="/" />
+  ),
 }

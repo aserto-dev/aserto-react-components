@@ -88,7 +88,8 @@ export const Input: React.FC<InputProps> = ({
         onChange={onChange}
         {...props}
       />
-      {shouldDisplayInfo ? <Info>{info}</Info> : <Error>{error}</Error>}
+      {shouldDisplayInfo && <Info>{info}</Info>}
+      {error && <Error>{error}</Error>}
     </InputContainer>
   )
 }
