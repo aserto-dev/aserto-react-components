@@ -8,17 +8,6 @@
   background: #121212 !important;
 }
 
-.hljs:has('false') {
-  /*display: block;*/
-  /*font-family: 'Ubuntu', monospace;*/
-  /*font-size: 18px !important;*/
-  /*letter-spacing: 0;*/
-  /*overflow-x: auto;*/
-  /*padding: 0.5em;*/
-  /*background: #121212 !important;*/
-  color: red !important;
-}
-
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-literal,

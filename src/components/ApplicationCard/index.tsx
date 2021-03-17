@@ -3,16 +3,15 @@ import { Card } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import appicon from './application.svg'
-import trash from './trash.svg'
+import remove from './remove-icon.svg'
 
 export type ApplicationCardProps = {
   application: string
   repoUrl?: string
   onClick: () => void
-  onClickTrashIcon?: () => void
+  onClickRemoveIcon?: () => void
 }
 
-// @ts-ignore
 const ApplicationCardContainer = styled(Card)`
   position: relative;
   min-width: 428px;
@@ -63,7 +62,7 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   application,
   repoUrl,
   onClick,
-  onClickTrashIcon,
+  onClickRemoveIcon,
   ...props
 }) => (
   <ApplicationCardContainer {...props}>
@@ -74,6 +73,6 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
         {repoUrl && <CardText>{repoUrl}</CardText>}
       </TextContainer>
     </div>
-    {onClickTrashIcon && <Icon onClick={onClickTrashIcon} src={trash} alt="trash" />}
+    {onClickRemoveIcon && <Icon onClick={onClickRemoveIcon} src={remove} alt="remove" />}
   </ApplicationCardContainer>
 )

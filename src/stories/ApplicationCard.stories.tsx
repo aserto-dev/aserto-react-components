@@ -12,7 +12,6 @@ const Template: Story<ApplicationCardProps> = (args) => <ApplicationCard {...arg
 export const Primary = Template.bind({})
 Primary.args = {
   application: 'proplefinder',
-  onClick: () => console.log(2),
 }
 
 export const PrimaryWithRepoUrl = Template.bind({})
