@@ -3,14 +3,18 @@ import { Card } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import appicon from './application.svg'
+import trash from './trash.svg'
 
 export type ApplicationCardProps = {
   application: string
   repoUrl?: string
   onClick: () => void
+  onClickTrashIcon?: () => void
 }
 
+// @ts-ignore
 const ApplicationCardContainer = styled(Card)`
+  position: relative;
   min-width: 428px;
   max-width: 428px;
   height: 104px;
@@ -39,6 +43,16 @@ const CardText = styled.div<{ bold?: boolean }>`
   font-weight: ${({ bold }) => (bold ? 'bold' : 500)};
 `
 
+const Icon = styled.img`
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  ${ApplicationCardContainer}:hover & {
+    display: block;
+  }
+`
+
 const TextContainer = styled.div`
   justify-content: center;
   display: flex;
@@ -49,15 +63,17 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   application,
   repoUrl,
   onClick,
+  onClickTrashIcon,
   ...props
 }) => (
-  <ApplicationCardContainer onClick={onClick} {...props}>
-    <div>
+  <ApplicationCardContainer {...props}>
+    <div onClick={onClick}>
       <Card.Img src={appicon} alt="application" />
       <TextContainer>
         <CardText bold>{application}</CardText>
         {repoUrl && <CardText>{repoUrl}</CardText>}
       </TextContainer>
     </div>
+    {onClickTrashIcon && <Icon onClick={onClickTrashIcon} src={trash} alt="trash" />}
   </ApplicationCardContainer>
 )
