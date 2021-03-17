@@ -20,6 +20,7 @@ export const PrimaryButton = styled(BaseButton)`
   &:visited,
   &:focus {
     background-color: ${theme.lochivarAccent2};
+    box-shadow: none !important;
   }
   &:active {
     background-color: ${theme.lochivarAccent3} !important;
@@ -36,7 +37,34 @@ export const SecondaryButton = styled(BaseButton)`
   &:hover,
   &:visited,
   &:focus {
-    background-color: ${theme.grey60};
+    border: 1px solid ${theme.grey} !important;
+    outline: none;
+    box-shadow: none !important;
+    background-color: ${theme.grey30};
+  }
+  &:disabled {
+    background-color: ${theme.grey10};
+    border-color: ${theme.grey10};
+    color: ${theme.grey40};
+  }
+  &:active {
+    border: 1px solid ${theme.grey20} !important;
+    background-color: ${theme.grey40} !important;
+  }
+`
+
+export const DangerButton = styled(BaseButton)`
+  color: ${theme.fullWhite};
+  background-color: ${theme.mojo80};
+  &:hover,
+  &:visited,
+  &:focus {
+    box-shadow: none !important;
+    background-color: ${theme.mojo60} !important;
+  }
+  &:disabled {
+    background-color: ${theme.mojo20};
+    color: ${theme.mojo50};
   }
   &:active {
     background-color: ${theme.grey80} !important;

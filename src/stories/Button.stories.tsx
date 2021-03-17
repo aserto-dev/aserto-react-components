@@ -34,3 +34,16 @@ SecondaryDisabled.args = {
   children: 'Button',
   disabled: true,
 }
+
+export const Danger = Template.bind({})
+Danger.args = {
+  variant: 'danger',
+  children: 'Button',
+}
+
+export const DangerDisabled = Template.bind({})
+DangerDisabled.args = {
+  variant: 'danger',
+  children: 'Button',
+  disabled: true,
+}

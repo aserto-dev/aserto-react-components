@@ -23,7 +23,7 @@ const ApplicationCardContainer = styled(Card)`
   background-size: cover;
   margin: 0px 20px 20px 0px !important;
   &:hover {
-    background-color: #35393d;
+    background-color: ${theme.grey30};
     background-size: cover;
     cursor: pointer;
   }
