@@ -37,13 +37,15 @@ export const Select = React.forwardRef<SelectProps, any>(
           ...styles,
           backgroundColor: isDisabled ? theme.grey20 : theme.primaryBlack,
           color: theme.grey100,
-          borderColor: isFocused ? theme.lochivarAccent3 : theme.grey40,
+          borderColor: isFocused ? theme.lochivarAccent2 : theme.grey40,
           opacity: isDisabled ? 0.6 : 1,
+          outline: isFocused ? 'none' : '',
+          boxShadow: 'none',
           borderWidth: 1,
           ':hover': {
             ...styles[':hover'],
             backgroundColor: theme.grey10,
-            borderColor: theme.grey60,
+            borderColor: theme.lochivarAccent1,
             color: theme.grey100,
           },
         }

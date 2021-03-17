@@ -16,6 +16,7 @@ export type InputProps = {
   error?: string
   isValid?: boolean
   isUnavailable?: boolean
+  disabled?: boolean
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -34,15 +35,21 @@ const AsertoInput = styled(FormControl)<{
   isInvalid?: boolean
   $isUnavailable?: boolean
 }>`
-  background-color: #161719;
-  color: #d7d8d8;
+  background-color: ${theme.primaryBlack};
+  color: ${theme.grey100};
+  border-color: ${theme.grey40};
   &:focus {
-    background-color: #161719;
-    color: #d7d8d8;
+    background-color: ${theme.primaryBlack};
+    color: ${theme.grey100};
     outline: none;
-    border-color: #7d7a7a;
-    -webkit-box-shadow: none;
     box-shadow: none;
+    border-color: ${theme.lochivarAccent2};
+    -webkit-box-shadow: none;
+  }
+  &:disabled {
+    color: ${theme.grey30};
+    background-color: ${theme.grey20};
+    opacity: 0.6;
   }
   ${({ isValid, isInvalid, $isUnavailable }) =>
     getInputValueForState(isValid, isInvalid, $isUnavailable)};
