@@ -9,6 +9,11 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
+    "babel-plugin-styled-components",
+    [
+      "@quickbaseoss/babel-plugin-styled-components-css-namespace",
+      { "cssNamespace": ".aserto-cl" }
+    ],
     ["@babel/plugin-transform-runtime", {
       "absoluteRuntime": false,
       "corejs": false,
