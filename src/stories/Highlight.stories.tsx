@@ -11,5 +11,27 @@ const Template: Story<HighlightProps> = (args) => <Highlight {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
-  children: 'JWT',
+  children:
+    'package peoplefinder.DELETE.api.users.__id\n' +
+    '\n' +
+    'default allowed = false\n' +
+    '\n' +
+    'default visible = false\n' +
+    '\n' +
+    'default enabled = false\n' +
+    '\n' +
+    'allowed {\n' +
+    '\tu = input.user\n' +
+    '\tu.attr.department == "Operations"\n' +
+    '\tu.attr.title == "IT Manager"\n' +
+    '}\n' +
+    '\n' +
+    'visible {\n' +
+    '\tu = input.user\n' +
+    '\tu.attr.department == "Operations"\n' +
+    '}\n' +
+    '\n' +
+    'enabled {\n' +
+    '\tallowed\n' +
+    '}',
 }
