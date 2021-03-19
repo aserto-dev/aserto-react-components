@@ -11,8 +11,6 @@ const Waves = keyframes`
 const Container = styled.div`
   width: 80px;
   height: 100px;
-  margin: 100px auto;
-  margin-top: calc(100vh / 2 - 50px);
   div {
     position: relative;
     box-sizing: border-box;
