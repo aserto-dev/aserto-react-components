@@ -1,7 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-
-import { Spinner } from '../components/common/Spinner'
+import { Spinner } from '../components/Spinner'
 
 export default {
   title: 'Common/Spinner',

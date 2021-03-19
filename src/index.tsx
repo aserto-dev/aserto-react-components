@@ -20,6 +20,7 @@ import { RefreshButton } from './components/RefreshButton'
 import { Select } from './components/Select'
 import { TextArea } from './components/TextArea'
 import { UserCard } from './components/UserCard'
+import { Spinner } from './components/Spinner'
 import { theme } from './theme'
 
 export {
@@ -38,5 +39,6 @@ export {
   Select,
   TextArea,
   UserCard,
+  Spinner,
   theme,
 }

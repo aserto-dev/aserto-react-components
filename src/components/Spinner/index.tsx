@@ -20,7 +20,7 @@ const Container = styled.div`
     width: 12px;
     height: 12px;
     border-radius: 18px;
-    background: #fff;
+    background: ${theme.lochivar100};
   }
   div:nth-child(4n + 1) {
     animation: ${Waves} 2s ease 0s infinite;
