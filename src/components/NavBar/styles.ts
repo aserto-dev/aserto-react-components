@@ -1,3 +1,4 @@
+import { Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 
@@ -169,4 +170,13 @@ export const NavBarContainer = styled.div`
       min-width: 0px;
     }
   }
+`
+
+export const NavBarBrand = styled(Navbar.Brand)`
+  //margin-right: 20px !important;
+`
+
+export const Separator = styled.img`
+  margin-bottom: 16px;
+  margin-right: 30px;
 `

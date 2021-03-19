@@ -1,27 +1,29 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
-// @ts-ignore
-import logo from './logo.png'
-import { NavBarContainer } from './styles'
+import logo from './aserto-horizontal-white-text.svg'
+import separator from './separator.svg'
+import { NavBarContainer, NavBarBrand, Separator } from './styles'
 
 export type NavBarProps = {
   children: React.ReactElement
+  showBrandSeparator?: boolean
 }
 
-export const NavBar = ({ children, ...props }) => {
+export const NavBar = ({ children, showBrandSeparator, ...props }) => {
   return (
     <NavBarContainer {...props}>
       <Navbar className="navbar-dark" expand="md">
-        <Navbar.Brand>
+        <NavBarBrand>
           <img
             src={logo}
-            width="48"
+            width="131"
             height="48"
             style={{ marginLeft: 10 }}
             className="d-inline-block align-center"
             alt="logo"
           />
-        </Navbar.Brand>
+        </NavBarBrand>
+        {showBrandSeparator && <Separator src={separator} />}
         <Navbar.Toggle />
         <Navbar.Collapse>{children}</Navbar.Collapse>
       </Navbar>
