@@ -73,6 +73,7 @@ export const Select = React.forwardRef<SelectProps, any>(
       input: (styles) => {
         return {
           ...styles,
+          color: theme.grey100,
           borderColor: theme.grey60,
         }
       },

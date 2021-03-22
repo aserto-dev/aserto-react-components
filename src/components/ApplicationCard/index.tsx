@@ -38,6 +38,7 @@ const ApplicationCardContainer = styled(Card)`
 
 const CardText = styled.div<{ bold?: boolean }>`
   font-size: 14px;
+  max-width: 290px;
   margin-left: 12px;
   font-weight: ${({ bold }) => (bold ? 'bold' : 500)};
 `

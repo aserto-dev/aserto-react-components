@@ -9,6 +9,7 @@ export default {
   component: NavBar,
 } as Meta
 
+// @ts-ignore
 const Template: Story<NavBarProps> = (args) => <NavBar {...args} />
 
 export const Primary = Template.bind({})
