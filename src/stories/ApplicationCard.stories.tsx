@@ -17,5 +17,5 @@ Primary.args = {
 export const PrimaryWithRepoUrl = Template.bind({})
 PrimaryWithRepoUrl.args = {
   application: 'proplefinder',
-  repoUrl: 'github.com/acmetech/repo1',
+  repoUrl: 'https://github.com/aserto-demo/peoplefinder',
 }
