@@ -10,18 +10,24 @@ export type PageHeaderProps = {
   loading?: boolean
   hasBorderBottom?: boolean
   children?: React.ReactElement
+  topPosition?: number
+  id?: string
 }
 
-const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean }>`
+const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean; $topPosition?: number }>`
   padding: 20px;
-  position: sticky;
-  top: 82px;
+  position: fixed;
+  width: 100%;
+  top: ${({ $topPosition }) => $topPosition || 82}px;
   ${({ $hasBorderBottom }) => ($hasBorderBottom ? `border-bottom: 1px solid ${theme.grey20}` : '')};
   height: 100px;
   display: flex;
   align-items: center;
   z-index: 9;
   background-color: ${theme.primaryBlack};
+  @media (max-width: 1200px) {
+    top: ${({ $topPosition }) => $topPosition || 73}px;
+  }
 `
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
@@ -29,9 +35,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   load,
   loading,
   hasBorderBottom,
+  topPosition,
+  id,
   children,
 }) => (
-  <PageHeaderContainer $hasBorderBottom={hasBorderBottom}>
+  <PageHeaderContainer $hasBorderBottom={hasBorderBottom} id={id} $topPosition={topPosition}>
     {load && <RefreshButton load={load} loading={loading} />}
     {title && <PageTitle title={title} />}
     {children}
