@@ -2,11 +2,17 @@ import { Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 
-export const NavBarContainer = styled.div`
-  position: sticky;
-  top: 0;
+export const NavBarContainer = styled.div<{ $topPosition?: number }>`
+  position: fixed;
+  top: ${({ $topPosition }) => $topPosition || 0}px;
   width: 100%;
   z-index: 10;
+
+  .navbar-toggler {
+    padding: 0.25rem 0.50rem;
+    color: ${theme.grey70};
+    font-size: 1.1rem;
+  }
 
   .navbar.bg-dark .nav-link {
     color: ${theme.grey70};
@@ -31,11 +37,6 @@ export const NavBarContainer = styled.div`
     padding-bottom: 25px;
   }
 
-  .navbar-brand {
-    margin-left: 10px;
-    margin-right: 30px;
-    margin-top: -18px;
-  }
 
   .navbar-nav .nav-link {
     color: ${theme.grey70};
@@ -105,7 +106,20 @@ export const NavBarContainer = styled.div`
     padding: 1.375rem 0 0 0;
   }
 
-  @media (max-width: 767px) {
+  @media (min-width: 1200px) {
+    .navbar-brand {
+      margin-left: 10px;
+      margin-right: 30px;
+      margin-top: -18px;
+    }
+  }
+  @media (max-width: 1200px) {
+    .navbar {
+      padding: 12px;
+      display: flex;
+      align-items: center;
+    }
+
     .nav-item {
       margin-bottom: 1rem;
     }
@@ -122,13 +136,13 @@ export const NavBarContainer = styled.div`
     }
 
     .navbar-brand {
-      margin-left: 2.5rem;
       vertical-align: top;
+      img {
+        margin-left: 0 !important;
+        height: 38px;
+      }
     }
 
-    .navbar-toggler {
-      margin-right: 2.5rem;
-    }
 
     .navbar-nav {
       margin-left: 1.5rem;
@@ -141,9 +155,8 @@ export const NavBarContainer = styled.div`
 
     .navbar-nav:last-child {
       background-color: ${theme.grey10};
-      box-shadow: 0 -1px 2px 0 ${theme.grey90};
-      margin: 1.5em 0 0 0;
-      padding: 1.5em 2.5rem;
+      //margin: 0;
+      //padding: 1.5em 2.5rem;
     }
 
     .navbar-nav:last-child li {
@@ -172,11 +185,12 @@ export const NavBarContainer = styled.div`
   }
 `
 
-export const NavBarBrand = styled(Navbar.Brand)`
-  //margin-right: 20px !important;
-`
+export const NavBarBrand = styled(Navbar.Brand)``
 
 export const Separator = styled.img`
   margin-bottom: 16px;
   margin-right: 30px;
+  @media (max-width: 1200px) {
+    display: none;
+  }
 `

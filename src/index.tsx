@@ -22,6 +22,7 @@ import { TextArea } from './components/TextArea'
 import { UserCard } from './components/UserCard'
 import { Spinner } from './components/Spinner'
 import { theme } from './theme'
+import { PaddedContent } from './components/PaddedContent'
 
 export {
   ApplicationCard,
@@ -40,5 +41,6 @@ export {
   TextArea,
   UserCard,
   Spinner,
+  PaddedContent,
   theme,
 }

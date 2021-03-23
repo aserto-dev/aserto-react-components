@@ -7,12 +7,13 @@ import { NavBarContainer, NavBarBrand, Separator } from './styles'
 export type NavBarProps = {
   children: React.ReactElement
   showBrandSeparator?: boolean
+  topPosition?: number
 }
 
-export const NavBar = ({ children, showBrandSeparator, ...props }) => {
+export const NavBar = ({ children, showBrandSeparator, topPosition, ...props }) => {
   return (
-    <NavBarContainer {...props}>
-      <Navbar className="navbar-dark" expand="md">
+    <NavBarContainer $topPosition={topPosition} {...props}>
+      <Navbar className="navbar-dark" expand="xl" collapseOnSelect>
         <NavBarBrand>
           <img
             src={logo}
