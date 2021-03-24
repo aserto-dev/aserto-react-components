@@ -8,6 +8,12 @@
   background: #121212 !important;
 }
 
+@media (max-width: 720px) {
+  .hljs {
+    font-size: 14px !important;
+  }
+}
+
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-literal,

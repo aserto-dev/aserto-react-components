@@ -13,6 +13,9 @@ export type BreadcrumbProps = {
 const BreadcrumbContainer = styled.div`
   font-size: 24px;
   color: ${theme.grey100};
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
 `
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({

@@ -11,7 +11,12 @@ export type ApplicationCardProps = {
   onClick: () => void
   onClickRemoveIcon?: () => void
 }
-
+const Icon = styled.img`
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`
 const ApplicationCardContainer = styled(Card)`
   position: relative;
   min-width: 428px;
@@ -20,37 +25,45 @@ const ApplicationCardContainer = styled(Card)`
   border-radius: 5px;
   background-color: ${theme.grey20};
   color: ${theme.grey100};
+  display: flex;
+  justify-content: center;
   background-size: cover;
-  margin: 0px 20px 20px 0px !important;
   &:hover {
     background-color: ${theme.grey30};
     background-size: cover;
     cursor: pointer;
+    ${Icon} {
+      display: block;
+    }
   }
   div:first-child {
     display: flex;
+    align-items: center;
   }
   .card-img {
     margin: 10px;
     width: 82px;
+  }
+  @media (max-width: 500px) {
+    min-width: 100%;
+    height: 91px;
+    .card-img {
+      width: 56px;
+    }
+    ${Icon} {
+      display: block;
+    }
   }
 `
 
 const CardText = styled.div<{ bold?: boolean }>`
   font-size: 14px;
   max-width: 290px;
+  @media (max-width: 500px) {
+    max-width: 210px;
+  }
   margin-left: 12px;
   font-weight: ${({ bold }) => (bold ? 'bold' : 500)};
-`
-
-const Icon = styled.img`
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  ${ApplicationCardContainer}:hover & {
-    display: block;
-  }
 `
 
 const TextContainer = styled.div`

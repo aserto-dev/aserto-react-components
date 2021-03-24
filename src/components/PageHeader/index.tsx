@@ -28,6 +28,10 @@ const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean; $topPositio
   @media (max-width: 1200px) {
     top: ${({ $topPosition }) => $topPosition || 73}px;
   }
+  @media (max-width: 600px) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 `
 
 export const PageHeader: React.FC<PageHeaderProps> = ({

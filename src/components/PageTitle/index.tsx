@@ -8,6 +8,9 @@ export type PageTitleProps = {
 
 const Title = styled.div`
   font-size: 24px;
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
   color: ${theme.grey100};
 `
 
