@@ -65,38 +65,35 @@ const Info = styled.div`
   color: ${theme.grey70};
   margin-top: 8px;
   margin-bottom: 20px;
+  @media (max-width: 720px) {
+    max-width: 270px;
+  }
 `
 
 const Error = styled(Info)`
   color: ${theme.mojoAccent3};
 `
 
-export const Input: React.FC<InputProps> = ({
-  placeholder,
-  value,
-  onChange,
-  label,
-  info,
-  error,
-  isValid,
-  isUnavailable,
-  ...props
-}) => {
-  const shouldDisplayInfo = !error && info
-  return (
-    <InputContainer>
-      {label && <Label>{label}</Label>}
-      <AsertoInput
-        isValid={isValid}
-        isInvalid={error}
-        $isUnavailable={isUnavailable}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        {...props}
-      />
-      {shouldDisplayInfo && <Info>{info}</Info>}
-      {error && <Error>{error}</Error>}
-    </InputContainer>
-  )
-}
+// eslint-disable-next-line react/display-name
+export const Input = React.forwardRef<any, InputProps>(
+  ({ placeholder, value, onChange, label, info, error, isValid, isUnavailable, ...props }, ref) => {
+    const shouldDisplayInfo = !error && info
+    return (
+      <InputContainer>
+        {label && <Label>{label}</Label>}
+        <AsertoInput
+          ref={ref}
+          isValid={isValid}
+          isInvalid={error}
+          $isUnavailable={isUnavailable}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          {...props}
+        />
+        {shouldDisplayInfo && <Info>{info}</Info>}
+        {error && <Error>{error}</Error>}
+      </InputContainer>
+    )
+  }
+)

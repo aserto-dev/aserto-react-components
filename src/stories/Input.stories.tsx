@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Input, InputProps } from '../components/Input'
 
@@ -66,4 +66,20 @@ PrimaryUnavailable.args = {
   placeholder: 'JWT',
   value: 'Hey, Input!',
   isUnavailable: true,
+}
+
+export const PrimaryWithRef = () => {
+  const ref = useRef(null)
+  return (
+    <div>
+      <Input ref={ref} value={0} onChange={console.log} />
+      <button
+        onClick={() => {
+          ref?.current?.focus()
+        }}
+      >
+        Click to focus
+      </button>
+    </div>
+  )
 }
