@@ -10,7 +10,7 @@ export type SelectOption = {
 
 export type SelectProps = {
   options: Array<SelectOption>
-  defaultValue?: string
+  defaultValue?: SelectOption
   onChange: (e: any) => void
   disabled?: boolean
   label?: string
