@@ -7,7 +7,6 @@ export type PlayButtonProps = {
 }
 
 const PlayButtonContainer = styled.div`
-  margin-top: 9px;
   width: 42px;
   height: 42px;
   fill: ${theme.lochivarAccent3};
@@ -16,8 +15,8 @@ const PlayButtonContainer = styled.div`
   }
 `
 
-export const PlayButton: React.FC<PlayButtonProps> = ({ onClick }) => (
-  <PlayButtonContainer onClick={onClick}>
+export const PlayButton: React.FC<PlayButtonProps> = ({ onClick, ...props }) => (
+  <PlayButtonContainer onClick={onClick} {...props}>
     <svg
       version="1.2"
       xmlns="http://www.w3.org/2000/svg"
