@@ -2,7 +2,7 @@ import { Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 
-export const NavBarContainer = styled.div<{ $topPosition?: number }>`
+export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakpoint?: number }>`
   position: fixed;
   top: ${({ $topPosition }) => $topPosition || 0}px;
   width: 100%;
@@ -106,14 +106,15 @@ export const NavBarContainer = styled.div<{ $topPosition?: number }>`
     padding: 1.375rem 0 0 0;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
     .navbar-brand {
       margin-left: 10px;
       margin-right: 30px;
       margin-top: -18px;
     }
   }
-  @media (max-width: 1200px) {
+
+  @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
     .navbar {
       padding: 12px;
       display: flex;
@@ -187,10 +188,10 @@ export const NavBarContainer = styled.div<{ $topPosition?: number }>`
 
 export const NavBarBrand = styled(Navbar.Brand)``
 
-export const Separator = styled.img`
+export const Separator = styled.img<{ $hideBreakpoint?: number }>`
   margin-bottom: 16px;
   margin-right: 30px;
-  @media (max-width: 1200px) {
+  @media (max-width: ${({ $hideBreakpoint }) => $hideBreakpoint || 1200}px) {
     display: none;
   }
 `

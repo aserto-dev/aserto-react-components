@@ -8,12 +8,30 @@ export type NavBarProps = {
   children: React.ReactElement
   showBrandSeparator?: boolean
   topPosition?: number
+  expand?: 'sm' | 'md' | 'lg' | 'xl'
+  expandBreakpoint?: number
 }
 
-export const NavBar = ({ children, showBrandSeparator, topPosition, ...props }) => {
+const expansionBreakpointsMap = {
+  xl: 1200,
+  lg: 992,
+}
+
+export const NavBar = ({
+  children,
+  showBrandSeparator,
+  topPosition,
+  expand,
+  expandBreakpoint,
+  ...props
+}) => {
   return (
-    <NavBarContainer $topPosition={topPosition} {...props}>
-      <Navbar className="navbar-dark" expand="xl" collapseOnSelect>
+    <NavBarContainer
+      $expandBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
+      $topPosition={topPosition}
+      {...props}
+    >
+      <Navbar className="navbar-dark" expand={expand || 'xl'} collapseOnSelect>
         <NavBarBrand>
           <img
             src={logo}
@@ -24,7 +42,12 @@ export const NavBar = ({ children, showBrandSeparator, topPosition, ...props }) 
             alt="logo"
           />
         </NavBarBrand>
-        {showBrandSeparator && <Separator src={separator} />}
+        {showBrandSeparator && (
+          <Separator
+            $hideBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
+            src={separator}
+          />
+        )}
         <Navbar.Toggle />
         <Navbar.Collapse>{children}</Navbar.Collapse>
       </Navbar>
