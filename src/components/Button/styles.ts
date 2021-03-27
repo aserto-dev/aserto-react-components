@@ -70,3 +70,25 @@ export const DangerButton = styled(BaseButton)`
     background-color: ${theme.grey80} !important;
   }
 `
+
+export const SecondaryBorderlessButton = styled(BaseButton)`
+  height: 100%;
+  border: none !important;
+  color: ${theme.grey100};
+  background-color: transparent;
+  outline: none;
+  box-shadow: none !important;
+  &:hover,
+  &:visited,
+  &:focus {
+    outline: none;
+    background-color: ${theme.grey30};
+  }
+  &:disabled {
+    background-color: ${theme.grey10};
+    color: ${theme.grey40};
+  }
+  &:active {
+    background-color: ${theme.grey40} !important;
+  }
+`

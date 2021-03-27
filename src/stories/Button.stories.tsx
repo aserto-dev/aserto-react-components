@@ -47,3 +47,16 @@ DangerDisabled.args = {
   children: 'Button',
   disabled: true,
 }
+
+export const SecondaryBorderless = Template.bind({})
+SecondaryBorderless.args = {
+  variant: 'secondary-borderless',
+  children: 'Button',
+}
+
+export const SecondaryBorderlessDisabled = Template.bind({})
+SecondaryBorderlessDisabled.args = {
+  variant: 'secondary-borderless',
+  children: 'Button',
+  disabled: true,
+}
