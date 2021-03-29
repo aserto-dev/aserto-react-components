@@ -25,7 +25,7 @@ const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean; $topPositio
   align-items: center;
   z-index: 9;
   background-color: ${theme.primaryBlack};
-  @media (max-width: 992px) {
+  @media (max-width: 991px) {
     top: ${({ $topPosition }) => $topPosition || 73}px;
   }
   @media (max-width: 600px) {
