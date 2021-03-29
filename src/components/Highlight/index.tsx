@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import hljs from 'highlight.js'
-import './aserto-custom.css'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const registeredLanguages = {}
 
