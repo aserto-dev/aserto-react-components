@@ -14,7 +14,7 @@ export type NavBarProps = {
 
 const expansionBreakpointsMap = {
   xl: 1200,
-  lg: 992,
+  lg: 991,
 }
 
 export const NavBar = ({
