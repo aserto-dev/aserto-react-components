@@ -106,7 +106,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     padding: 1.375rem 0 0 0;
   }
 
-  @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
+  @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint + 1 || 1200}px) {
     .navbar-brand {
       margin-left: 10px;
       margin-right: 30px;
