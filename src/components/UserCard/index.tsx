@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
 import styled from 'styled-components'
+import { theme } from '../../theme'
 import usericon from './user.svg'
 
 interface User {
@@ -15,43 +15,46 @@ export type UserCardProps = {
   onClick: () => void
 }
 
-const CardContainer = styled(Card)`
+const CardContainer = styled.div`
   min-width: 428px;
   max-width: 428px;
-  height: 104px;
-  border-radius: 5px;
-  background-color: #35393d66;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  background-color: ${theme.primaryBlack};
+  border: 1px solid ${theme.grey30};
   background-size: cover;
-  margin: 0px 20px 20px 0px !important;
   &:hover {
-    background-color: #35393d;
-    background-size: cover;
+    background-color: ${theme.grey10};
     cursor: pointer;
-  }
-  .card-title {
-    color: #d7d8d8;
-    font-size: 18px;
-    vertical-align: middle;
-    text-decoration: none solid rgb(215, 216, 216);
   }
 `
 
-const CardImage = styled.div`
-  margin: 10px;
-  width: 82px;
-  background-image: url('./user.svg');
+const CardTitle = styled.div`
+  color: ${theme.grey100};
+  font-weight: bold;
+`
+
+const CardText = styled.div`
+  color: ${theme.grey70};
+`
+
+const CardImageContainer = styled.div`
+  margin-right: 30px;
+  img {
+    width: 84px;
+    height: 84px;
+  }
 `
 
 export const UserCard: React.FC<UserCardProps> = ({ user, onClick, ...props }) => (
   <CardContainer onClick={onClick} {...props}>
-    <div className="display-flex">
-      <CardImage>
-        <Card.Img src={user.picture} alt="picture" onError={(e) => (e.target.src = usericon)} />
-      </CardImage>
-      <Card.Body>
-        <Card.Title as="h5">{user.display_name}</Card.Title>
-        <Card.Text>{user.email}</Card.Text>
-      </Card.Body>
+    <CardImageContainer>
+      <img src={user.picture || usericon} alt="picture" />
+    </CardImageContainer>
+    <div>
+      <CardTitle>{user.display_name}</CardTitle>
+      <CardText>{user.email}</CardText>
     </div>
   </CardContainer>
 )
