@@ -9,7 +9,7 @@ import { Label } from '../Label'
 
 export type InputProps = {
   placeholder?: string
-  value: string | number
+  value?: string | number
   onChange: (e: any) => void
   label?: string
   info?: string
