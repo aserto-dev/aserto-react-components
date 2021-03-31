@@ -23,6 +23,9 @@ import { UserCard } from './components/UserCard'
 import { Spinner } from './components/Spinner'
 import { theme } from './theme'
 import { PaddedContent } from './components/PaddedContent'
+import { Pagination } from './components/Pagination'
+import { RadioButtonGroup } from './components/RadioButtonGroup'
+import { Label } from './components/Label'
 
 export {
   ApplicationCard,
@@ -42,5 +45,8 @@ export {
   UserCard,
   Spinner,
   PaddedContent,
+  Pagination,
+  RadioButtonGroup,
+  Label,
   theme,
 }

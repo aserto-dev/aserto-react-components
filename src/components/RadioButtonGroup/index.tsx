@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
+import { Label } from '../Label'
 
 const RadioGroupContainer = styled.div`
   display: flex;
@@ -54,12 +55,14 @@ export type RadioButtonGroupProps = {
   options: Array<Option>
   onChange: (val: string) => void
   defaultSelected?: string
+  label?: string
 }
 
 export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
   options,
   onChange,
   defaultSelected,
+  label,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(defaultSelected || '')
 
@@ -74,15 +77,18 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
   }, [selectedOption])
 
   return (
-    <RadioGroupContainer>
-      {options.map((option) => {
-        return (
-          <RadioRow key={option.value} onClick={() => onChangeOption(option.value)}>
-            <RadioButton $selected={selectedOption === option.value} />
-            <label>{option.label}</label>
-          </RadioRow>
-        )
-      })}
-    </RadioGroupContainer>
+    <>
+      {label && <Label>{label}</Label>}
+      <RadioGroupContainer>
+        {options.map((option) => {
+          return (
+            <RadioRow key={option.value} onClick={() => onChangeOption(option.value)}>
+              <RadioButton $selected={selectedOption === option.value} />
+              <label>{option.label}</label>
+            </RadioRow>
+          )
+        })}
+      </RadioGroupContainer>
+    </>
   )
 }

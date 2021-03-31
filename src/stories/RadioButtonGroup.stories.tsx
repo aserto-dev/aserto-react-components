@@ -19,6 +19,12 @@ Primary.args = {
   options: options,
 }
 
+export const PrimaryWithLabel = Template.bind({})
+PrimaryWithLabel.args = {
+  options: options,
+  label: 'Label',
+}
+
 export const PrimaryWithDefaultSelected = Template.bind({})
 PrimaryWithDefaultSelected.args = {
   options: options,
