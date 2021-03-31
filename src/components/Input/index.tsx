@@ -17,6 +17,8 @@ export type InputProps = {
   isValid?: boolean
   isUnavailable?: boolean
   disabled?: boolean
+  type?: 'text' | 'number' | 'password' | null
+  style?: any
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -76,7 +78,22 @@ const Error = styled(Info)`
 
 // eslint-disable-next-line react/display-name
 export const Input = React.forwardRef<any, InputProps>(
-  ({ placeholder, value, onChange, label, info, error, isValid, isUnavailable, ...props }, ref) => {
+  (
+    {
+      placeholder,
+      value,
+      onChange,
+      label,
+      info,
+      error,
+      isValid,
+      isUnavailable,
+      type,
+      style,
+      ...props
+    },
+    ref
+  ) => {
     const shouldDisplayInfo = !error && info
     return (
       <InputContainer>
