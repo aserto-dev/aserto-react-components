@@ -10,10 +10,10 @@ const PaginationButton = styled(Button).attrs(() => ({
   font-weight: 600;
   ${({ $last, $first }) => {
     if ($first) {
-      return 'border-top-left-radius: 4px; border-bottom-left-radius: 4px;'
+      return 'border-top-left-radius: 4px; border-bottom-left-radius: 4px; width: 100px;'
     }
     if ($last) {
-      return 'border-top-right-radius: 4px; border-bottom-right-radius: 4px;'
+      return 'border-top-right-radius: 4px; border-bottom-right-radius: 4px; width: 100px;'
     }
   }};
   &:hover {
@@ -49,19 +49,59 @@ export type PaginationProps = {
   onClickFirst?: () => void
   onClickLast?: () => void
   onChangePage?: (page: number) => void
+  startPage?: number
+  endPage?: number
+  currentPage: number
+  showPrevNextButtons?: boolean
+  showFirstAndLastButtons?: boolean
 }
 
-export const Pagination: React.FC<PaginationProps> = () => {
-  const pages = Array.from({ length: 5 }, (x, i) => i + 1)
+export const Pagination: React.FC<PaginationProps> = ({
+  startPage,
+  endPage,
+  currentPage,
+  onClickFirst,
+  onClickLast,
+  onChangePage,
+  onClickNext,
+  onClickPrev,
+  showPrevNextButtons,
+  showFirstAndLastButtons,
+}) => {
+  const pages = Array.from({ length: endPage - startPage }, (x, i) => i + startPage)
   return (
     <PaginationContainer>
-      <PaginationButton $first>First</PaginationButton>
-      <PaginationButton $active>1</PaginationButton>
-      <PaginationButton>2</PaginationButton>
-      <PaginationButton>3</PaginationButton>
-      <PaginationButton>4</PaginationButton>
-      <PaginationButton>5</PaginationButton>
-      <PaginationButton $last>Last</PaginationButton>
+      {showFirstAndLastButtons && (
+        <PaginationButton $first onClick={onClickFirst}>
+          First
+        </PaginationButton>
+      )}
+      {showPrevNextButtons && (
+        <PaginationButton $first={!showFirstAndLastButtons} onClick={onClickPrev}>
+          {showFirstAndLastButtons ? '«' : 'Previous'}
+        </PaginationButton>
+      )}
+      {pages.map((page) => {
+        return (
+          <PaginationButton
+            key={page}
+            $active={page === currentPage}
+            onClick={() => onChangePage(page)}
+          >
+            {page}
+          </PaginationButton>
+        )
+      })}
+      {showPrevNextButtons && (
+        <PaginationButton $last={!showFirstAndLastButtons} onClick={onClickNext}>
+          {showFirstAndLastButtons ? '»' : 'Next'}
+        </PaginationButton>
+      )}
+      {showFirstAndLastButtons && (
+        <PaginationButton $last onClick={onClickLast}>
+          Last
+        </PaginationButton>
+      )}
     </PaginationContainer>
   )
 }

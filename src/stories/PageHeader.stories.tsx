@@ -1,13 +1,35 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { Pagination, PaginationProps } from '../components/Pagination'
+import { PageHeader, PageHeaderProps } from '../components/PageHeader'
+import { Breadcrumb } from '../components/Breadcrumb'
 
 export default {
-  title: 'Common/Pagination',
-  component: Pagination,
+  title: 'Common/PageHeader',
+  component: PageHeader,
 } as Meta
 
-const Template: Story<PaginationProps> = (args) => <Pagination {...args} />
+const Template: Story<PageHeaderProps> = (args) => <PageHeader {...args} />
 
 export const Primary = Template.bind({})
-Primary.args = {}
+Primary.args = {
+  title: 'Page title',
+}
+
+export const PrimaryWithLoading = Template.bind({})
+PrimaryWithLoading.args = {
+  title: 'Page title',
+  loading: true,
+}
+
+export const PrimaryWithLoadFunction = Template.bind({})
+PrimaryWithLoadFunction.args = {
+  title: 'Page title',
+  load: console.log,
+}
+
+export const PrimaryWithBreadcrumb = Template.bind({})
+PrimaryWithBreadcrumb.args = {
+  children: (
+    <Breadcrumb breadcrumbText="Applications" title="Create application" breadcrumbUrl="/" />
+  ),
+}
