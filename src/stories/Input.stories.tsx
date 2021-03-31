@@ -83,3 +83,10 @@ export const PrimaryWithRef = () => {
     </div>
   )
 }
+
+export const PrimaryWithSmallLabel = Template.bind({})
+PrimaryWithSmallLabel.args = {
+  value: 'Hey, Input!',
+  label: 'Label',
+  hasSmallLabel: true,
+}

@@ -19,6 +19,7 @@ export type InputProps = {
   disabled?: boolean
   type?: 'text' | 'number' | 'password' | null
   style?: any
+  hasSmallLabel?: boolean
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -90,6 +91,7 @@ export const Input = React.forwardRef<any, InputProps>(
       isUnavailable,
       type,
       style,
+      hasSmallLabel,
       ...props
     },
     ref
@@ -97,7 +99,7 @@ export const Input = React.forwardRef<any, InputProps>(
     const shouldDisplayInfo = !error && info
     return (
       <InputContainer>
-        {label && <Label>{label}</Label>}
+        {label && <Label $small={hasSmallLabel}>{label}</Label>}
         <AsertoInput
           ref={ref}
           isValid={isValid}
@@ -105,7 +107,9 @@ export const Input = React.forwardRef<any, InputProps>(
           $isUnavailable={isUnavailable}
           placeholder={placeholder}
           value={value}
+          type={type}
           onChange={onChange}
+          style={style}
           {...props}
         />
         {shouldDisplayInfo && <Info>{info}</Info>}
