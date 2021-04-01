@@ -16,11 +16,10 @@ const SwitchBackground = styled.div`
 
 const SwitchLabel = styled.label`
   display: inline-block;
-  height: 20px;
+  height: 31px;
   position: relative;
-  width: 40px;
+  width: 56px;
   margin-bottom: 0;
-
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -39,15 +38,15 @@ const SwitchInput = styled.input`
 
 const SwitchHandle = styled.div<{ $isChecked?: boolean }>`
   bottom: 2px;
-  height: 16px;
+  height: 27px;
   left: 2px;
   position: absolute;
-  width: 16px;
+  width: 27px;
   border-radius: 50%;
   transform: translateX(0);
   outline: none;
   ${({ $isChecked }) => {
-    return $isChecked ? 'transform: translateX(20px)' : ''
+    return $isChecked ? 'transform: translateX(26px)' : ''
   }};
   background-color: #4a4a4a;
 `
