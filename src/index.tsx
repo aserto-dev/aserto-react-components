@@ -26,6 +26,7 @@ import { PaddedContent } from './components/PaddedContent'
 import { Pagination } from './components/Pagination'
 import { RadioButtonGroup } from './components/RadioButtonGroup'
 import { Label } from './components/Label'
+import { SwitchButton } from './components/SwitchButton'
 
 export {
   ApplicationCard,
@@ -48,5 +49,6 @@ export {
   Pagination,
   RadioButtonGroup,
   Label,
+  SwitchButton,
   theme,
 }
