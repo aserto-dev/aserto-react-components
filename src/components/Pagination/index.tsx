@@ -54,6 +54,8 @@ export type PaginationProps = {
   currentPage: number
   showPrevNextButtons?: boolean
   showFirstAndLastButtons?: boolean
+  disabledNext?: boolean
+  disabledPrev?: boolean
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -67,6 +69,8 @@ export const Pagination: React.FC<PaginationProps> = ({
   onClickPrev,
   showPrevNextButtons,
   showFirstAndLastButtons,
+  disabledNext,
+  disabledPrev,
 }) => {
   const pages = Array.from({ length: endPage - startPage }, (x, i) => i + startPage)
   return (
@@ -77,7 +81,11 @@ export const Pagination: React.FC<PaginationProps> = ({
         </PaginationButton>
       )}
       {showPrevNextButtons && (
-        <PaginationButton $first={!showFirstAndLastButtons} onClick={onClickPrev}>
+        <PaginationButton
+          $first={!showFirstAndLastButtons}
+          onClick={onClickPrev}
+          disabled={disabledPrev}
+        >
           {showFirstAndLastButtons ? '«' : 'Previous'}
         </PaginationButton>
       )}
@@ -93,7 +101,11 @@ export const Pagination: React.FC<PaginationProps> = ({
         )
       })}
       {showPrevNextButtons && (
-        <PaginationButton $last={!showFirstAndLastButtons} onClick={onClickNext}>
+        <PaginationButton
+          $last={!showFirstAndLastButtons}
+          disabled={disabledNext}
+          onClick={onClickNext}
+        >
           {showFirstAndLastButtons ? '»' : 'Next'}
         </PaginationButton>
       )}

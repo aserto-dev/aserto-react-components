@@ -11,8 +11,10 @@ const RadioGroupContainer = styled.div`
 
 const RadioButton = styled.div<{ $selected?: boolean }>`
   width: 17px;
+  min-width: 17px;
   display: flex;
   height: 17px;
+  min-height: 17px;
   border-radius: 20px;
   stroke-width: 1;
   ${({ $selected }) => {
