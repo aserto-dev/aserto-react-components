@@ -12,9 +12,14 @@ export type PageHeaderProps = {
   children?: React.ReactElement
   topPosition?: number
   id?: string
+  mobileBreakpoint?: number
 }
 
-const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean; $topPosition?: number }>`
+const PageHeaderContainer = styled.div<{
+  $hasBorderBottom?: boolean
+  $topPosition?: number
+  $mobileBreakpoint?: number
+}>`
   padding: 20px;
   position: fixed;
   width: 100%;
@@ -25,7 +30,7 @@ const PageHeaderContainer = styled.div<{ $hasBorderBottom?: boolean; $topPositio
   align-items: center;
   z-index: 9;
   background-color: ${theme.primaryBlack};
-  @media (max-width: 991px) {
+  @media (max-width: ${({ $mobileBreakpoint }) => $mobileBreakpoint || 991}px) {
     top: ${({ $topPosition }) => $topPosition || 73}px;
   }
   @media (max-width: 600px) {
@@ -41,9 +46,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   hasBorderBottom,
   topPosition,
   id,
+  mobileBreakpoint,
   children,
 }) => (
-  <PageHeaderContainer $hasBorderBottom={hasBorderBottom} id={id} $topPosition={topPosition}>
+  <PageHeaderContainer
+    $hasBorderBottom={hasBorderBottom}
+    id={id}
+    $topPosition={topPosition}
+    $mobileBreakpoint={mobileBreakpoint}
+  >
     {load && <RefreshButton load={load} loading={loading} />}
     {title && <PageTitle title={title} />}
     {children}
