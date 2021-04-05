@@ -18,7 +18,7 @@ export type UserCardProps = {
 const CardContainer = styled.div`
   width: 100%;
   min-width: 320px;
-  max-width: 428px;
+  max-height: 102px;
   display: flex;
   align-items: center;
   padding: 8px 10px;
