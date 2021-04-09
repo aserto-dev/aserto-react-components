@@ -27,6 +27,7 @@ import { Pagination } from './components/Pagination'
 import { RadioButtonGroup } from './components/RadioButtonGroup'
 import { Label } from './components/Label'
 import { SwitchButton } from './components/SwitchButton'
+import { ActionableInput } from './components/ActionableInput'
 
 export {
   ApplicationCard,
@@ -50,5 +51,6 @@ export {
   RadioButtonGroup,
   Label,
   SwitchButton,
+  ActionableInput,
   theme,
 }
