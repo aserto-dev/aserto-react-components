@@ -1,22 +1,54 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Input, InputProps } from '../Input'
 import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
+import { Button } from '../Button'
+
+const Anm = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  10% {
+    transform: translateY(-100%);
+  }
+
+  15% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-10%);
+  }
+
+  40% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    opacity: 1;
+  }
+`
 
 const ActionableInputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  img {
-    cursor: pointer;
-    margin-left: 10px;
-    &:hover {
-      fill: red;
+  button {
+    padding: 8px;
+    margin-left: 4px;
+    &:active,
+    &:focus {
+      animation: ${Anm} 0.6s 0.1s 1 linear alternate;
+      background-color: transparent !important;
     }
   }
 `
+
+const ButtonContainer = styled(Button)``
 
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
@@ -33,14 +65,23 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
     <ActionableInputContainer>
       <Input {...inputProps} type={type} />
       {onClickCopy && (
-        <img src={copy} alt="copy" onClick={() => onClickCopy(String(inputProps.value))} />
+        <ButtonContainer
+          variant="secondary-borderless"
+          onClick={() => onClickCopy(String(inputProps.value))}
+        >
+          <img src={copy} alt="copy" />
+        </ButtonContainer>
       )}
       {shouldShowHideShowButton && (
         <>
           {type === 'password' ? (
-            <img onClick={() => setType('text')} alt="show" src={show} />
+            <Button variant="secondary-borderless" onClick={() => setType('text')}>
+              <img alt="show" src={show} />
+            </Button>
           ) : (
-            <img onClick={() => setType('password')} alt="hide" src={hide} />
+            <Button onClick={() => setType('password')} variant="secondary-borderless">
+              <img alt="hide" src={hide} />
+            </Button>
           )}
         </>
       )}
