@@ -20,9 +20,14 @@ const ActionableInputContainer = styled.div`
 
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
+  shouldShowHideShowButton?: boolean
 }
 
-export const ActionableInput: React.FC<ActionableInputProps> = ({ onClickCopy, ...inputProps }) => {
+export const ActionableInput: React.FC<ActionableInputProps> = ({
+  onClickCopy,
+  shouldShowHideShowButton,
+  ...inputProps
+}) => {
   const [type, setType] = useState(inputProps.type || 'text')
   return (
     <ActionableInputContainer>
@@ -30,10 +35,14 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({ onClickCopy, .
       {onClickCopy && (
         <img src={copy} alt="copy" onClick={() => onClickCopy(String(inputProps.value))} />
       )}
-      {type === 'password' ? (
-        <img onClick={() => setType('text')} alt="show" src={show} />
-      ) : (
-        <img onClick={() => setType('password')} alt="hide" src={hide} />
+      {shouldShowHideShowButton && (
+        <>
+          {type === 'password' ? (
+            <img onClick={() => setType('text')} alt="show" src={show} />
+          ) : (
+            <img onClick={() => setType('password')} alt="hide" src={hide} />
+          )}
+        </>
       )}
     </ActionableInputContainer>
   )
