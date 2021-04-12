@@ -18,12 +18,25 @@ export type SelectProps = {
   value?: SelectOption | null
   ref?: any
   style?: any
+  disableLabel?: boolean
 }
 
 // eslint-disable-next-line react/display-name
 export const Select = React.forwardRef<any, SelectProps>(
   (
-    { options, defaultValue, onChange, label, disabled, ref, isLoading, style, value, ...props },
+    {
+      options,
+      defaultValue,
+      onChange,
+      label,
+      disabled,
+      ref,
+      isLoading,
+      style,
+      value,
+      disableLabel,
+      ...props
+    },
     forRef
   ) => {
     const removeFocusBox = {
@@ -37,7 +50,7 @@ export const Select = React.forwardRef<any, SelectProps>(
         return {
           ...styles,
           backgroundColor: isDisabled ? theme.grey20 : theme.primaryBlack,
-          color: theme.grey100,
+          color: isDisabled ? theme.grey40 : theme.grey100,
           borderColor: isFocused ? theme.lochivarAccent2 : theme.grey40,
           opacity: isDisabled ? 0.6 : 1,
           outline: isFocused ? 'none' : '',
@@ -78,12 +91,19 @@ export const Select = React.forwardRef<any, SelectProps>(
           borderColor: theme.grey60,
         }
       },
-      placeholder: (styles) => ({ ...styles, color: theme.grey90 }),
-      singleValue: (styles) => ({ ...styles, color: theme.grey100, ...removeFocusBox }),
+      placeholder: (styles, { isDisabled }) => ({
+        ...styles,
+        color: isDisabled ? theme.grey40 : theme.grey90,
+      }),
+      singleValue: (styles, { isDisabled }) => ({
+        ...styles,
+        color: isDisabled ? theme.grey40 : theme.grey100,
+        ...removeFocusBox,
+      }),
       menu: (styles) => ({ ...styles, backgroundColor: theme.primaryBlack, zIndex: 6 }),
       dropdownIndicator: (styles, { isDisabled }) => ({
         ...styles,
-        color: isDisabled ? theme.grey30 : theme.grey70,
+        color: isDisabled ? theme.grey40 : theme.grey70,
       }),
       menuList: (style) => ({
         ...style,
@@ -97,7 +117,7 @@ export const Select = React.forwardRef<any, SelectProps>(
     }
     return (
       <div style={style}>
-        {label && <Label disabled={disabled}>{label}</Label>}
+        {label && <Label disabled={disableLabel}>{label}</Label>}
         <ReactSelect
           {...props}
           ref={forRef || ref || null}

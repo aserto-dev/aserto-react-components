@@ -40,10 +40,9 @@ const ActionableInputContainer = styled.div`
   button {
     padding: 8px;
     margin-left: 4px;
-    &:active,
-    &:focus {
+    &:active {
       animation: ${Anm} 0.6s 0.1s 1 linear alternate;
-      background-color: transparent !important;
+      background-color: red !important;
     }
   }
 `
