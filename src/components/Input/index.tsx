@@ -67,7 +67,7 @@ const Info = styled.div`
   font-size: 14px;
   color: ${theme.grey70};
   margin-top: 8px;
-  margin-bottom: 20px;
+  //margin-bottom: 20px;
   @media (max-width: 720px) {
     max-width: 270px;
   }
