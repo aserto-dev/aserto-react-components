@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import styled, { css, keyframes } from 'styled-components'
 import { Input, InputProps } from '../Input'
 import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
+import { useRef } from 'react'
 
 const Anm = keyframes`
   0% {
@@ -37,17 +38,20 @@ const ActionableInputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  button {
-    padding: 8px;
-    margin-left: 4px;
-    &:active {
-      animation: ${Anm} 0.6s 0.1s 1 linear alternate;
-      background-color: red !important;
-    }
-  }
 `
 
-const ButtonContainer = styled(Button)``
+const ButtonContainer = styled(Button)<{ wasClicked?: boolean }>`
+  padding: 8px;
+  margin-left: 4px;
+  ${({ wasClicked }) => {
+    return wasClicked
+      ? css`
+          animation: ${Anm} 0.6s 0.1s 1 linear alternate;
+          background-color: transparent !important;
+        `
+      : ''
+  }}
+`
 
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
@@ -60,13 +64,28 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
   ...inputProps
 }) => {
   const [type, setType] = useState(inputProps.type || 'text')
+  const [wasClicked, setWasClicked] = useState(false)
+
+  useEffect(() => {
+    if (wasClicked) {
+      setTimeout(() => {
+        setWasClicked(false)
+      }, 800)
+    }
+  }, [wasClicked])
+
   return (
     <ActionableInputContainer>
       <Input {...inputProps} type={type} />
       {onClickCopy && (
         <ButtonContainer
+          wasClicked={wasClicked}
           variant="secondary-borderless"
-          onClick={() => onClickCopy(String(inputProps.value))}
+          onClick={(e) => {
+            setWasClicked(true)
+            e.currentTarget.blur()
+            onClickCopy(String(inputProps.value))
+          }}
         >
           <img src={copy} alt="copy" />
         </ButtonContainer>
