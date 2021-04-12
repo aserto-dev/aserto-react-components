@@ -9,7 +9,7 @@ const RadioGroupContainer = styled.div`
   gap: 20px;
 `
 
-const RadioButton = styled.div<{ $selected?: boolean }>`
+const RadioButton = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
   width: 17px;
   min-width: 17px;
   display: flex;
@@ -17,12 +17,21 @@ const RadioButton = styled.div<{ $selected?: boolean }>`
   min-height: 17px;
   border-radius: 20px;
   stroke-width: 1;
-  ${({ $selected }) => {
+  ${({ $disabled }) => {
+    return $disabled
+      ? css`
+          background-color: ${theme.grey10};
+          border: 1px solid ${theme.grey30};
+        `
+      : ''
+  }}
+  ${({ $selected, $disabled }) => {
+    const color = $disabled ? theme.lochivar30 : theme.lochivar100
     return $selected
       ? css`
-          border: 1px solid ${theme.lochivar100};
+          border: 1px solid ${color};
           &:after {
-            background: ${theme.lochivar100};
+            background: ${color};
             width: 11px;
             height: 11px;
             display: flex;
@@ -35,10 +44,13 @@ const RadioButton = styled.div<{ $selected?: boolean }>`
   }}
 `
 
-const RadioRow = styled.div`
+const RadioRow = styled.div<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
   cursor: pointer;
+  ${({ disabled }) => {
+    return disabled ? 'pointer-events: none' : ''
+  }};
   label {
     cursor: pointer;
     margin-left: 10px;
@@ -51,6 +63,7 @@ const RadioRow = styled.div`
 interface Option {
   value: string
   label: string
+  disabled?: boolean
 }
 
 export type RadioButtonGroupProps = {
@@ -58,6 +71,7 @@ export type RadioButtonGroupProps = {
   onChange: (val: string) => void
   defaultSelected?: string
   label?: string
+  value?: string
 }
 
 export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
@@ -65,6 +79,7 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
   onChange,
   defaultSelected,
   label,
+  value,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(defaultSelected || '')
 
@@ -78,14 +93,27 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
     }
   }, [selectedOption])
 
+  useEffect(() => {
+    if (value) {
+      setSelectedOption(value)
+    }
+  }, [value])
+
   return (
     <>
       {label && <Label>{label}</Label>}
       <RadioGroupContainer>
         {options.map((option) => {
           return (
-            <RadioRow key={option.value} onClick={() => onChangeOption(option.value)}>
-              <RadioButton $selected={selectedOption === option.value} />
+            <RadioRow
+              disabled={option.disabled}
+              key={option.value}
+              onClick={() => onChangeOption(option.value)}
+            >
+              <RadioButton
+                $disabled={option.disabled}
+                $selected={selectedOption === option.value}
+              />
               <label>{option.label}</label>
             </RadioRow>
           )
