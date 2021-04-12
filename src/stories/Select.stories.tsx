@@ -54,3 +54,11 @@ PrimaryWithDefaultValue.args = {
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
+
+export const PrimaryWithDefaultValueDisabled = Template.bind({})
+PrimaryWithDefaultValueDisabled.args = {
+  options: identityOptions,
+  label: 'Organization',
+  defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
+  disabled: true,
+}

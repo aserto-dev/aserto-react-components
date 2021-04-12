@@ -50,7 +50,7 @@ const AsertoInput = styled(FormControl)<{
     -webkit-box-shadow: none;
   }
   &:disabled {
-    color: ${theme.grey30};
+    color: ${theme.grey40};
     background-color: ${theme.grey20};
     opacity: 0.6;
   }
@@ -67,7 +67,6 @@ const Info = styled.div`
   font-size: 14px;
   color: ${theme.grey70};
   margin-top: 8px;
-  //margin-bottom: 20px;
   @media (max-width: 720px) {
     max-width: 270px;
   }
