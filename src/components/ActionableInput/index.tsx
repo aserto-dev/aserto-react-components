@@ -5,7 +5,6 @@ import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
-import { useRef } from 'react'
 
 const Anm = keyframes`
   0% {
@@ -40,11 +39,11 @@ const ActionableInputContainer = styled.div`
   align-items: center;
 `
 
-const ButtonContainer = styled(Button)<{ wasClicked?: boolean }>`
+const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   padding: 8px;
   margin-left: 4px;
-  ${({ wasClicked }) => {
-    return wasClicked
+  ${({ $wasClicked }) => {
+    return $wasClicked
       ? css`
           animation: ${Anm} 0.6s 0.1s 1 linear alternate;
           background-color: transparent !important;
@@ -79,7 +78,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
       <Input {...inputProps} type={type} />
       {onClickCopy && (
         <ButtonContainer
-          wasClicked={wasClicked}
+          $wasClicked={wasClicked}
           variant="secondary-borderless"
           onClick={(e) => {
             setWasClicked(true)
