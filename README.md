@@ -1,6 +1,15 @@
 # Aserto React Components
 
-A self-contained Aserto-themed React component library.
+A self-contained Aserto-themed React component library, built using React, TypeScript and Styled-Components.
+
+## Developing
+
+We provide a local ``Storybook`` environment to facilitate the development process.
+
+```bash
+yarn # install the dependencies
+yarn storybook # run storybook on port 6006
+```
 
 ## Installing
 
@@ -14,54 +23,9 @@ yarn add @aserto/aserto-react-components
 import { Button, Divider } from '@aserto/aserto-react-components'
 ```
 
-## Components
+## Docs
 
-### ApplicationCard
+It's possible to check our ``Storybook``, hosted using `Chromatic`:
 
-```javascript
-import { ApplicationCard } from '@aserto/aserto-react-components'
-import { CardDeck } from 'react-bootstrap'
+https://607739b7564d9a002144e9b9-femjlonrbk.chromatic.com/
 
-const Page = ({applications}) => {
-  const onClick = () => {
-    // navigate
-  }
-  return (
-    <CardDeck>
-      { applications && appications.map(a => 
-          <ApplicationCard application={a} onClick={onClick} />
-        )
-      }
-    </CardDeck>
-}
-```
-
-### Breadcrumb
-
-### Button
-
-### DataTable
-
-### Divider
-
-### Highlight
-
-### Input
-
-### Loading
-
-### NavBar
-
-### PageHeader
-
-### PageTitle
-
-### PlayButton
-
-### RefreshButton
-
-### Select
-
-### TextArea
-
-### UserCard
