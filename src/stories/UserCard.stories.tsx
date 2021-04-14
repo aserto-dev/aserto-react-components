@@ -20,3 +20,9 @@ export const Primary = Template.bind({})
 Primary.args = {
   user,
 }
+
+export const PrimaryDisabled = Template.bind({})
+PrimaryDisabled.args = {
+  user,
+  disabled: true,
+}

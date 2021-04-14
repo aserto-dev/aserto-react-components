@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import usericon from './user.svg'
 
@@ -13,31 +13,39 @@ interface User {
 export type UserCardProps = {
   user: User
   onClick: () => void
+  disabled?: boolean
 }
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{ $disabled?: boolean }>`
   width: 100%;
   min-width: 320px;
   max-height: 102px;
   display: flex;
   align-items: center;
   padding: 8px 10px;
-  background-color: ${theme.primaryBlack};
-  border: 1px solid ${theme.grey30};
+  border-radius: 5px;
+  background-color: ${theme.grey20};
   background-size: cover;
+  color: ${theme.grey100};
   &:hover {
-    background-color: ${theme.grey10};
+    background-color: ${theme.grey30};
     cursor: pointer;
   }
+  ${({ $disabled }) => {
+    return $disabled
+      ? css`
+          pointer-events: none;
+          background-color: ${theme.grey10};
+          color: ${theme.grey40};
+        `
+      : ''
+  }}
 `
 
-const CardTitle = styled.div`
-  color: ${theme.grey100};
-  font-weight: bold;
-`
-
-const CardText = styled.div`
-  color: ${theme.grey70};
+const CardText = styled.div<{ $bold?: boolean }>`
+  ${({ $bold }) => {
+    return $bold ? 'font-weight: bold' : ''
+  }};
 `
 
 const CardImageContainer = styled.div`
@@ -48,13 +56,13 @@ const CardImageContainer = styled.div`
   }
 `
 
-export const UserCard: React.FC<UserCardProps> = ({ user, onClick, ...props }) => (
-  <CardContainer onClick={onClick} {...props}>
+export const UserCard: React.FC<UserCardProps> = ({ user, onClick, disabled, ...props }) => (
+  <CardContainer onClick={onClick} {...props} $disabled={disabled}>
     <CardImageContainer>
       <img src={user.picture || usericon} alt="picture" />
     </CardImageContainer>
     <div>
-      <CardTitle>{user.display_name}</CardTitle>
+      <CardText $bold>{user.display_name}</CardText>
       <CardText>{user.email}</CardText>
     </div>
   </CardContainer>
