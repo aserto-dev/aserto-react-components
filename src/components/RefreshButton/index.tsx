@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import { Button } from '../Button'
+import { mapTestIdToProps } from '../../utils'
 
 const RefreshButtonContainer = styled(Button)`
   position: absolute;
@@ -33,8 +34,14 @@ const RefreshButtonContainer = styled(Button)`
   }
 `
 
-export const RefreshButton = ({ load, loading }) => (
-  <RefreshButtonContainer variant="secondary" onClick={load}>
+export type RefreshButtonProps = {
+  load?: () => void
+  loading?: boolean
+  testId?: string
+}
+
+export const RefreshButton: React.FC<RefreshButtonProps> = ({ load, loading, testId }) => (
+  <RefreshButtonContainer {...mapTestIdToProps(testId)} variant="secondary" onClick={load}>
     <i className={loading ? 'fa fa-spinner' : 'fa fa-refresh'} />
     <span>&nbsp;Refresh</span>
   </RefreshButtonContainer>

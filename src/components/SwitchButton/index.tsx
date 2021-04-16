@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../theme'
+import { mapTestIdToProps } from '../../utils'
 
 const SwitchBackground = styled.div`
   bottom: 0;
@@ -61,6 +62,7 @@ export type SwitchButtonProps = {
   focusShadow?: string
   disabled?: boolean
   [props: string]: any
+  testId?: string
 }
 
 export const SwitchButton = ({
@@ -72,6 +74,7 @@ export const SwitchButton = ({
   handleColor,
   focusShadow,
   disabled,
+  testId,
   ...labelProps
 }: SwitchButtonProps) => {
   const [hasOutline, setOutline] = useState(false)
@@ -100,6 +103,7 @@ export const SwitchButton = ({
         filter: disabled ? 'brightness(0.9)' : 'unset',
       }}
       {...labelProps}
+      {...mapTestIdToProps(testId)}
     >
       <SwitchBackground
         style={{
@@ -107,6 +111,7 @@ export const SwitchButton = ({
         }}
       />
       <SwitchHandle
+        {...mapTestIdToProps(`${testId}-handle`)}
         $isChecked={checked}
         style={{
           WebkitTransition: 'transform .2s',
@@ -129,6 +134,7 @@ export const SwitchButton = ({
           setOutline(false)
         }}
         disabled={disabled}
+        {...mapTestIdToProps(`${testId}-switch-input`)}
       />
     </SwitchLabel>
   )

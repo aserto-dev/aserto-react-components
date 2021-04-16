@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap'
 import logo from './aserto-horizontal-white-text.svg'
 import separator from './separator.svg'
 import { NavBarContainer, NavBarBrand, Separator } from './styles'
+import { mapTestIdToProps } from '../../utils'
 
 export type NavBarProps = {
   children: React.ReactElement
@@ -10,6 +11,7 @@ export type NavBarProps = {
   topPosition?: number
   expand?: 'sm' | 'md' | 'lg' | 'xl'
   expandBreakpoint?: number
+  testId?: string
 }
 
 const expansionBreakpointsMap = {
@@ -17,12 +19,13 @@ const expansionBreakpointsMap = {
   lg: 991,
 }
 
-export const NavBar = ({
+export const NavBar: React.FC<NavBarProps> = ({
   children,
   showBrandSeparator,
   topPosition,
   expand,
   expandBreakpoint,
+  testId,
   ...props
 }) => {
   return (
@@ -30,6 +33,7 @@ export const NavBar = ({
       $expandBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
       $topPosition={topPosition}
       {...props}
+      {...mapTestIdToProps(testId)}
     >
       <Navbar className="navbar-dark" expand={expand || 'xl'} collapseOnSelect>
         <NavBarBrand>

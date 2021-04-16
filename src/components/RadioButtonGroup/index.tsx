@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
+import { mapTestIdToProps } from '../../utils'
 
 const RadioButton = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
   width: 17px;
@@ -76,6 +77,7 @@ export type RadioButtonGroupProps = {
   defaultSelected?: string
   label?: string
   value?: string
+  testId?: string
 }
 
 export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
@@ -84,6 +86,7 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
   defaultSelected,
   label,
   value,
+  testId,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(defaultSelected || '')
 
@@ -105,20 +108,21 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
 
   return (
     <>
-      {label && <Label>{label}</Label>}
-      <RadioGroupContainer>
+      {label && <Label {...mapTestIdToProps(`${testId}-field-label`)}>{label}</Label>}
+      <RadioGroupContainer {...mapTestIdToProps(testId)}>
         {options.map((option) => {
           return (
             <RadioRow
               disabled={option.disabled}
               key={option.value}
+              {...mapTestIdToProps(`${testId}-${option.value}-btn`)}
               onClick={() => onChangeOption(option.value)}
             >
               <RadioButton
                 $disabled={option.disabled}
                 $selected={selectedOption === option.value}
               />
-              <label>{option.label}</label>
+              <label {...mapTestIdToProps(`${testId}-${option.value}-label`)}>{option.label}</label>
             </RadioRow>
           )
         })}

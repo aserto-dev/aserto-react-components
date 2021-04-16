@@ -5,6 +5,7 @@ import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
+import { mapTestIdToProps } from '../../utils'
 
 const Anm = keyframes`
   0% {
@@ -55,11 +56,13 @@ const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
   shouldShowHideShowButton?: boolean
+  testId?: string
 }
 
 export const ActionableInput: React.FC<ActionableInputProps> = ({
   onClickCopy,
   shouldShowHideShowButton,
+  testId,
   ...inputProps
 }) => {
   const [type, setType] = useState(inputProps.type || 'text')
@@ -75,7 +78,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
 
   return (
     <ActionableInputContainer>
-      <Input {...inputProps} type={type} />
+      <Input {...inputProps} type={type} data-testid={testId} />
       {onClickCopy && (
         <ButtonContainer
           $wasClicked={wasClicked}
@@ -85,6 +88,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
             e.currentTarget.blur()
             onClickCopy(String(inputProps.value))
           }}
+          {...mapTestIdToProps(`${testId}-copy-btn`)}
         >
           <img src={copy} alt="copy" />
         </ButtonContainer>
@@ -92,11 +96,19 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
       {shouldShowHideShowButton && (
         <>
           {type === 'password' ? (
-            <Button variant="secondary-borderless" onClick={() => setType('text')}>
+            <Button
+              variant="secondary-borderless"
+              onClick={() => setType('text')}
+              {...mapTestIdToProps(`${testId}-show-btn`)}
+            >
               <img alt="show" src={show} />
             </Button>
           ) : (
-            <Button onClick={() => setType('password')} variant="secondary-borderless">
+            <Button
+              onClick={() => setType('password')}
+              variant="secondary-borderless"
+              {...mapTestIdToProps(`${testId}-hide-btn`)}
+            >
               <img alt="hide" src={hide} />
             </Button>
           )}

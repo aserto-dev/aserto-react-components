@@ -3,16 +3,18 @@ import styled from 'styled-components'
 import { theme } from '../../theme'
 import { PageTitle } from '../PageTitle'
 import { RefreshButton } from '../RefreshButton'
+import { mapTestIdToProps } from '../../utils'
 
 export type PageHeaderProps = {
   title?: string
-  load?: unknown
+  load?: () => void
   loading?: boolean
   hasBorderBottom?: boolean
   children?: React.ReactElement
   topPosition?: number
   id?: string
   mobileBreakpoint?: number
+  testId?: string
 }
 
 const PageHeaderContainer = styled.div<{
@@ -47,6 +49,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   topPosition,
   id,
   mobileBreakpoint,
+  testId,
   children,
 }) => (
   <PageHeaderContainer
@@ -54,6 +57,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     id={id}
     $topPosition={topPosition}
     $mobileBreakpoint={mobileBreakpoint}
+    {...mapTestIdToProps(testId)}
   >
     {load && <RefreshButton load={load} loading={loading} />}
     {title && <PageTitle title={title} />}

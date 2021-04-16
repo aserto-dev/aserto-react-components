@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { mapTestIdToProps } from '../../utils'
 
 const LoadKeyFrame = keyframes`
     0%   {
@@ -94,9 +95,9 @@ const Dots = styled.div`
   animation: ${LoadKeyFrame} 3s infinite linear;
 `
 
-export const Spinner: React.FC = () => {
+export const Spinner: React.FC<{ testId?: string }> = ({ testId }) => {
   return (
-    <Container>
+    <Container {...mapTestIdToProps(testId)}>
       <Dots />
     </Container>
   )

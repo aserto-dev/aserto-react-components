@@ -2,12 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme } from '../../theme'
+import { mapTestIdToProps } from '../../utils'
 
 export type BreadcrumbProps = {
   title: string
   usePathAsBreadcrumb?: boolean
   breadcrumbText?: string
   breadcrumbUrl?: string
+  testId?: string
 }
 
 const BreadcrumbContainer = styled.div`
@@ -23,6 +25,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   usePathAsBreadcrumb,
   breadcrumbText,
   breadcrumbUrl,
+  testId,
 }) => {
   // if the flag was passed as true, construct the breadcrumb from the path
   if (usePathAsBreadcrumb) {
@@ -54,5 +57,5 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   }
 
   // as a last resort, just use the title
-  return <BreadcrumbContainer>{title}</BreadcrumbContainer>
+  return <BreadcrumbContainer {...mapTestIdToProps(testId)}>{title}</BreadcrumbContainer>
 }
