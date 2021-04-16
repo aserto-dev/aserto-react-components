@@ -3,12 +3,6 @@ import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
-const RadioGroupContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-`
-
 const RadioButton = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
   width: 17px;
   min-width: 17px;
@@ -43,7 +37,10 @@ const RadioButton = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
       : `border: 1px solid ${theme.grey50};`
   }}
 `
-
+const RadioGroupContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 const RadioRow = styled.div<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
@@ -52,11 +49,18 @@ const RadioRow = styled.div<{ disabled?: boolean }>`
     return disabled ? 'pointer-events: none' : ''
   }};
   label {
+    margin-right: 20px;
     cursor: pointer;
     margin-left: 10px;
     margin-bottom: 0px;
     color: ${theme.grey100};
     font-size: 12px;
+  }
+  &:last-child {
+    //gap: 20px;
+    label {
+      margin-right: auto;
+    }
   }
 `
 

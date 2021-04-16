@@ -42,6 +42,10 @@ const CardContainer = styled.div<{ $disabled?: boolean }>`
   }}
 `
 
+const CardContent = styled.div`
+  overflow: hidden;
+`
+
 const CardText = styled.div<{ $bold?: boolean }>`
   ${({ $bold }) => {
     return $bold ? 'font-weight: bold' : ''
@@ -61,9 +65,9 @@ export const UserCard: React.FC<UserCardProps> = ({ user, onClick, disabled, ...
     <CardImageContainer>
       <img src={user.picture || usericon} alt="picture" />
     </CardImageContainer>
-    <div>
+    <CardContent>
       <CardText $bold>{user.display_name}</CardText>
       <CardText>{user.email}</CardText>
-    </div>
+    </CardContent>
   </CardContainer>
 )
