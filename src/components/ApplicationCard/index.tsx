@@ -6,7 +6,7 @@ import appicon from './application.svg'
 import remove from './remove-icon.svg'
 
 export type ApplicationCardProps = {
-  id: string
+  id?: string
   name?: string
   repoUrl?: string
   onClick: () => void
@@ -74,7 +74,7 @@ const TextContainer = styled.div`
 `
 
 export const ApplicationCard: React.FC<ApplicationCardProps> = ({
-  application,
+  name,
   repoUrl,
   onClick,
   onClickRemoveIcon,
@@ -84,7 +84,7 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
     <div onClick={onClick}>
       <Card.Img src={appicon} alt="application" />
       <TextContainer>
-        <CardText bold>{application}</CardText>
+        <CardText bold>{name}</CardText>
         {repoUrl && <CardText>{repoUrl}</CardText>}
       </TextContainer>
     </div>
