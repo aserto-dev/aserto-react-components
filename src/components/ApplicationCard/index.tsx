@@ -6,7 +6,8 @@ import appicon from './application.svg'
 import remove from './remove-icon.svg'
 
 export type ApplicationCardProps = {
-  application: string
+  id: string
+  name?: string
   repoUrl?: string
   onClick: () => void
   onClickRemoveIcon?: () => void
