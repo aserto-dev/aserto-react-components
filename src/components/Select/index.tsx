@@ -16,7 +16,6 @@ export type SelectProps = {
   label?: string
   isLoading?: boolean
   value?: SelectOption | null
-  ref?: any
   style?: any
   disableLabel?: boolean
   name?: string
@@ -31,7 +30,6 @@ export const Select = React.forwardRef<any, SelectProps>(
       onChange,
       label,
       disabled,
-      ref,
       isLoading,
       style,
       value,
@@ -128,7 +126,7 @@ export const Select = React.forwardRef<any, SelectProps>(
           {...props}
           name={name}
           inputId={name}
-          ref={forRef || ref || null}
+          ref={forRef || null}
           isLoading={isLoading}
           isDisabled={disabled}
           options={options}
