@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import usericon from './user.svg'
+import { mapTestIdToProps } from '../../utils'
 
 interface User {
   display_name: string
@@ -14,6 +15,7 @@ export type UserCardProps = {
   user: User
   onClick: () => void
   disabled?: boolean
+  testId?: string
 }
 
 const CardContainer = styled.div<{ $disabled?: boolean }>`
@@ -60,8 +62,14 @@ const CardImageContainer = styled.div`
   }
 `
 
-export const UserCard: React.FC<UserCardProps> = ({ user, onClick, disabled, ...props }) => (
-  <CardContainer onClick={onClick} {...props} $disabled={disabled}>
+export const UserCard: React.FC<UserCardProps> = ({
+  user,
+  onClick,
+  disabled,
+  testId,
+  ...props
+}) => (
+  <CardContainer {...mapTestIdToProps(testId)} onClick={onClick} {...props} $disabled={disabled}>
     <CardImageContainer>
       <img src={user.picture || usericon} alt="picture" />
     </CardImageContainer>

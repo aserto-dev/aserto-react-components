@@ -19,6 +19,7 @@ export type SelectProps = {
   ref?: any
   style?: any
   disableLabel?: boolean
+  name?: string
 }
 
 // eslint-disable-next-line react/display-name
@@ -35,6 +36,7 @@ export const Select = React.forwardRef<any, SelectProps>(
       style,
       value,
       disableLabel,
+      name,
       ...props
     },
     forRef
@@ -117,9 +119,15 @@ export const Select = React.forwardRef<any, SelectProps>(
     }
     return (
       <div style={style}>
-        {label && <Label disabled={disableLabel}>{label}</Label>}
+        {label && (
+          <Label htmlFor={name} disabled={disableLabel}>
+            {label}
+          </Label>
+        )}
         <ReactSelect
           {...props}
+          name={name}
+          inputId={name}
           ref={forRef || ref || null}
           isLoading={isLoading}
           isDisabled={disabled}

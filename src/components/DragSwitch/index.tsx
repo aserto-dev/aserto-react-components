@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import './styles.css'
+import { mapTestIdToProps } from '../../utils'
 
 interface Props {
   className?: string
@@ -11,6 +12,7 @@ interface Props {
   focusShadow?: string
   disabled?: boolean
   [props: string]: any
+  testId?: string
 }
 
 export const DragSwitch = ({
@@ -22,6 +24,7 @@ export const DragSwitch = ({
   handleColor,
   focusShadow,
   disabled,
+  testId,
   ...labelProps
 }: Props) => {
   const switchRef = useRef<HTMLLabelElement>(null)
@@ -122,6 +125,7 @@ export const DragSwitch = ({
       className={`switch ${className || ''}`}
       ref={switchRef}
       onMouseDown={disabled ? undefined : startDrag}
+      {...mapTestIdToProps(testId)}
     >
       <div
         className={`switchBg ${checked ? 'isChecked' : ''}`}
@@ -131,6 +135,7 @@ export const DragSwitch = ({
       />
       <div
         id="dragswitch-handle"
+        {...mapTestIdToProps(`${testId}-handle`)}
         className={`switchHandle ${checked ? 'isChecked' : ''}`}
         style={{
           transform: `translateX(${Xpos}px)`,
@@ -161,7 +166,7 @@ export const DragSwitch = ({
           setOutline(false)
         }}
         disabled={disabled}
-        className="switchInput"
+        {...mapTestIdToProps(`${testId}-switch-input`)}
       />
     </label>
   )

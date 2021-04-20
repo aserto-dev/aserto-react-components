@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import { Button } from '../Button'
+import { mapTestIdToProps } from '../../utils'
 
 const PaginationButton = styled(Button).attrs(() => ({
   variant: 'secondary',
@@ -56,6 +57,7 @@ export type PaginationProps = {
   showFirstAndLastButtons?: boolean
   disabledNext?: boolean
   disabledPrev?: boolean
+  testId?: string
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -71,17 +73,23 @@ export const Pagination: React.FC<PaginationProps> = ({
   showFirstAndLastButtons,
   disabledNext,
   disabledPrev,
+  testId,
 }) => {
   const pages = Array.from({ length: endPage - startPage }, (x, i) => i + startPage)
   return (
     <PaginationContainer>
       {showFirstAndLastButtons && (
-        <PaginationButton $first onClick={onClickFirst}>
+        <PaginationButton
+          {...mapTestIdToProps(`${testId}-first-btn`)}
+          $first
+          onClick={onClickFirst}
+        >
           First
         </PaginationButton>
       )}
       {showPrevNextButtons && (
         <PaginationButton
+          {...mapTestIdToProps(`${testId}-prev-btn`)}
           $first={!showFirstAndLastButtons}
           onClick={onClickPrev}
           disabled={disabledPrev}
@@ -93,6 +101,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         return (
           <PaginationButton
             key={page}
+            {...mapTestIdToProps(`${testId}-${page}-btn`)}
             $active={page === currentPage}
             onClick={() => onChangePage(page)}
           >
@@ -105,12 +114,13 @@ export const Pagination: React.FC<PaginationProps> = ({
           $last={!showFirstAndLastButtons}
           disabled={disabledNext}
           onClick={onClickNext}
+          {...mapTestIdToProps(`${testId}-next-btn`)}
         >
           {showFirstAndLastButtons ? '»' : 'Next'}
         </PaginationButton>
       )}
       {showFirstAndLastButtons && (
-        <PaginationButton $last onClick={onClickLast}>
+        <PaginationButton {...mapTestIdToProps(`${testId}-last-btn`)} $last onClick={onClickLast}>
           Last
         </PaginationButton>
       )}

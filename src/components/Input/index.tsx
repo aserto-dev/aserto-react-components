@@ -6,6 +6,7 @@ import valid from './valid.svg'
 import invalid from './invalid.svg'
 import unavaliable from './unavailable.svg'
 import { Label } from '../Label'
+import { mapTestIdToProps } from '../../utils'
 
 export type InputProps = {
   placeholder?: string
@@ -96,6 +97,7 @@ export const Input = React.forwardRef<any, InputProps>(
     ref
   ) => {
     const shouldDisplayInfo = !error && info
+    const testId = props['data-testid']
     return (
       <InputContainer>
         {label && <Label $small={hasSmallLabel}>{label}</Label>}
@@ -111,8 +113,8 @@ export const Input = React.forwardRef<any, InputProps>(
           style={style}
           {...props}
         />
-        {shouldDisplayInfo && <Info>{info}</Info>}
-        {error && <Error>{error}</Error>}
+        {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
+        {error && <Error {...mapTestIdToProps(`${testId}-error`)}>{error}</Error>}
       </InputContainer>
     )
   }

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 
-export const Label = styled.div<{ disabled?: boolean; $small?: boolean }>`
+export const Label = styled.label<{ disabled?: boolean; $small?: boolean }>`
   ${({ $small }) => {
     return $small
       ? css`

@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { theme } from '../../theme'
 import appicon from './application.svg'
 import remove from './remove-icon.svg'
+import { Button } from '../Button'
+import { mapTestIdToProps } from '../../utils'
 
 export type ApplicationCardProps = {
   id?: string
@@ -11,6 +13,7 @@ export type ApplicationCardProps = {
   repoUrl?: string
   onClick: () => void
   onClickRemoveIcon?: () => void
+  testId?: string
 }
 const Icon = styled.img`
   display: none;
@@ -78,16 +81,24 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   repoUrl,
   onClick,
   onClickRemoveIcon,
+  testId,
   ...props
 }) => (
-  <ApplicationCardContainer {...props}>
-    <div onClick={onClick}>
+  <ApplicationCardContainer {...mapTestIdToProps(testId)} {...props}>
+    <div onClick={onClick} {...mapTestIdToProps(`${testId}-content`)}>
       <Card.Img src={appicon} alt="application" />
       <TextContainer>
         <CardText bold>{name}</CardText>
         {repoUrl && <CardText>{repoUrl}</CardText>}
       </TextContainer>
     </div>
-    {onClickRemoveIcon && <Icon onClick={onClickRemoveIcon} src={remove} alt="remove" />}
+    {onClickRemoveIcon && (
+      <Icon
+        {...mapTestIdToProps(`${testId}-remove-btn`)}
+        onClick={onClickRemoveIcon}
+        src={remove}
+        alt="remove"
+      />
+    )}
   </ApplicationCardContainer>
 )
