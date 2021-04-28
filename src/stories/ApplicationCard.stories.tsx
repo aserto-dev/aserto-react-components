@@ -11,11 +11,18 @@ const Template: Story<ApplicationCardProps> = (args) => <ApplicationCard {...arg
 
 export const Primary = Template.bind({})
 Primary.args = {
-  application: 'proplefinder',
+  name: 'proplefinder',
 }
 
 export const PrimaryWithRepoUrl = Template.bind({})
 PrimaryWithRepoUrl.args = {
-  application: 'proplefinder',
+  name: 'proplefinder',
   repoUrl: 'https://github.com/aserto-demo/peoplefinder',
+}
+
+export const PrimaryWithRepoUrlDisabled = Template.bind({})
+PrimaryWithRepoUrlDisabled.args = {
+  name: 'proplefinder',
+  repoUrl: 'https://github.com/aserto-demo/peoplefinder',
+  disabled: true,
 }

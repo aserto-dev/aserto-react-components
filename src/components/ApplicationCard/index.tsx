@@ -1,10 +1,8 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import appicon from './application.svg'
 import remove from './remove-icon.svg'
-import { Button } from '../Button'
 import { mapTestIdToProps } from '../../utils'
 
 export type ApplicationCardProps = {
@@ -14,6 +12,7 @@ export type ApplicationCardProps = {
   onClick: () => void
   onClickRemoveIcon?: () => void
   testId?: string
+  disabled?: boolean
 }
 const Icon = styled.img`
   display: none;
@@ -21,7 +20,15 @@ const Icon = styled.img`
   top: 10px;
   right: 10px;
 `
-const ApplicationCardContainer = styled(Card)`
+
+const CardContent = styled.div`
+  width: 100%;
+`
+
+const CardImg = styled.img``
+
+const ApplicationCardContainer = styled.div<{ disabled?: boolean }>`
+  padding: 10px;
   position: relative;
   min-width: 428px;
   max-width: 428px;
@@ -32,6 +39,18 @@ const ApplicationCardContainer = styled(Card)`
   display: flex;
   justify-content: center;
   background-size: cover;
+  ${({ disabled }) => {
+    return disabled
+      ? css`
+          pointer-events: none;
+          background-color: ${theme.grey10};
+          color: ${theme.grey40};
+          ${CardImg} {
+            opacity: 0.4;
+          }
+        `
+      : ''
+  }}
   &:hover {
     background-color: ${theme.grey30};
     background-size: cover;
@@ -44,14 +63,14 @@ const ApplicationCardContainer = styled(Card)`
     display: flex;
     align-items: center;
   }
-  .card-img {
-    margin: 10px;
+  ${CardImg} {
+    margin-right: 10px;
     width: 82px;
   }
   @media (max-width: 500px) {
     min-width: 100%;
     height: 91px;
-    .card-img {
+    ${CardImg} {
       width: 56px;
     }
     ${Icon} {
@@ -82,16 +101,17 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   onClick,
   onClickRemoveIcon,
   testId,
+  disabled,
   ...props
 }) => (
-  <ApplicationCardContainer {...mapTestIdToProps(testId)} {...props}>
-    <div onClick={onClick} {...mapTestIdToProps(`${testId}-content`)}>
-      <Card.Img src={appicon} alt="application" />
+  <ApplicationCardContainer {...mapTestIdToProps(testId)} {...props} disabled={disabled}>
+    <CardContent onClick={onClick} {...mapTestIdToProps(`${testId}-content`)}>
+      <CardImg src={appicon} alt="application" />
       <TextContainer>
         <CardText bold>{name}</CardText>
         {repoUrl && <CardText>{repoUrl}</CardText>}
       </TextContainer>
-    </div>
+    </CardContent>
     {onClickRemoveIcon && (
       <Icon
         {...mapTestIdToProps(`${testId}-remove-btn`)}
