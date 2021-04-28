@@ -82,6 +82,7 @@ const ApplicationCardContainer = styled.div<{ disabled?: boolean }>`
 const CardText = styled.div<{ bold?: boolean }>`
   font-size: 14px;
   max-width: 290px;
+  word-wrap: break-word;
   @media (max-width: 500px) {
     max-width: 210px;
   }
