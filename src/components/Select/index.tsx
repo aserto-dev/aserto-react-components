@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactSelect from 'react-select'
+import React, { useCallback } from 'react'
+import ReactSelect, { components } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
@@ -20,6 +20,21 @@ export type SelectProps = {
   disableLabel?: boolean
   name?: string
 }
+
+const groupStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 0,
+  marginTop: -8,
+  marginBottom: -3,
+  marginLeft: -11,
+  marginRight: -11,
+  height: 1,
+  backgroundColor: theme.grey,
+}
+
+const formatGroupLabel = () => <div style={groupStyles} />
 
 export const Select = React.forwardRef<any, SelectProps>(
   (
@@ -43,6 +58,24 @@ export const Select = React.forwardRef<any, SelectProps>(
       webkitBoxShadow: 'none',
       boxShadow: 'none',
     }
+
+    const Option = useCallback((props) => {
+      return (
+        <div>
+          <components.Option
+            {...props}
+            innerProps={{
+              ...props.innerProps,
+              onMouseDown: (e) => {
+                if (props.data.shouldStopPropagation) {
+                  e.stopPropagation()
+                }
+              },
+            }}
+          />
+        </div>
+      )
+    }, [])
 
     const colourStyles = {
       control: (styles, { isDisabled, isFocused }) => {
@@ -133,6 +166,8 @@ export const Select = React.forwardRef<any, SelectProps>(
           defaultValue={defaultValue}
           onChange={onChange}
           styles={colourStyles}
+          formatGroupLabel={formatGroupLabel}
+          components={{ Option }}
         />
       </div>
     )

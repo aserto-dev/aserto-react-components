@@ -24,9 +24,40 @@ const identityOptions = [
   },
 ]
 
+const groupedOptions = [
+  ...identityOptions,
+  {
+    options: [
+      {
+        label: "I'm another group!",
+        value: 'xota',
+        shouldStopPropagation: true,
+      },
+    ],
+  },
+]
+
 export const Primary = Template.bind({})
 Primary.args = {
   options: identityOptions,
+}
+
+export const PrimaryGrouped = Template.bind({})
+PrimaryGrouped.args = {
+  options: groupedOptions,
+  value: 'option1',
+  innerProps: {
+    onMouseDown: (e) => {
+      console.log(1, e)
+      e.stopPropagation()
+    },
+  },
+
+  // onChange: (e,) => {
+  //   if (e.value === 'option1') {
+  //     console.log(e.preventDefault())
+  //   }
+  // },
 }
 
 export const PrimaryWithLabel = Template.bind({})
