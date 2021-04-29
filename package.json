@@ -34,7 +34,7 @@
     "react-dom": "^16.14.0"
   },
   "devDependencies": {
-    "@aserto/ts-linting-configs": "^1.0.2",
+    "@aserto/ts-linting-configs": "^1.0.4",
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.8",
     "@babel/plugin-proposal-class-properties": "^7.12.13",

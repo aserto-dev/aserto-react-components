@@ -24,7 +24,7 @@
   dependencies:
     tunnel "0.0.6"
 
-"@aserto/ts-linting-configs@^1.0.2":
+"@aserto/ts-linting-configs@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@aserto/ts-linting-configs/-/ts-linting-configs-1.0.4.tgz#1482a2d44dadac4fef1454e68e2246549d91d940"
   integrity sha512-UVOOaXb+buz1zIVr0iIYEV5rhiQRZWrA65nOsyfH2MUMHELfXanCeNn8P6O0S17R3ijreuq1K+mcZyUmHGdLjQ==

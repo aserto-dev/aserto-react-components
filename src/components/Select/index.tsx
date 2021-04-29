@@ -21,7 +21,6 @@ export type SelectProps = {
   name?: string
 }
 
-// eslint-disable-next-line react/display-name
 export const Select = React.forwardRef<any, SelectProps>(
   (
     {
@@ -74,6 +73,7 @@ export const Select = React.forwardRef<any, SelectProps>(
             : isSelected
             ? theme.grey20
             : theme.grey20,
+          borderLeft: isSelected ? `5px solid ${theme.lochivarAccent3}` : '',
           color: isFocused ? theme.grey100 : theme.grey70,
           height: 36,
           fontSize: 14,
