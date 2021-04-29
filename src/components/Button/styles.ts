@@ -1,13 +1,25 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Button as BootstrapButton } from 'react-bootstrap'
 import { theme } from '../../theme'
 
-const BaseButton = styled(BootstrapButton)`
+const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
   border: none;
   border-radius: 4px;
   font-size: 14px;
   height: 36px;
   text-align: center;
+  ${({ size }) => {
+    if (size === 'sm') {
+      return css`
+        height: 36px;
+      `
+    } else if (size === 'lg') {
+      return css`
+        height: 48px;
+        font-size: 1.25rem;
+      `
+    }
+  }}
   &:disabled {
     background-color: ${theme.grey40};
   }

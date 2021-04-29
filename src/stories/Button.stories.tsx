@@ -15,6 +15,13 @@ Primary.args = {
   children: 'Button',
 }
 
+export const PrimaryWithSizeLarge = Template.bind({})
+PrimaryWithSizeLarge.args = {
+  variant: 'primary',
+  children: 'Button',
+  size: 'lg',
+}
+
 export const PrimaryDisabled = Template.bind({})
 PrimaryDisabled.args = {
   variant: 'primary',
