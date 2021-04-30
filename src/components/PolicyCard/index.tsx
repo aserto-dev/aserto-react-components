@@ -7,8 +7,9 @@ import policyErrorIcon from './policy-error.svg'
 import remove from './remove-icon.svg'
 // @ts-ignore
 import loadingSpinner from './loading.gif'
-import Tooltip, { TooltipPrimitive } from '@atlaskit/tooltip'
+import Tooltip from '@atlaskit/tooltip'
 import { mapTestIdToProps } from '../../utils'
+import { TooltipDialog } from '../TooltipDialog'
 
 export type PolicyCardProps = {
   id?: string
@@ -21,16 +22,6 @@ export type PolicyCardProps = {
   policyIconVariant?: 'pending' | 'error' | 'loaded'
   errors?: Array<string>
 }
-
-const InlineDialog = styled(TooltipPrimitive)`
-  background: ${theme.grey20};
-  font-size: 14px;
-  color: ${theme.grey100};
-  border-radius: 6px;
-  box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
-  max-width: 300px;
-  padding: 8px;
-`
 
 const Icon = styled.img`
   display: none;
@@ -126,6 +117,7 @@ const ErrorMessage = styled.div`
   left: 34px;
   top: 41px;
   pointer-events: auto;
+  border-bottom: 1px dotted;
   cursor: default;
   color: ${theme.grey100};
 `
@@ -134,8 +126,6 @@ const WorkingSpinnerContainer = styled.div`
   position: absolute;
   left: 24px;
   top: 36px;
-  pointer-events: auto;
-  cursor: default;
   color: ${theme.grey100};
   font-size: 12px;
   font-weight: 600;
@@ -174,20 +164,26 @@ export const PolicyCard: React.FC<PolicyCardProps> = ({
     )
   }
 
+  const onClickContent = () => {
+    if (policyIconVariant === 'loaded') {
+      onClick()
+    }
+  }
+
   const shouldDisplayPolicyErrorOverlay = errors?.length > 0 && policyIconVariant === 'error'
 
   return (
     <PolicyCardContainer {...mapTestIdToProps(testId)} {...props} disabled={disabled}>
-      <CardContent onClick={onClick} {...mapTestIdToProps(`${testId}-content`)}>
+      <CardContent onClick={onClickContent} {...mapTestIdToProps(`${testId}-content`)}>
         <CardImg src={getAppIconBasedOnIconVariant()} alt="application" />
         {shouldDisplayPolicyErrorOverlay && (
-          <Tooltip component={InlineDialog} content={formatErrorsToDisplay}>
+          <Tooltip component={TooltipDialog} position="top" content={formatErrorsToDisplay}>
             <ErrorMessage>Error</ErrorMessage>
           </Tooltip>
         )}
         {policyIconVariant === 'pending' && (
           <WorkingSpinnerContainer>
-            <img src={loadingSpinner} />
+            <img src={loadingSpinner} alt="working-spinner" />
             <div> Working... </div>
           </WorkingSpinnerContainer>
         )}
