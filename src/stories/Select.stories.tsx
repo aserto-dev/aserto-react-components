@@ -30,7 +30,7 @@ const groupedOptions = [
     options: [
       {
         label: "I'm another group!",
-        value: 'xota',
+        value: 'x',
         shouldStopPropagation: true,
       },
     ],
@@ -46,18 +46,6 @@ export const PrimaryGrouped = Template.bind({})
 PrimaryGrouped.args = {
   options: groupedOptions,
   value: 'option1',
-  innerProps: {
-    onMouseDown: (e) => {
-      console.log(1, e)
-      e.stopPropagation()
-    },
-  },
-
-  // onChange: (e,) => {
-  //   if (e.value === 'option1') {
-  //     console.log(e.preventDefault())
-  //   }
-  // },
 }
 
 export const PrimaryWithLabel = Template.bind({})
