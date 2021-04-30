@@ -40,6 +40,71 @@
     prettier "^2.2.1"
     typescript "^4.2.2"
 
+"@atlaskit/analytics-next-stable-react-context@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@atlaskit/analytics-next-stable-react-context/-/analytics-next-stable-react-context-1.0.1.tgz#93c4c7a1a35f4ab606d727af443f49f0842fd96f"
+  integrity sha512-iO6+hIp09dF4iAZQarVz3vKY1kM5Ij5CExYcK9jgc2q+OH8nv8n+BPFeJTdzGOGopmbUZn5Opj9pYQvge1Gr4Q==
+  dependencies:
+    tslib "^2.0.0"
+
+"@atlaskit/analytics-next@^8.1.0":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@atlaskit/analytics-next/-/analytics-next-8.1.2.tgz#4b09bcd1c178804fa6a47401e055ca0a5655d50a"
+  integrity sha512-SgHYeLu1KnCBfqc0d8QbtwNQCWePGBopQv+wDP2jBQ5nKKcnTVhREuiwkdmqiUe5cG2iqJdUiJ52r0UDhpizOA==
+  dependencies:
+    "@atlaskit/analytics-next-stable-react-context" "1.0.1"
+    "@babel/runtime" "^7.0.0"
+    prop-types "^15.5.10"
+    use-memo-one "^1.1.1"
+
+"@atlaskit/motion@^0.4.0":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@atlaskit/motion/-/motion-0.4.7.tgz#379c748502bbd9f4d6b53df62df6b15496e2d176"
+  integrity sha512-FOlmA9g6vAXYVnDIsRVUGBtdEOpTG92wDfCkAJZZASd+oNul9CZd+wVocxz+QapGSZUrARv0iicUQr3GE6BdEw==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+
+"@atlaskit/popper@^5.0.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/popper/-/popper-5.1.0.tgz#2854c7aab83a9584fefd038ea8dd126449e07457"
+  integrity sha512-gYaZEqBDSNwdz1kkU9kG7GOQ30GKamzfC6sx2qbU27DJtyBsUJSO/3OuYOGrFY/M9zzXPhdpMRM3/Ypox6udJQ==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@popperjs/core" "^2.9.1"
+    react-popper "^2.2.3"
+
+"@atlaskit/portal@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/portal/-/portal-4.1.0.tgz#52a3d5388cc7a98080ab82acadfcea7cdd84c867"
+  integrity sha512-c1ber3tomzOoDabuzByjlPiTRQnNQeD9dtzUqYTZVXxzZmNw2ikGgWjA94VLTAYKW9kmlXwQCy8Yq5av6APrRw==
+  dependencies:
+    "@atlaskit/theme" "^11.0.0"
+    "@babel/runtime" "^7.0.0"
+
+"@atlaskit/theme@^11.0.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/theme/-/theme-11.1.0.tgz#bc7f655299e7a60b927e49e493b9f86c72342185"
+  integrity sha512-S/Pk22OCB5DgbJ5tB68EmegKAXiIrS+49GGw7dJ29POqwd6J6XNlT6iPWE1lm5QpUzmmXdbu5gsmLfyS9O7djA==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    exenv "^1.2.2"
+    prop-types "^15.5.10"
+
+"@atlaskit/tooltip@^17.2.0":
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/tooltip/-/tooltip-17.2.0.tgz#5996b0849530d7636a40ecfed4efff8666665aba"
+  integrity sha512-yJcKCkys/mU46aY7YHOgJMqa/SYbL+zWD1+YjTMOa7UdDFRUV+i8+gEUfBjYEJ6yybFX8bGLB+ghrkNvBO0aeA==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.1.0"
+    "@atlaskit/motion" "^0.4.0"
+    "@atlaskit/popper" "^5.0.0"
+    "@atlaskit/portal" "^4.1.0"
+    "@atlaskit/theme" "^11.0.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+    bind-event-listener "^1.0.2"
+
 "@babel/cli@^7.13.0":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.13.0.tgz#48e77614e897615ca299bece587b68a70723ff4c"
@@ -1493,7 +1558,7 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
 
-"@emotion/core@^10.1.1":
+"@emotion/core@^10.0.9", "@emotion/core@^10.1.1":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.1.1.tgz#c956c1365f2f2481960064bcb8c4732e5fb612c3"
   integrity sha512-ZMLG6qpXR8x031NXD8HJqugy/AZSkAuMxxqB46pmAR7ze47MhNJ56cdoX243QPZdGctrdfo+s08yZTiwaUcRKA==
@@ -2073,6 +2138,11 @@
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.0.tgz#32e63212293dd3efbb521cd35a5020ab66eaa546"
   integrity sha512-wjtKehFAIARq2OxK8j3JrggNlEslJfNuSm2ArteIbKyRMts2g0a7KzTxfRVNUM+O0gnBJ2hNV8nWPOYBgI1sew==
+
+"@popperjs/core@^2.9.1":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
+  integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
 
 "@quickbaseoss/babel-plugin-styled-components-css-namespace@^1.0.1":
   version "1.0.1"
@@ -4631,6 +4701,11 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
+
+bind-event-listener@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bind-event-listener/-/bind-event-listener-1.0.2.tgz#3af1ab15f64aff0b95ba38e0e9d7d2c78b85dc0b"
+  integrity sha512-50S1ecl2UzqyHabspfZkZ0zp+V92ueggSm5BUFYGCHq9cD48a6bDqZeEykSWF4yFEbWDIOkl1Ly7igta9l3E7Q==
 
 bindings@^1.5.0:
   version "1.5.0"
@@ -7235,6 +7310,11 @@ execa@^5.0.0:
     onetime "^5.1.2"
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
+
+exenv@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
 
 exit@^0.1.2:
   version "0.1.2"
@@ -13272,6 +13352,14 @@ react-popper-tooltip@^3.1.1:
     "@popperjs/core" "^2.5.4"
     react-popper "^2.2.4"
 
+react-popper@^2.2.3:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.5.tgz#1214ef3cec86330a171671a4fbcbeeb65ee58e96"
+  integrity sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw==
+  dependencies:
+    react-fast-compare "^3.0.1"
+    warning "^4.0.2"
+
 react-popper@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.4.tgz#d2ad3d2474ac9f1abf93df3099d408e5aa6a2e22"
@@ -15949,6 +16037,11 @@ use-latest@^1.0.0:
   integrity sha512-d2TEuG6nSLKQLAfW3By8mKr8HurOlTkul0sOpxbClIv4SQ4iOd7BYr7VIzdbktUCnv7dua/60xzd8igMU6jmyw==
   dependencies:
     use-isomorphic-layout-effect "^1.0.0"
+
+use-memo-one@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.2.tgz#0c8203a329f76e040047a35a1197defe342fab20"
+  integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
 
 use@^3.1.0:
   version "3.1.1"
