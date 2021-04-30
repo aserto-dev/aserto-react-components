@@ -5,7 +5,7 @@ import 'font-awesome/css/font-awesome.min.css'
 // import local styles after default styles so they take precedence
 import './index.css'
 
-import { ApplicationCard } from './components/PolicyCard'
+import { PolicyCard } from './components/PolicyCard'
 import { Breadcrumb } from './components/Breadcrumb'
 import { Button } from './components/Button'
 import { Divider } from './components/Divider'
@@ -32,7 +32,7 @@ import { DataTable } from './components/DataTable'
 import { MembersTable } from './components/MembersTable'
 
 export {
-  ApplicationCard,
+  PolicyCard,
   Breadcrumb,
   Button,
   Divider,
