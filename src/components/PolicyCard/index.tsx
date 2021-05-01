@@ -120,6 +120,10 @@ const ErrorMessage = styled.div`
   border-bottom: 1px dotted;
   cursor: default;
   color: ${theme.grey100};
+  @media (max-width: 500px) {
+    left: 20px;
+    top: 36px;
+  }
 `
 
 const WorkingSpinnerContainer = styled.div`
@@ -132,6 +136,16 @@ const WorkingSpinnerContainer = styled.div`
   img {
     width: 55px;
     margin-bottom: 4px;
+  }
+  @media (max-width: 500px) {
+    left: 16px;
+    top: 35px;
+    img {
+      width: 45px;
+    }
+    div {
+      display: none;
+    }
   }
 `
 
