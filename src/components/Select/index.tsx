@@ -6,6 +6,7 @@ import { Label } from '../Label'
 export type SelectOption = {
   value: string | number
   label: string
+  shouldStopPropagation?: string
 }
 
 export type SelectProps = {
