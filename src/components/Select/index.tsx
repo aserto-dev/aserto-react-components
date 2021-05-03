@@ -136,7 +136,12 @@ export const Select = React.forwardRef<any, SelectProps>(
         color: isDisabled ? theme.grey40 : theme.grey100,
         ...removeFocusBox,
       }),
-      menu: (styles) => ({ ...styles, backgroundColor: theme.primaryBlack, zIndex: 6 }),
+      menu: (styles) => ({
+        ...styles,
+        backgroundColor: 'transparent',
+        zIndex: 6,
+        marginTop: -5,
+      }),
       dropdownIndicator: (styles, { isDisabled }) => ({
         ...styles,
         color: isDisabled ? theme.grey40 : theme.grey70,

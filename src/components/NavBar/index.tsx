@@ -7,6 +7,7 @@ import { mapTestIdToProps } from '../../utils'
 
 export type NavBarProps = {
   children: React.ReactElement
+  uncollapsableContent?: React.ReactElement | string
   showBrandSeparator?: boolean
   topPosition?: number
   expand?: 'sm' | 'md' | 'lg' | 'xl'
@@ -26,6 +27,7 @@ export const NavBar: React.FC<NavBarProps> = ({
   expand,
   expandBreakpoint,
   testId,
+  uncollapsableContent,
   ...props
 }) => {
   return (
@@ -46,6 +48,7 @@ export const NavBar: React.FC<NavBarProps> = ({
             alt="logo"
           />
         </NavBarBrand>
+        {uncollapsableContent && <Navbar.Text>{uncollapsableContent}</Navbar.Text>}
         {showBrandSeparator && (
           <Separator
             $hideBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}

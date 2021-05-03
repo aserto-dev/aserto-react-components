@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import dots from './dots.svg'
 import { Button } from '../Button'
 import { theme } from '../../theme'
+import { useMemo } from 'react'
 
 export const getStatusStyle = (status: string) => {
   const obj = {
@@ -56,87 +57,70 @@ const DotsButton = styled(Button)`
   width: 40px;
 `
 
-const data = [
-  {
-    image: 'https://i.pinimg.com/564x/e2/39/42/e239424e363082347f69d4d35b9b680e.jpg',
-    name: 'Gert Drapers',
-    email: 'gert@acmcorp.net',
-    role: 'Admin',
-    status: 'ACTIVE',
-  },
-  {
-    image: 'https://i.pinimg.com/564x/e2/39/42/e239424e363082347f69d4d35b9b680e.jpg',
-    name: 'Gert Drapers2',
-    email: 'gert@acmcorp.net',
-    role: 'Admin',
-    status: 'PENDING',
-  },
-  {
-    image: 'https://i.pinimg.com/564x/e2/39/42/e239424e363082347f69d4d35b9b680e.jpg',
-    name: 'Gert Drapers3',
-    email: 'gert@acmcorp.net',
-    role: 'View',
-    status: 'EXPIRED',
-  },
-]
-
-const columns = [
-  {
-    Header: 'Member',
-    accessor: 'name',
-    style: {
-      cellWidth: '50%',
-    },
-    Cell: ({ row }) => {
-      return (
-        <CellWithImage>
-          <img src={row.original.image} alt="profile-image" />
-          <div>
-            <BoldText>{row.original.name}</BoldText>
-            <div>{row.original.email}</div>
-          </div>
-        </CellWithImage>
-      )
-    },
-  },
-  {
-    Header: 'Role',
-    accessor: 'role',
-    style: {
-      cellWidth: '8%',
-    },
-  },
-  {
-    Header: 'Status',
-    accessor: 'status',
-    style: {
-      cellWidth: '10%',
-    },
-    Cell: ({ value }) => {
-      const statusStyle = getStatusStyle(value)
-      return <StatusText color={statusStyle.color}>{statusStyle.text}</StatusText>
-    },
-  },
-  {
-    Header: () => {
-      return <TopRightButton>Invite members...</TopRightButton>
-    },
-    accessor: 'id',
-    style: {
-      headerCell: {
-        minWidth: 155,
+export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Member',
+        accessor: 'name',
+        style: {
+          cellWidth: '50%',
+        },
+        Cell: ({ row }) => {
+          return (
+            <CellWithImage>
+              <img src={row.original.image} alt="profile-image" />
+              <div>
+                <BoldText>{row.original.name}</BoldText>
+                <div>{row.original.email}</div>
+              </div>
+            </CellWithImage>
+          )
+        },
       },
-    },
-    Cell: () => {
-      return (
-        <DotsButton variant="secondary-borderless">
-          <img src={dots} alt="see-more" />
-        </DotsButton>
-      )
-    },
-  },
-]
+      {
+        Header: 'Role',
+        accessor: 'role',
+        style: {
+          cellWidth: '8%',
+        },
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        style: {
+          cellWidth: '10%',
+        },
+        Cell: ({ value }) => {
+          const statusStyle = getStatusStyle(value)
+          return <StatusText color={statusStyle.color}>{statusStyle.text}</StatusText>
+        },
+      },
+      {
+        Header: () => {
+          return <TopRightButton onClick={onClickInvite}>Invite members...</TopRightButton>
+        },
+        accessor: 'id',
+        style: {
+          headerCell: {
+            minWidth: 155,
+          },
+        },
+        disableSortBy: true,
+        Cell: (data) => {
+          return (
+            <DotsButton
+              onClick={() => onClickDots(data.row.original)}
+              variant="secondary-borderless"
+            >
+              <img src={dots} alt="see-more" />
+            </DotsButton>
+          )
+        },
+      },
+    ],
+    [data, onClickInvite]
+  )
 
-export const MembersTable = () => {
   return <DataTable data={data} columns={columns} />
 }

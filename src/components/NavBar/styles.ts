@@ -120,6 +120,9 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
       display: flex;
       align-items: center;
     }
+    .navbar-text {
+      flex: 1;
+    }
 
     .nav-item {
       margin-bottom: 1rem;

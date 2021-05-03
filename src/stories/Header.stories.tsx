@@ -3,14 +3,41 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import { NavBar, NavBarProps } from '../components/NavBar'
 import { Nav } from 'react-bootstrap'
 import { NavLink as RouterNavLink } from 'react-router-dom'
+import styled from 'styled-components'
+import { Select } from '../components/Select'
 
 export default {
   title: 'Common/NavBar',
   component: NavBar,
 } as Meta
 
-// @ts-ignore
+const TenantInputContainer = styled.div`
+  width: 260px;
+  display: flex;
+  align-items: center;
+  img {
+    margin: auto 30px;
+  }
+  @media (min-width: 1200px) {
+    margin-bottom: 15px;
+    margin-right: 20px;
+  }
+`
+
 const Template: Story<NavBarProps> = (args) => <NavBar {...args} />
+const options = [
+  { value: 'tenant', label: 'tenant' },
+  {
+    options: [
+      {
+        label: 'Manage tenant',
+        value: 'manage-tenant',
+        shouldStopPropagation: true,
+        onClick: () => console.log(2),
+      },
+    ],
+  },
+]
 
 export const Primary = Template.bind({})
 Primary.args = {
@@ -46,6 +73,19 @@ Primary.args = {
         </Nav.Link>
       </Nav.Item>
     </Nav>
+  ),
+  uncollapsableContent: (
+    <TenantInputContainer>
+      <Select
+        style={{
+          width: '100%',
+          height: 35,
+        }}
+        // @ts-ignore
+        options={options}
+        onChange={console.log}
+      />
+    </TenantInputContainer>
   ),
 }
 
