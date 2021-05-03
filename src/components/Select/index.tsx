@@ -7,6 +7,7 @@ export type SelectOption = {
   value: string | number
   label: string
   shouldStopPropagation?: string
+  onClick?: () => void
 }
 
 export type SelectProps = {
@@ -70,6 +71,7 @@ export const Select = React.forwardRef<any, SelectProps>(
               onMouseDown: (e) => {
                 if (props.data.shouldStopPropagation) {
                   e.stopPropagation()
+                  props.data?.onClick()
                 }
               },
             }}

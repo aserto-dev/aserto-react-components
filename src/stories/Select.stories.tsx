@@ -32,6 +32,7 @@ const groupedOptions = [
         label: "I'm another group!",
         value: 'x',
         shouldStopPropagation: true,
+        onClick: () => console.log('clicked'),
       },
     ],
   },
