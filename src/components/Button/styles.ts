@@ -8,6 +8,8 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
   font-size: 14px;
   height: 36px;
   text-align: center;
+  font-weight: 500;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
   ${({ size }) => {
     if (size === 'sm') {
       return css`
@@ -26,30 +28,31 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
 `
 
 export const PrimaryButton = styled(BaseButton)`
-  background-color: ${theme.lochivarAccent1};
+  background-color: ${theme.lochivar80};
   color: ${theme.fullWhite};
   &:hover,
   &:visited,
   &:focus {
-    background-color: ${theme.lochivarAccent2};
+    background-color: ${theme.lochivar90};
     box-shadow: none !important;
   }
   &:active {
-    background-color: ${theme.lochivarAccent3} !important;
+    background-color: ${theme.primary} !important;
   }
   &:disabled {
     background-color: ${theme.lochivar30};
+    color: ${theme.grey50};
   }
 `
 
 export const SecondaryButton = styled(BaseButton)`
   color: ${theme.grey100};
   background-color: ${theme.grey20};
-  border: 1px solid ${theme.grey};
+  border: 1px solid ${theme.grey30};
   &:hover,
   &:visited,
   &:focus {
-    border: 1px solid ${theme.grey} !important;
+    border: 1px solid ${theme.grey40} !important;
     outline: none;
     box-shadow: none !important;
     background-color: ${theme.grey30};
@@ -60,7 +63,7 @@ export const SecondaryButton = styled(BaseButton)`
     color: ${theme.grey40};
   }
   &:active {
-    border: 1px solid ${theme.grey20} !important;
+    border: 1px solid ${theme.grey40} !important;
     background-color: ${theme.grey40} !important;
   }
 `
