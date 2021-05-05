@@ -30,6 +30,7 @@ import { SwitchButton } from './components/SwitchButton'
 import { ActionableInput } from './components/ActionableInput'
 import { DataTable } from './components/DataTable'
 import { MembersTable } from './components/MembersTable'
+import { DirectoryBrowserGrid } from './components/DirectoryBrowserGrid'
 
 export {
   PolicyCard,
@@ -56,5 +57,6 @@ export {
   DataTable,
   MembersTable,
   ActionableInput,
+  DirectoryBrowserGrid,
   theme,
 }
