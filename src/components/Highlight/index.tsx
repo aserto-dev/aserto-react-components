@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import Prism from 'prismjs'
 import styled, { css } from 'styled-components'
 
@@ -8,7 +8,7 @@ const Code = styled.div`
     pre[class*='language-'] {
       color: #e7e7e7;
       background: none;
-      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-family: 'Ubuntu Mono', monospace;
       text-align: left;
       white-space: pre;
       word-spacing: normal;
@@ -28,10 +28,9 @@ const Code = styled.div`
 
     /* Code blocks */
     pre[class*='language-'] {
-      padding: 1em;
-      margin: 0.5em 0;
       overflow: auto;
       border-radius: 0.3em;
+      font-size: 14px;
     }
 
     /* Inline code */
@@ -164,7 +163,7 @@ export const Highlight = ({ children }) => {
   return (
     <Code>
       <pre>
-        <code className={`language-rego`}>{children}</code>
+        <code className="language-javascript">{children}</code>
       </pre>
     </Code>
   )
