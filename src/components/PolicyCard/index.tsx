@@ -179,7 +179,7 @@ export const PolicyCard: React.FC<PolicyCardProps> = ({
   }
 
   const onClickContent = () => {
-    if (policyIconVariant === 'loaded') {
+    if (!disabled) {
       onClick()
     }
   }
