@@ -198,7 +198,7 @@ export const PolicyCard: React.FC<PolicyCardProps> = ({
         {policyIconVariant === 'pending' && (
           <WorkingSpinnerContainer>
             <img src={loadingSpinner} alt="working-spinner" />
-            <div> Working... </div>
+            <div> Pending... </div>
           </WorkingSpinnerContainer>
         )}
         <TextContainer>

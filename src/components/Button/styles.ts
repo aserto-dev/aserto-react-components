@@ -28,7 +28,7 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
 `
 
 export const PrimaryButton = styled(BaseButton)`
-  background-color: ${theme.lochivar80};
+  background-color: ${theme.lochivar60};
   color: ${theme.fullWhite};
   &:hover,
   &:visited,
