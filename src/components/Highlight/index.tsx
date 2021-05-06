@@ -1,82 +1,170 @@
-import React, { Component } from 'react'
+import React, { useLayoutEffect } from 'react'
+import Prism from 'prismjs'
+import styled, { css } from 'styled-components'
 
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
-import './aserto-custom.css'
+const Code = styled.div`
+  ${css`
+    code[class*='language-'],
+    pre[class*='language-'] {
+      color: #e7e7e7;
+      background: none;
+      font-family: 'Ubuntu Mono', monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.5;
 
-const registeredLanguages = {}
+      -moz-tab-size: 4;
+      -o-tab-size: 4;
+      tab-size: 4;
 
-interface State {
-  loaded: boolean
-}
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+    }
 
-export type HighlightProps = {
-  language?: string
-  children: any
-  style?: any
-}
+    /* Code blocks */
+    pre[class*='language-'] {
+      overflow: auto;
+      border-radius: 0.3em;
+      font-size: 14px;
+    }
 
-export class Highlight extends Component<HighlightProps, State> {
-  private codeNode: React.RefObject<HTMLElement>
-  constructor(props) {
-    super(props)
+    /* Inline code */
+    :not(pre) > code[class*='language-'] {
+      padding: 0.1em;
+      border-radius: 0.3em;
+      white-space: normal;
+    }
 
-    this.state = { loaded: false }
-    this.codeNode = React.createRef()
-  }
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: #d4d0ab;
+    }
 
-  componentDidMount() {
-    const { language } = this.props
+    .token.punctuation {
+      color: #fefefe;
+    }
 
-    if (language && !registeredLanguages[language]) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const newLanguage = require(`highlight.js/lib/languages/${language}`)
-        hljs.registerLanguage(language, newLanguage)
-        registeredLanguages[language] = true
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+      color: #ffa07a;
+    }
 
-        this.setState({ loaded: true }, this.highlight)
-      } catch (e) {
-        console.error(e)
-        throw Error(`Cannot register the language ${language}`)
+    .token.boolean,
+    .token.number {
+      color: #3ecacf;
+    }
+
+    .token.selector,
+    .token.attr-name,
+    .token.string,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
+      color: #3dd444;
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string,
+    .token.variable {
+      color: #3ecacf;
+    }
+
+    .token.atrule,
+    .token.attr-value,
+    .token.function {
+      color: #ffd700;
+    }
+
+    .token.keyword {
+      color: #3ecacf;
+    }
+
+    .token.regex,
+    .token.important {
+      color: #ffd700;
+    }
+
+    .token.important,
+    .token.bold {
+      font-weight: bold;
+    }
+
+    .token.italic {
+      font-style: italic;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+
+    @media screen and (-ms-high-contrast: active) {
+      code[class*='language-'],
+      pre[class*='language-'] {
+        color: windowText;
+        background: window;
       }
-    } else {
-      this.setState({ loaded: true })
+
+      :not(pre) > code[class*='language-'],
+      pre[class*='language-'] {
+        background: window;
+      }
+
+      .token.important {
+        background: highlight;
+        color: window;
+        font-weight: normal;
+      }
+
+      .token.atrule,
+      .token.attr-value,
+      .token.function,
+      .token.keyword,
+      .token.operator,
+      .token.selector {
+        font-weight: bold;
+      }
+
+      .token.attr-value,
+      .token.comment,
+      .token.doctype,
+      .token.function,
+      .token.keyword,
+      .token.operator,
+      .token.property,
+      .token.string {
+        color: highlight;
+      }
+
+      .token.attr-value,
+      .token.url {
+        font-weight: normal;
+      }
     }
-  }
+  `}
+`
 
-  componentDidUpdate() {
-    this.highlight()
-  }
-
-  highlight = () => {
-    this.codeNode &&
-      this.codeNode.current &&
-      hljs.highlightBlock(this.codeNode.current as HTMLElement)
-  }
-
-  render() {
-    const { language, children, style } = this.props
-    const { loaded } = this.state
-
-    if (!loaded) {
-      return null
-    }
-
-    return (
-      <pre className="rounded">
-        <code
-          ref={this.codeNode}
-          className={language}
-          style={{
-            ...style,
-            backgroundColor: '#161719',
-            fontSize: 16,
-          }}
-        >
-          {children}
-        </code>
+export const Highlight = ({ children }) => {
+  useLayoutEffect(() => {
+    Prism.highlightAll()
+  }, [children])
+  return (
+    <Code>
+      <pre>
+        <code className="language-javascript">{children}</code>
       </pre>
-    )
-  }
+    </Code>
+  )
 }
