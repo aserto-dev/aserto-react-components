@@ -97,7 +97,7 @@ const columns = [
   },
   {
     Header: () => {
-      return <TopRightButton>Invite members...</TopRightButton>
+      return <TopRightButton>Invite member...</TopRightButton>
     },
     accessor: 'id',
     style: {

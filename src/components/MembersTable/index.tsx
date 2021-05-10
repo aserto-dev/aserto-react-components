@@ -98,7 +98,7 @@ export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
       },
       {
         Header: () => {
-          return <TopRightButton onClick={onClickInvite}>Invite members...</TopRightButton>
+          return <TopRightButton onClick={onClickInvite}>Invite member...</TopRightButton>
         },
         accessor: 'id',
         style: {
