@@ -1,24 +1,25 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { DataTable } from '../DataTable'
 import styled from 'styled-components'
-import dots from './dots.svg'
 import { Button } from '../Button'
 import { theme } from '../../theme'
 import { useMemo } from 'react'
+import { SelectWithoutControl } from '../SelectWithoutControl'
+import { StatusPill } from '../StatusPill'
 
 export const getStatusStyle = (status: string) => {
   const obj = {
     ACTIVE: {
       text: 'Active',
-      color: theme.apple80,
+      color: theme.apple50,
     },
     PENDING: {
       text: 'Pending',
-      color: theme.cooperAccent3,
+      color: theme.grey30,
     },
     EXPIRED: {
-      text: 'Expired',
-      color: theme.mojoAccent3,
+      text: 'Invitation expired',
+      color: theme.mojo50,
     },
     DEFAULT: {
       text: 'Unkown',
@@ -41,23 +42,28 @@ const CellWithImage = styled.div`
 `
 const BoldText = styled.div`
   font-weight: bold;
-`
-
-const StatusText = styled.div<{ color: string }>`
-  color: ${({ color }) => color};
-  line-height: 24px;
+  font-size: 14px;
 `
 
 const TopRightButton = styled(Button)`
   margin-right: -20px;
   float: right;
 `
-const DotsButton = styled(Button)`
-  float: right;
-  width: 40px;
-`
 
-export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
+const options = [
+  { value: 'VIEWER', label: 'Viewer' },
+  { value: 'MEMBER', label: 'Member' },
+  { value: 'OWNER', label: 'Owner' },
+]
+
+export const MembersTable = ({
+  data,
+  onClickInvite,
+  onClickCancel,
+  onClickSave,
+  onClickRemoveTenant,
+  selectRef,
+}) => {
   const columns = useMemo(
     () => [
       {
@@ -69,20 +75,9 @@ export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
         Cell: ({ row }) => {
           return (
             <CellWithImage>
-              <img src={row.original.image} alt="profile-image" />
-              <div>
-                <BoldText>{row.original.name}</BoldText>
-                <div>{row.original.email}</div>
-              </div>
+              <BoldText>{row.original.email}</BoldText>
             </CellWithImage>
           )
-        },
-      },
-      {
-        Header: 'Role',
-        accessor: 'role',
-        style: {
-          cellWidth: '8%',
         },
       },
       {
@@ -93,7 +88,7 @@ export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
         },
         Cell: ({ value }) => {
           const statusStyle = getStatusStyle(value)
-          return <StatusText color={statusStyle.color}>{statusStyle.text}</StatusText>
+          return <StatusPill backgroundColor={statusStyle.color}>{statusStyle.text}</StatusPill>
         },
       },
       {
@@ -107,14 +102,14 @@ export const MembersTable = ({ data, onClickInvite, onClickDots }) => {
           },
         },
         disableSortBy: true,
-        Cell: (data) => {
+        Cell: ({ row }) => {
           return (
-            <DotsButton
-              onClick={() => onClickDots(data.row.original)}
-              variant="secondary-borderless"
-            >
-              <img src={dots} alt="see-more" />
-            </DotsButton>
+            <div
+              style={{
+                float: 'right',
+                minWidth: 100,
+              }}
+            />
           )
         },
       },

@@ -22,6 +22,13 @@ PrimaryWithSizeLarge.args = {
   size: 'lg',
 }
 
+export const PrimaryWithSizeSmall = Template.bind({})
+PrimaryWithSizeSmall.args = {
+  variant: 'primary',
+  children: 'Button',
+  size: 'sm',
+}
+
 export const PrimaryDisabled = Template.bind({})
 PrimaryDisabled.args = {
   variant: 'primary',
@@ -33,6 +40,13 @@ export const Secondary = Template.bind({})
 Secondary.args = {
   variant: 'secondary',
   children: 'Button',
+}
+
+export const SecondaryWithSizeSmall = Template.bind({})
+SecondaryWithSizeSmall.args = {
+  variant: 'secondary',
+  children: 'Button',
+  size: 'sm',
 }
 
 export const SecondaryDisabled = Template.bind({})
