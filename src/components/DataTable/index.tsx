@@ -62,8 +62,6 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
     useSortBy
   )
 
-  const firstPageRows = rows.slice(0, 20)
-
   return (
     <TableContainer>
       <Table {...getTableProps()}>
@@ -95,7 +93,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
+          {rows.map((row) => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>

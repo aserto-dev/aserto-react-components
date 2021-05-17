@@ -6,14 +6,14 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
   border: none;
   border-radius: 4px;
   font-size: 14px;
-  height: 36px;
   text-align: center;
   font-weight: 500;
   font-family: 'Roboto', 'Open Sans', sans-serif;
   ${({ size }) => {
     if (size === 'sm') {
       return css`
-        height: 36px;
+        //height: 24px;
+        font-size: 12px;
       `
     } else if (size === 'lg') {
       return css`
@@ -21,6 +21,9 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
         font-size: 1.25rem;
       `
     }
+    return css`
+      height: 36px;
+    `
   }}
   &:disabled {
     background-color: ${theme.grey40};

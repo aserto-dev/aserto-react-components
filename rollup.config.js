@@ -25,7 +25,7 @@ const config = {
       sourcemapPathTransform: (relativePath) => {
         return path.relative('src', relativePath)
       },
-      format: 'esm',
+      format: 'es',
       sourcemap: false,
     },
   ],
