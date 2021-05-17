@@ -82,19 +82,3 @@ PrimaryWithDefaultValueDisabled.args = {
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
   disabled: true,
 }
-
-export const WithContainer = () => {
-  return (
-    <div
-      style={{
-        width: 170,
-      }}
-    >
-      <SelectWithoutControl
-        {...{
-          options: identityOptions,
-        }}
-      />
-    </div>
-  )
-}

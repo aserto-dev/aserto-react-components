@@ -1,0 +1,14 @@
+import { Meta } from '@storybook/react/types-6-0';
+declare const _default: Meta<import("@storybook/react/types-6-0").Args>;
+export default _default;
+export declare const Primary: any;
+export declare const PrimaryWithSizeLarge: any;
+export declare const PrimaryWithSizeSmall: any;
+export declare const PrimaryDisabled: any;
+export declare const Secondary: any;
+export declare const SecondaryWithSizeSmall: any;
+export declare const SecondaryDisabled: any;
+export declare const Danger: any;
+export declare const DangerDisabled: any;
+export declare const SecondaryBorderless: any;
+export declare const SecondaryBorderlessDisabled: any;

@@ -18,7 +18,7 @@ export type InputProps = {
   isValid?: boolean
   isUnavailable?: boolean
   disabled?: boolean
-  type?: 'text' | 'number' | 'password' | null
+  type?: 'text' | 'number' | 'password' | 'email' | string | null
   style?: any
   hasSmallLabel?: boolean
 }
@@ -31,7 +31,7 @@ const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailab
   } else if (isInvalid) {
     return `border-color: ${theme.mojoAccent3} !important;background-image: url("${invalid}") !important; background-size: calc(3em + 0.375rem) calc(1em + 0.375rem) !important;`
   }
-  return `border-color: #403f3f;`
+  return `border-color: #595959;`
 }
 
 const AsertoInput = styled(FormControl)<{
