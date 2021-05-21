@@ -29,8 +29,9 @@ import { Label } from './components/Label'
 import { SwitchButton } from './components/SwitchButton'
 import { ActionableInput } from './components/ActionableInput'
 import { DataTable } from './components/DataTable'
-import { MembersTable } from './components/MembersTable'
 import { DirectoryBrowserGrid } from './components/DirectoryBrowserGrid'
+import { SelectWithoutControl } from './components/SelectWithoutControl'
+import { StatusPill } from './components/StatusPill'
 
 export {
   PolicyCard,
@@ -55,8 +56,9 @@ export {
   Label,
   SwitchButton,
   DataTable,
-  MembersTable,
   ActionableInput,
   DirectoryBrowserGrid,
+  SelectWithoutControl,
+  StatusPill,
   theme,
 }
