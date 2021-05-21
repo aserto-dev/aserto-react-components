@@ -5,8 +5,7 @@ import policyLoadedIcon from './policy.svg'
 import policyPendingIcon from './policy-pending.svg'
 import policyErrorIcon from './policy-error.svg'
 import remove from './remove-icon.svg'
-// @ts-ignore
-import loadingSpinner from './loading.gif'
+import loadingSpinner from './rolling.svg'
 import Tooltip from '@atlaskit/tooltip'
 import { mapTestIdToProps } from '../../utils'
 import { TooltipDialog } from '../TooltipDialog'
@@ -128,20 +127,24 @@ const ErrorMessage = styled.div`
 
 const WorkingSpinnerContainer = styled.div`
   position: absolute;
-  left: 24px;
-  top: 36px;
+  left: 22px;
+  top: 33px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: ${theme.grey100};
   font-size: 12px;
   font-weight: 600;
   img {
-    width: 55px;
+    width: 35px;
     margin-bottom: 4px;
   }
   @media (max-width: 500px) {
-    left: 16px;
+    left: 23px;
     top: 35px;
     img {
-      width: 45px;
+      width: 28px;
     }
     div {
       display: none;

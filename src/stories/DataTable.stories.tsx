@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { DataTable, DataTableProps } from '../components/DataTable'
 import styled from 'styled-components'
 import { Button } from '../components/Button'
-import dots from '../components/MembersTable/dots.svg'
 
 export default {
   title: 'Common/DataTable',
@@ -106,11 +105,7 @@ const columns = [
       },
     },
     Cell: () => {
-      return (
-        <DotsButton variant="secondary-borderless">
-          <img src={dots} />
-        </DotsButton>
-      )
+      return <DotsButton variant="secondary-borderless">{/*<img src={dots} />*/}</DotsButton>
     },
   },
 ]
