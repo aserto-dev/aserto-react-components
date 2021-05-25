@@ -15,7 +15,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
   }
 
   .navbar.bg-dark .nav-link {
-    color: ${theme.grey70};
+    color: ${theme.grey70} !important;
   }
 
   .navbar.bg-dark .nav-link:hover {
@@ -28,10 +28,6 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     border-bottom: 1px solid ${theme.grey30};
   }
 
-  .navbar .router-link-exact-active {
-    ${'border-bottom: 1px solid ' + theme.lochivarAccent4};
-  }
-
   .nav-item a.nav-link {
     padding-top: 10px;
     padding-bottom: 25px;
@@ -39,7 +35,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
 
 
   .navbar-nav .nav-link {
-    color: ${theme.grey70};
+    color: ${theme.grey70} !important;
     padding: 0 0 1rem 0;
     box-sizing: border-box;
     margin: 0 40px 0 0;
@@ -104,6 +100,11 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
 
   .navbar {
     padding: 1.375rem 0 0 0;
+  }
+  
+  .navbar .router-link-exact-active {
+    ${'border-bottom: 1px solid ' + theme.lochivarAccent4};
+    color: ${theme.grey100} !important;
   }
 
   @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint + 1 || 1200}px) {
