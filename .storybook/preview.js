@@ -1,5 +1,4 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.min.css'
 import '../src/index.css'
 import { MemoryRouter, Route } from 'react-router-dom'

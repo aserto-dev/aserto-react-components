@@ -1,5 +1,4 @@
 // import bootstrap, font-awesome
-import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 // import local styles after default styles so they take precedence
