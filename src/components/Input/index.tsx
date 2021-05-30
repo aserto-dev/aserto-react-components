@@ -41,7 +41,7 @@ const AsertoInput = styled.input<{
   background-color: ${theme.primaryBlack};
   color: ${theme.grey100};
   border: 1px solid ${theme.grey40};
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 0px 8px;
   height: 36px;
   background-repeat: no-repeat;
