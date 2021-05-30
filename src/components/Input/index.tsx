@@ -1,5 +1,4 @@
 import React from 'react'
-import { FormControl } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import valid from './valid.svg'
@@ -34,20 +33,26 @@ const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailab
   return `border-color: #595959;`
 }
 
-const AsertoInput = styled(FormControl)<{
+const AsertoInput = styled.input<{
   isValid?: boolean
-  isInvalid?: boolean
+  $isInvalid?: boolean
   $isUnavailable?: boolean
 }>`
   background-color: ${theme.primaryBlack};
   color: ${theme.grey100};
-  border-color: ${theme.grey40};
+  border: 1px solid ${theme.grey40};
+  border-radius: 2px;
+  padding: 0px 8px;
+  height: 36px;
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  padding-right: calc(1.5em + 0.75rem);
   &:focus {
     background-color: ${theme.primaryBlack};
     color: ${theme.grey100};
     outline: none;
     box-shadow: none;
-    border-color: ${theme.lochivarAccent2};
+    border: 1px solid ${theme.lochivarAccent2};
     -webkit-box-shadow: none;
   }
   &:disabled {
@@ -55,8 +60,8 @@ const AsertoInput = styled(FormControl)<{
     background-color: ${theme.grey20};
     opacity: 0.6;
   }
-  ${({ isValid, isInvalid, $isUnavailable }) =>
-    getInputValueForState(isValid, isInvalid, $isUnavailable)};
+  ${({ isValid, $isInvalid, $isUnavailable }) =>
+    getInputValueForState(isValid, $isInvalid, $isUnavailable)};
 `
 
 const InputContainer = styled.div`
@@ -104,7 +109,7 @@ export const Input = React.forwardRef<any, InputProps>(
         <AsertoInput
           ref={ref}
           isValid={isValid}
-          isInvalid={error}
+          $isInvalid={!!error}
           $isUnavailable={isUnavailable}
           placeholder={placeholder}
           value={value}

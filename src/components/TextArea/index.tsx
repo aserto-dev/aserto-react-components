@@ -1,5 +1,4 @@
 import React from 'react'
-import { FormControl } from 'react-bootstrap'
 import './TextArea.css'
 
 export type TextAreaProps = {
@@ -16,12 +15,5 @@ export const TextArea: React.FC<TextAreaProps> = ({
   rows,
   ...props
 }) => (
-  <FormControl
-    as="textarea"
-    rows={rows}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    {...props}
-  />
+  <textarea rows={rows} placeholder={placeholder} value={value} onChange={onChange} {...props} />
 )
