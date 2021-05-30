@@ -1,12 +1,22 @@
 import styled, { css } from 'styled-components'
-import { Button as BootstrapButton } from 'react-bootstrap'
 import { theme } from '../../theme'
 
-const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
+const BaseButton = styled.button<{ size?: 'sm' | 'md' | 'lg' }>`
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   border: none;
   border-radius: 4px;
   font-size: 14px;
-  text-align: center;
   font-weight: 500;
   font-family: 'Roboto', 'Open Sans', sans-serif;
   ${({ size }) => {
