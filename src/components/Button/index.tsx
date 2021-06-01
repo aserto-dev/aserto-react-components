@@ -1,8 +1,17 @@
 import React from 'react'
-import { ButtonProps as BootstrapButtonProps } from 'react-bootstrap'
 import { PrimaryButton, SecondaryButton, DangerButton, SecondaryBorderlessButton } from './styles'
 
-export interface ButtonProps extends BootstrapButtonProps {
+type Modify<T, R> = Omit<T, keyof R> & R
+
+type DefaultButtonProps = Modify<
+  React.HTMLProps<HTMLButtonElement>,
+  {
+    size?: string
+    block?: boolean
+  }
+>
+
+export interface ButtonProps extends DefaultButtonProps {
   variant?: 'primary' | 'secondary' | 'danger' | 'secondary-borderless'
 }
 

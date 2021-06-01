@@ -1,7 +1,3 @@
-// import bootstrap, font-awesome
-import 'font-awesome/css/font-awesome.min.css'
-
-// import local styles after default styles so they take precedence
 import './index.css'
 
 import { PolicyCard } from './components/PolicyCard'

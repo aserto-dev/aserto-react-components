@@ -1,9 +1,18 @@
 import React from 'react'
-import { Navbar } from 'react-bootstrap'
 import logo from './aserto-horizontal-white-text.svg'
 import separator from './separator.svg'
-import { NavBarContainer, NavBarBrand, Separator } from './styles'
+import {
+  NavBarContainer,
+  NavBarBrand,
+  Separator,
+  NavbarText,
+  NavbarCollapse,
+  NavbarToggle,
+  NavMobile,
+} from './styles'
 import { mapTestIdToProps } from '../../utils'
+import { NavBarUserDropdown } from '../../NavBarUserDropdown'
+import { useState } from 'react'
 
 export type NavBarProps = {
   children: React.ReactElement
@@ -30,15 +39,17 @@ export const NavBar: React.FC<NavBarProps> = ({
   uncollapsableContent,
   ...props
 }) => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
   return (
     <NavBarContainer
+      $showMobileMenu={showMobileMenu}
       $expandBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
       $topPosition={topPosition}
       {...props}
       {...mapTestIdToProps(testId)}
     >
-      <Navbar className="navbar-dark" expand={expand || 'xl'} collapseOnSelect>
-        <NavBarBrand>
+      <nav className="navbar-dark">
+        <NavBarBrand $expandBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}>
           <img
             src={logo}
             width="131"
@@ -48,16 +59,20 @@ export const NavBar: React.FC<NavBarProps> = ({
             alt="logo"
           />
         </NavBarBrand>
-        {uncollapsableContent && <Navbar.Text>{uncollapsableContent}</Navbar.Text>}
+        {uncollapsableContent && <NavbarText>{uncollapsableContent}</NavbarText>}
         {showBrandSeparator && (
           <Separator
             $hideBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
             src={separator}
           />
         )}
-        <Navbar.Toggle />
-        <Navbar.Collapse>{children}</Navbar.Collapse>
-      </Navbar>
+        <NavbarCollapse>{children}</NavbarCollapse>
+        <NavbarToggle onClick={() => setShowMobileMenu((s) => !s)}>
+          <span />
+        </NavbarToggle>
+        <NavBarUserDropdown />
+      </nav>
+      <NavMobile show={showMobileMenu}>{children}</NavMobile>
     </NavBarContainer>
   )
 }

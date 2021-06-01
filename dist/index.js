@@ -1,4 +1,3 @@
-import 'font-awesome/css/font-awesome.min.css';
 import { s as styleInject } from './style-inject.es-1f59c1d0.js';
 export { PolicyCard } from './components/PolicyCard/index.js';
 export { Breadcrumb } from './components/Breadcrumb/index.js';
@@ -35,7 +34,6 @@ import './utils-bc584a2b.js';
 import './components/TooltipDialog/index.js';
 import 'react-router-dom';
 import 'prismjs';
-import 'react-bootstrap';
 import 'react-select';
 import 'react-table';
 import 'react-infinite-scroll-component';
