@@ -1,7 +1,5 @@
-import { Navbar } from 'react-bootstrap'
 import styled, { css } from 'styled-components'
-import { theme } from '../../theme'
-import { NavLink as RouterNavLink } from 'react-router-dom'
+
 export const NavBarContainer = styled.div<{
   $topPosition?: number
   $expandBreakpoint?: number

@@ -5,7 +5,6 @@ import { NavLink as RouterNavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { Select } from '../components/Select'
 import { NavItem } from '../components/NavBar/styles'
-import { NavBarUserDropdown } from '../NavBarUserDropdown'
 
 export default {
   title: 'Common/NavBar',

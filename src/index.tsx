@@ -27,6 +27,7 @@ import { DataTable } from './components/DataTable'
 import { DirectoryBrowserGrid } from './components/DirectoryBrowserGrid'
 import { SelectWithoutControl } from './components/SelectWithoutControl'
 import { StatusPill } from './components/StatusPill'
+import { NavItem } from './components/NavBar/styles'
 
 export {
   PolicyCard,
@@ -55,5 +56,6 @@ export {
   DirectoryBrowserGrid,
   SelectWithoutControl,
   StatusPill,
+  NavItem,
   theme,
 }
