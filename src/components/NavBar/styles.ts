@@ -61,8 +61,6 @@ export const NavBarBrand = styled.span<{ $expandBreakpoint?: number }>`
 
   @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
     margin-left: 10px;
-    flex: 1 1 0%;
-
     margin-right: 30px;
   }
   @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
@@ -82,12 +80,11 @@ export const Separator = styled.img<{ $hideBreakpoint?: number }>`
   }
 `
 
-export const NavbarText = styled.span`
-  display: inline-block;
+export const NavbarText = styled.div`
+  padding-top: 16px;
   margin-right: 10px;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 `
+
 export const NavbarToggle = styled.button`
   padding: 0.25rem 0.5rem;
   //margin-right: 10px;

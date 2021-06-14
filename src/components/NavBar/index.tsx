@@ -21,6 +21,7 @@ export type NavBarProps = {
   topPosition?: number
   expand?: 'sm' | 'md' | 'lg' | 'xl'
   expandBreakpoint?: number
+  user?: any
   testId?: string
 }
 
@@ -37,6 +38,7 @@ export const NavBar: React.FC<NavBarProps> = ({
   expandBreakpoint,
   testId,
   uncollapsableContent,
+  user,
   ...props
 }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -70,7 +72,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         <NavbarToggle onClick={() => setShowMobileMenu((s) => !s)}>
           <span />
         </NavbarToggle>
-        <NavBarUserDropdown />
+        {user && <NavBarUserDropdown />}
       </nav>
       <NavMobile show={showMobileMenu}>{children}</NavMobile>
     </NavBarContainer>

@@ -163,3 +163,23 @@ Primary.args = {
 //     </Nav>
 //   ),
 // }
+
+export const PrimaryWithDefaultLinks = Template.bind({})
+PrimaryWithDefaultLinks.args = {
+  showBrandSeparator: true,
+  children: (
+    <>
+      <ul>
+        <NavItem>
+          <a>Home</a>
+        </NavItem>
+        <NavItem>
+          <a>Policy browser</a>
+        </NavItem>
+        <NavItem>
+          <a>Policy playground</a>
+        </NavItem>
+      </ul>
+    </>
+  ),
+}
