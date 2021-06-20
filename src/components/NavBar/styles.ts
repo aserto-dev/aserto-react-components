@@ -40,7 +40,7 @@ export const NavBarContainer = styled.div<{
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-      padding: 6px;
+      padding: 10px 6px;
     }
     @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
       height: 82px;
