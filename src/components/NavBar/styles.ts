@@ -80,7 +80,11 @@ export const Separator = styled.img<{ $hideBreakpoint?: number }>`
   }
 `
 
-export const NavbarText = styled.div`
+export const NavbarText = styled.div<{ $expandBreakpoint?: number }>`
+  @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
+    padding-bottom: 2px;
+    padding-top: 0px;
+  }
   padding-top: 16px;
   margin-right: 10px;
 `
@@ -151,7 +155,7 @@ export const NavMobile = styled.div<{ $expandBreakpoint?: number; show?: boolean
   align-items: center;
   width: 100%;
   position: absolute;
-  top: ${({ show }) => (show ? 64 : -500)}px;
+  top: ${({ show }) => (show ? 53 : -500)}px;
   left: 0px;
   background-color: rgb(30, 30, 30);
   transition: top 0.55s;
