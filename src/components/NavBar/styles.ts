@@ -185,14 +185,11 @@ export const NavMobile = styled.div<{ $expandBreakpoint?: number; show?: boolean
 `
 
 export const NavItem = styled.li`
-  @media (min-width: 800px) {
-    height: 60px !important;
-  }
   a {
     display: block;
     text-decoration: none;
     background-color: transparent;
-    padding-top: 11px;
+    padding-top: 14px;
     padding-bottom: 34px;
     box-sizing: border-box;
     margin: 0px 40px 0px 0px;
