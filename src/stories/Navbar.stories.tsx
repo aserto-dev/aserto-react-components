@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { NavBar, NavBarProps } from '../components/NavBar'
+import { NavBar, NavBarProps, NavItemWithDropdown } from '../components/NavBar'
 import { NavLink as RouterNavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { Select } from '../components/Select'
@@ -88,82 +88,6 @@ Primary.args = {
   ),
 }
 
-// export const PrimaryWithBrandSeparator = Template.bind({})
-// PrimaryWithBrandSeparator.args = {
-//   showBrandSeparator: true,
-//   children: (
-//     <Nav as="ul" className="mr-auto">
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/" activeClassName="router-link-exact-active">
-//           Home
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink
-//           as={RouterNavLink}
-//           to="/ui/applications"
-//           activeClassName="router-link-exact-active"
-//         >
-//           Policy browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/playground" activeClassName="router-link-exact-active">
-//           Policy playground
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/apidocs" activeClassName="router-link-exact-active">
-//           API browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/directory" activeClassName="router-link-exact-active">
-//           Directory browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//     </Nav>
-//   ),
-// }
-// export const PrimaryWithLG = Template.bind({})
-// PrimaryWithLG.args = {
-//   showBrandSeparator: true,
-//   expand: 'lg',
-//   children: (
-//     <Nav as="ul" className="mr-auto">
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/" activeClassName="router-link-exact-active">
-//           Home
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink
-//           as={RouterNavLink}
-//           to="/ui/applications"
-//           activeClassName="router-link-exact-active"
-//         >
-//           Policy browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/playground" activeClassName="router-link-exact-active">
-//           Policy playground
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/apidocs" activeClassName="router-link-exact-active">
-//           API browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//       <Nav.Item as="li">
-//         <RouterNavLink to="/ui/directory" activeClassName="router-link-exact-active">
-//           Directory browser
-//         </RouterNavLink>
-//       </Nav.Item>
-//     </Nav>
-//   ),
-// }
-
 export const PrimaryWithDefaultLinks = Template.bind({})
 PrimaryWithDefaultLinks.args = {
   showBrandSeparator: true,
@@ -178,6 +102,44 @@ PrimaryWithDefaultLinks.args = {
         </NavItem>
         <NavItem>
           <a>Policy playground</a>
+        </NavItem>
+      </ul>
+    </>
+  ),
+}
+
+export const PrimaryWithDefaultDropdownLinks = Template.bind({})
+PrimaryWithDefaultDropdownLinks.args = {
+  showBrandSeparator: true,
+  children: (
+    <>
+      <ul>
+        <NavItemWithDropdown
+          link={{
+            label: 'Developers',
+            items: [
+              {
+                label: 'Docs',
+                href: 'https://docs.aserto.com/',
+                isExternal: true,
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/aserto-dev',
+                isExternal: true,
+              },
+              {
+                label: 'Slack',
+                href:
+                  'https://asertocommunity.slack.com/join/shared_invite/zt-p06gin84-xNswWpTGyPDPxCz0LMux3g#/shared-invite/email',
+                isExternal: true,
+              },
+            ],
+          }}
+          id="1233"
+        />
+        <NavItem>
+          <a>Policy browser</a>
         </NavItem>
       </ul>
     </>

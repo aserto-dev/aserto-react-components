@@ -1,0 +1,9 @@
+.menu-content {
+  list-style-type: none;
+  outline: none;
+  padding-top: 1.25rem;
+  background-color: rgba(30, 30, 30, 1);
+  border: 1px solid rgba(65, 65, 65, 1);
+  border-radius: 4px;
+  margin-top: 0.75rem;
+}

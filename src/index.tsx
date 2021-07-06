@@ -7,7 +7,7 @@ import { Divider } from './components/Divider'
 import { Highlight } from './components/Highlight'
 import { Input } from './components/Input'
 import { Loading } from './components/Loading'
-import { NavBar } from './components/NavBar'
+import { NavBar, NavItemWithDropdown } from './components/NavBar'
 import { PageHeader } from './components/PageHeader'
 import { PageTitle } from './components/PageTitle'
 import { PlayButton } from './components/PlayButton'
@@ -57,5 +57,6 @@ export {
   SelectWithoutControl,
   StatusPill,
   NavItem,
+  NavItemWithDropdown,
   theme,
 }

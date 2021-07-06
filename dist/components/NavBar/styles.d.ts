@@ -21,3 +21,12 @@ export declare const NavMobile: import("styled-components").StyledComponent<"div
     show?: boolean;
 }, never>;
 export declare const NavItem: import("styled-components").StyledComponent<"li", any, {}, never>;
+export declare const NavItemDropdownMobile: import("styled-components").StyledComponent<"li", any, {}, never>;
+export declare const DropdownNavItem: import("styled-components").StyledComponent<"li", any, {}, never>;
+export declare const MobileMenu: import("styled-components").StyledComponent<"div", any, {
+    $expandBreakpoint?: number;
+}, never>;
+export declare const FatherLink: import("styled-components").StyledComponent<"a", any, {
+    $expandBreakpoint?: number;
+    hasItems: boolean;
+}, never>;

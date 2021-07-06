@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { theme } from '../../theme'
 
 export const NavBarContainer = styled.div<{
   $topPosition?: number
@@ -185,6 +186,7 @@ export const NavMobile = styled.div<{ $expandBreakpoint?: number; show?: boolean
 `
 
 export const NavItem = styled.li`
+  cursor: pointer;
   a {
     display: block;
     text-decoration: none;
@@ -195,5 +197,52 @@ export const NavItem = styled.li`
     margin: 0px 40px 0px 0px;
     font-weight: 400;
     color: rgb(160, 160, 160) !important;
+    &:hover {
+      color: ${theme.grey100} !important;
+    }
+  }
+`
+
+export const NavItemDropdownMobile = styled(NavItem)`
+  font-size: 14px;
+  margin-left: 12px;
+`
+
+export const DropdownNavItem = styled.li`
+  cursor: pointer;
+  a {
+    display: block;
+    text-decoration: none;
+    background-color: transparent;
+    padding-top: 2px;
+    padding-bottom: 26px;
+    box-sizing: border-box;
+    margin: 0px 25px 0px -10px;
+    font-weight: 400;
+    color: rgb(160, 160, 160) !important;
+    &:hover {
+      color: ${theme.grey100} !important;
+    }
+  }
+`
+
+export const MobileMenu = styled.div<{ $expandBreakpoint?: number }>`
+  display: none;
+  a {
+    padding-bottom: 24px;
+  }
+  @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
+    display: block;
+  }
+`
+
+export const FatherLink = styled.a<{ $expandBreakpoint?: number; hasItems: boolean }>`
+  @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
+    a {
+      margin: 0px 25px 0px -10px;
+      padding-bottom: 14px;
+      display: inline;
+    }
+    pointer-events: none;
   }
 `
