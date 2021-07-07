@@ -35,6 +35,7 @@ export type SelectWithoutControlProps = {
   onClickSave: () => void
   onClickCancel: () => void
   menuIsOpen?: boolean
+  shouldDisabledOptions?: boolean
 }
 
 const groupStyles = {
@@ -88,6 +89,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
       onClickRemoveTenant,
       onClickSave,
       onClickCancel,
+      shouldDisabledOptions,
       ...props
     },
     forRef
@@ -139,6 +141,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
               </Button>
               <Button
                 size="sm"
+                disabled={shouldDisabledOptions}
                 onClick={() => {
                   onClickSave()
                   setOpen(false)
@@ -158,9 +161,13 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
         <div>
           <components.Option
             {...props}
+            isDisabled={shouldDisabledOptions}
             innerProps={{
               ...props.innerProps,
               onMouseDown: (e) => {
+                if (shouldDisabledOptions) {
+                  return
+                }
                 if (props.data.shouldStopPropagation) {
                   e.stopPropagation()
                   props.data?.onClick()

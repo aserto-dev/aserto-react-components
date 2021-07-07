@@ -13,6 +13,7 @@ const identityOptions = [
   {
     label: 'Anonymous',
     value: 'ANONYMOUS',
+    isDisabled: true,
   },
   {
     label: 'JWT',
@@ -81,4 +82,12 @@ PrimaryWithDefaultValueDisabled.args = {
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
   disabled: true,
+}
+
+export const OwnerVariant = Template.bind({})
+OwnerVariant.args = {
+  options: identityOptions,
+  shouldDisabledOptions: true,
+  label: 'Organization',
+  defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
