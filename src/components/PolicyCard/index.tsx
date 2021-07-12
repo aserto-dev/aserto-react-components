@@ -97,6 +97,7 @@ const PolicyCardContainer = styled.div<{ disabled?: boolean }>`
 
 const CardText = styled.div<{ bold?: boolean }>`
   font-size: 14px;
+  text-overflow: ellipsis;
   word-wrap: break-word;
   @media (max-width: 500px) {
     max-width: 210px;

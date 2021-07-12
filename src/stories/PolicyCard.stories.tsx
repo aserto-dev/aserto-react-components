@@ -46,3 +46,8 @@ PrimaryWithRepoUrlError.args = {
     'bundle has never been activated',
   ],
 }
+export const PrimaryWithHugeRepoUrl = Template.bind({})
+PrimaryWithHugeRepoUrl.args = {
+  name: 'proplefinder',
+  repoUrl: 'https://github.com/aserto-demo/peoplefinderonasertodemotemplatehudename',
+}
