@@ -36,6 +36,7 @@ export type SelectWithoutControlProps = {
   onClickCancel: () => void
   menuIsOpen?: boolean
   shouldDisabledOptions?: boolean
+  removeTenantText?: string
 }
 
 const groupStyles = {
@@ -90,6 +91,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
       onClickSave,
       onClickCancel,
       shouldDisabledOptions,
+      removeTenantText,
       ...props
     },
     forRef
@@ -123,7 +125,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
                 setOpen(false)
               }}
             >
-              Remove member from tenant
+              {removeTenantText || 'Remove member from tenant'}
             </RemoveFromTenant>
             <div style={menuHeaderStyle}>
               <Button

@@ -91,3 +91,12 @@ OwnerVariant.args = {
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
+
+export const OwnerVariantWithMessage = Template.bind({})
+OwnerVariantWithMessage.args = {
+  options: identityOptions,
+  shouldDisabledOptions: true,
+  removeTenantText: 'Remove myself from tenant',
+  label: 'Organization',
+  defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
+}
