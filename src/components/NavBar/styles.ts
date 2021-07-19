@@ -128,6 +128,7 @@ export const NavbarCollapse = styled.div<{ $expandBreakpoint?: number }>`
   }
 
   ul {
+    padding-bottom: 16px;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
@@ -192,7 +193,7 @@ export const NavItem = styled.li`
     text-decoration: none;
     background-color: transparent;
     padding-top: 14px;
-    padding-bottom: 34px;
+    padding-bottom: 25zpx;
     box-sizing: border-box;
     margin: 0px 40px 0px 0px;
     font-weight: 400;
