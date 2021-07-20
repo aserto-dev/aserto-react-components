@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ReactSelect, { components } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
@@ -33,7 +33,7 @@ export type SelectWithoutControlProps = {
   name?: string
   onClickRemoveTenant: () => void
   onClickSave: () => void
-  onClickCancel: () => void
+  onClickCancel: (firstSelectedOption?: SelectOption) => void
   menuIsOpen?: boolean
   shouldDisabledOptions?: boolean
   removeTenantText?: string
@@ -97,11 +97,18 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
     forRef
   ) => {
     const [open, setOpen] = useState(false)
+    const [firstSelectedOption, setFirstSelectedOption] = useState<SelectOption | null>(null)
     const removeFocusBox = {
       outline: 'none',
       webkitBoxShadow: 'none',
       boxShadow: 'none',
     }
+
+    useEffect(() => {
+      if (defaultValue) {
+        setFirstSelectedOption(defaultValue)
+      }
+    }, [defaultValue])
 
     const CustomMenu = useCallback(
       ({ innerRef, innerProps, children }) => {
@@ -136,7 +143,8 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
                 variant="secondary"
                 onClick={() => {
                   setOpen(false)
-                  onClickCancel && onClickCancel()
+
+                  onClickCancel && onClickCancel(firstSelectedOption)
                 }}
               >
                 Cancel
@@ -264,6 +272,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
         overflow: 'none',
       }),
     }
+
     return (
       <div style={style}>
         {label && (
