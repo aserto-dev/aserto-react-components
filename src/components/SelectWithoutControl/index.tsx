@@ -37,6 +37,7 @@ export type SelectWithoutControlProps = {
   menuIsOpen?: boolean
   shouldDisabledOptions?: boolean
   removeTenantText?: string
+  onBlur?: (firstSelectedOption?: SelectOption) => void
 }
 
 const groupStyles = {
@@ -92,6 +93,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
       onClickCancel,
       shouldDisabledOptions,
       removeTenantText,
+      onBlur,
       ...props
     },
     forRef
@@ -295,6 +297,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
           }}
           onBlur={() => {
             setOpen(false)
+            onBlur && onBlur(firstSelectedOption)
           }}
           defaultValue={defaultValue}
           closeMenuOnSelect={false}
