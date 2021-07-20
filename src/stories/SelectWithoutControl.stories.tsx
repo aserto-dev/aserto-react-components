@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { SelectWithoutControl, SelectWithoutControlProps } from '../components/SelectWithoutControl'
+import { Input } from '../components/Input'
 
 export default {
   title: 'Common/SelectWithoutControl',
@@ -100,3 +101,20 @@ OwnerVariantWithMessage.args = {
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
+
+// export const PrimaryWithRef = () => {
+//   const ref = useRef(null)
+//   return (
+//     <div>
+//       <PrimaryWithLabel forRef={ref} />
+//       <button
+//         onClick={() => {
+//           console.log(ref?.current)
+//           // ref?.current?.focus()
+//         }}
+//       >
+//         Click to focus
+//       </button>
+//     </div>
+//   )
+// }
