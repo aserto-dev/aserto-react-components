@@ -32,6 +32,8 @@ import { DataTable } from './components/DataTable'
 import { DirectoryBrowserGrid } from './components/DirectoryBrowserGrid'
 import { SelectWithoutControl } from './components/SelectWithoutControl'
 import { StatusPill } from './components/StatusPill'
+import { IdentityContext } from './components/IdentityContext'
+import { RequestEditor } from './components/RequestEditor'
 
 export {
   PolicyCard,
@@ -60,5 +62,7 @@ export {
   DirectoryBrowserGrid,
   SelectWithoutControl,
   StatusPill,
+  IdentityContext,
+  RequestEditor,
   theme,
 }

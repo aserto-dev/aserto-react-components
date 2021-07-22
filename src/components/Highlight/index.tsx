@@ -155,13 +155,16 @@ const Code = styled.div`
     }
   `}
 `
-
-export const Highlight = ({ children }) => {
+interface Props {
+  children: React.ReactElement | string | unknown
+  style?: unknown
+}
+export const Highlight: React.FC<Props> = ({ children, style }) => {
   useLayoutEffect(() => {
     Prism.highlightAll()
   }, [children])
   return (
-    <Code>
+    <Code style={style}>
       <pre>
         <code className="language-javascript">{children}</code>
       </pre>
