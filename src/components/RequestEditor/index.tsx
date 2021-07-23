@@ -77,7 +77,7 @@ const Row = styled.div`
 const HighlightWrapper = styled.div`
   width: 100%;
   padding: 20px 5px;
-  overflow: hidden;
+  overflow: scroll;
   min-width: 200px;
   min-height: 200px;
 `
