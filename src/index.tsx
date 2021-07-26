@@ -34,6 +34,7 @@ import { SelectWithoutControl } from './components/SelectWithoutControl'
 import { StatusPill } from './components/StatusPill'
 import { IdentityContext } from './components/IdentityContext'
 import { RequestEditor } from './components/RequestEditor'
+import { SelectWithDots } from './components/SelectWithDots'
 import { EvaluateDisplayMap } from './components/EvaluateDisplayState'
 
 export {
@@ -65,6 +66,7 @@ export {
   StatusPill,
   IdentityContext,
   RequestEditor,
+  SelectWithDots,
   EvaluateDisplayMap,
   theme,
 }

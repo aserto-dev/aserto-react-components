@@ -1,38 +1,58 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { SelectWithoutControl, SelectWithoutControlProps } from '../components/SelectWithoutControl'
+import { SelectWithDots, SelectWithDotsProps } from '../components/SelectWithDots'
 
 export default {
-  title: 'Common/SelectWithoutControl',
-  component: SelectWithoutControl,
+  title: 'Common/SelectWithDots',
+  component: SelectWithDots,
 } as Meta
 
-const Template: Story<SelectWithoutControlProps> = (args) => <SelectWithoutControl {...args} />
+const Template: Story<SelectWithDotsProps> = (args) => <SelectWithDots {...args} />
 
 const identityOptions = [
   {
-    label: 'Anonymous',
-    value: 'ANONYMOUS',
+    label: 'Verify connection',
+    value: 'VERIFY',
     isDisabled: true,
   },
   {
-    label: 'JWT',
-    value: 'JWT',
+    label: 'Disconnect',
+    value: 'DISCONNECT',
   },
   {
-    label: 'Manual',
-    value: 'MANUAL',
+    label: 'Edit...',
+    value: 'EDIT',
   },
 ]
 
 const groupedOptions = [
-  ...identityOptions,
   {
+    label: 'Verify connection',
+    value: 'VERIFY',
+    isDisabled: true,
+  },
+  {
+    label: 'Edit...',
+    value: 'EDIT',
+  },
+  {
+    //@ts-ignore
     options: [
       {
-        label: "I'm another group!",
-        value: 'x',
-        shouldStopPropagation: true,
+        label: 'Disconnect',
+        value: 'DISCONNECT',
+        shouldStopPropagation: false,
+        onClick: () => console.log('clicked'),
+      },
+    ],
+  },
+  {
+    //@ts-ignore
+    options: [
+      {
+        label: 'Remove',
+        value: 'REMOVE',
+        shouldStopPropagation: false,
         onClick: () => console.log('clicked'),
       },
     ],
