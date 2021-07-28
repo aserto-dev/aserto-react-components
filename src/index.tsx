@@ -34,6 +34,7 @@ import { SelectWithoutControl } from './components/SelectWithoutControl'
 import { StatusPill } from './components/StatusPill'
 import { IdentityContext } from './components/IdentityContext'
 import { RequestEditor } from './components/RequestEditor'
+import { EvaluateDisplayMap } from './components/EvaluateDisplayState'
 
 export {
   PolicyCard,
@@ -64,5 +65,6 @@ export {
   StatusPill,
   IdentityContext,
   RequestEditor,
+  EvaluateDisplayMap,
   theme,
 }
