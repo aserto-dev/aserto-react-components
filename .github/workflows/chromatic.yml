@@ -1,0 +1,32 @@
+name: Publish Storybook to Chromatic
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  VAULT_ADDR: https://vault.eng.aserto.com/
+
+jobs:
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: yarn
+      - name: Read Configuration
+        uses: hashicorp/vault-action@v2.3.0
+        id: vault
+        with:
+          url: ${{ env.VAULT_ADDR }}
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/chromatic TOKENS.REACT_COMPONENTS | CHROMATIC_PROJECT_TOKEN;
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ env.CHROMATIC_PROJECT_TOKEN }}
