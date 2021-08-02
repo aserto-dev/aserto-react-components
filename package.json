@@ -7,8 +7,7 @@
     "prepublishOnly": "cross-env NODE_ENV=production rollup -c",
     "build-watch": "rollup -c -w",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "chromatic": "./node_modules/.bin/chromatic --project-token=615183e6a584"
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",

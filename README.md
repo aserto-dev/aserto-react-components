@@ -27,5 +27,5 @@ import { Button, Divider } from '@aserto/aserto-react-components'
 
 It's possible to check our ``Storybook``, hosted using `Chromatic`:
 
-https://607739b7564d9a002144e9b9-femjlonrbk.chromatic.com/
+https://610833c12383ea003b3f5dd7-nmpmghnihb.chromatic.com/
 
