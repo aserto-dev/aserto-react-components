@@ -21,7 +21,8 @@ export type InputProps = {
   type?: 'text' | 'number' | 'password' | 'email' | string | null
   style?: any
   hasSmallLabel?: boolean
-} & HTMLInputElement
+  autoComplete?: string
+}
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
   if (isValid) {
