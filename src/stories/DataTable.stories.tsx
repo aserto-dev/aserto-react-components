@@ -67,7 +67,7 @@ const columns = [
     },
     Cell: ({ row }) => {
       return (
-        <CellWithImage>
+        <CellWithImage {...row.getToggleRowExpandedProps()}>
           <img src={row.original.image} alt="profile-image" />
           <div>
             <BoldText>{row.original.name}</BoldText>
@@ -114,4 +114,21 @@ export const Primary = Template.bind({})
 Primary.args = {
   data,
   columns,
+}
+
+const renderRowSubComponent = ({ row }) => (
+  <pre
+    style={{
+      fontSize: '10px',
+    }}
+  >
+    <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
+  </pre>
+)
+
+export const PrimaryWithExpandedSubComponent = Template.bind({})
+PrimaryWithExpandedSubComponent.args = {
+  data,
+  columns,
+  renderRowSubComponent,
 }

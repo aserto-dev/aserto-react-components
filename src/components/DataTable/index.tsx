@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, useSortBy } from 'react-table'
+import { useTable, useSortBy, useExpanded } from 'react-table'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
@@ -8,6 +8,7 @@ import desc from './desc.svg'
 export type DataTableProps = {
   data: Array<any>
   columns: Array<any>
+  renderRowSubComponent?: ({ row }: { row: unknown }) => React.ReactElement | string
 }
 
 const Icon = styled.img`
@@ -53,13 +54,21 @@ const Table = styled.table`
   }
 `
 
-export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSubComponent }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    visibleColumns,
+  } = useTable(
     {
       columns,
       data,
     },
-    useSortBy
+    useSortBy,
+    useExpanded
   )
 
   return (
@@ -96,18 +105,25 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           {rows.map((row) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      width={cell.column?.style?.cellWidth ? cell.column.style.cellWidth : ''}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  )
-                })}
-              </tr>
+              <>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        width={cell.column?.style?.cellWidth ? cell.column.style.cellWidth : ''}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    )
+                  })}
+                </tr>
+                {renderRowSubComponent && row.isExpanded ? (
+                  <tr key={row.id + row.depth}>
+                    <td colSpan={visibleColumns.length}>{renderRowSubComponent({ row })}</td>
+                  </tr>
+                ) : null}
+              </>
             )
           })}
         </tbody>
