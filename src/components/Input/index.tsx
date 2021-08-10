@@ -11,7 +11,7 @@ import { mapTestIdToProps } from '../../utils'
 export type InputProps = {
   placeholder?: string
   value?: string | number
-  onChange: (e: any) => void
+  onChange?: (e: any) => void
   label?: string
   info?: string
   error?: string
@@ -22,6 +22,7 @@ export type InputProps = {
   style?: any
   hasSmallLabel?: boolean
   autoComplete?: string
+  block?: boolean
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -39,6 +40,7 @@ const AsertoInput = styled(FormControl)<{
   isValid?: boolean
   isInvalid?: boolean
   $isUnavailable?: boolean
+  $block?: boolean
 }>`
   background-color: ${theme.primaryBlack};
   color: ${theme.grey100};
@@ -60,9 +62,10 @@ const AsertoInput = styled(FormControl)<{
     getInputValueForState(isValid, isInvalid, $isUnavailable)};
 `
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ $block?: boolean }>`
   display: flex;
   flex-direction: column;
+  ${({ $block }) => ($block ? 'width: 100%' : '')};
 `
 
 const Info = styled.div`
@@ -93,6 +96,7 @@ export const Input = React.forwardRef<any, InputProps>(
       type,
       style,
       hasSmallLabel,
+      block,
       ...props
     },
     ref
@@ -100,7 +104,7 @@ export const Input = React.forwardRef<any, InputProps>(
     const shouldDisplayInfo = !error && info
     const testId = props['data-testid']
     return (
-      <InputContainer>
+      <InputContainer $block={block}>
         {label && <Label $small={hasSmallLabel}>{label}</Label>}
         <AsertoInput
           ref={ref}
@@ -110,7 +114,7 @@ export const Input = React.forwardRef<any, InputProps>(
           placeholder={placeholder}
           value={value}
           type={type}
-          onChange={onChange}
+          onChange={onChange ? onChange : () => null}
           style={style}
           {...props}
         />

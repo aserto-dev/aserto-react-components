@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { ActionableInput, ActionableInputProps } from '../components/ActionableInput'
 
@@ -24,4 +24,10 @@ export const PrimaryWithHideShow = Template.bind({})
 PrimaryWithHideShow.args = {
   placeholder: 'JWT',
   shouldShowHideShowButton: true,
+}
+export const PrimaryWithHideShowAndLabel = Template.bind({})
+PrimaryWithHideShowAndLabel.args = {
+  placeholder: 'JWT',
+  shouldShowHideShowButton: true,
+  label: 'Label',
 }

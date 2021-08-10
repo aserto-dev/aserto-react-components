@@ -8,7 +8,7 @@ import desc from './desc.svg'
 export type DataTableProps = {
   data: Array<any>
   columns: Array<any>
-  renderRowSubComponent?: ({ row }: { row: unknown }) => React.ReactElement | string
+  renderRowSubComponent?: ({ row }: { row: any }) => React.ReactElement | string
 }
 
 const Icon = styled.img`
@@ -119,7 +119,11 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
                   })}
                 </tr>
                 {renderRowSubComponent && row.isExpanded ? (
-                  <tr key={row.id + row.depth}>
+                  <tr
+                    style={{
+                      backgroundColor: 'rgba(89, 89, 89, .45)',
+                    }}
+                  >
                     <td colSpan={visibleColumns.length}>{renderRowSubComponent({ row })}</td>
                   </tr>
                 ) : null}
