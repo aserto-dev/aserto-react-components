@@ -37,7 +37,7 @@ const Anm = keyframes`
 const ActionableInputContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 `
 
 const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`

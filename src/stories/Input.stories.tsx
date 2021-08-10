@@ -90,3 +90,10 @@ PrimaryWithSmallLabel.args = {
   label: 'Label',
   hasSmallLabel: true,
 }
+
+export const PrimaryBlock = Template.bind({})
+PrimaryBlock.args = {
+  value: 'Hey, Input!',
+  label: 'Label',
+  block: true,
+}
