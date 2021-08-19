@@ -23,6 +23,7 @@ export type InputProps = {
   hasSmallLabel?: boolean
   autoComplete?: string
   block?: boolean
+  defaultValue?: string | number
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -97,6 +98,7 @@ export const Input = React.forwardRef<any, InputProps>(
       style,
       hasSmallLabel,
       block,
+      defaultValue,
       ...props
     },
     ref
@@ -116,6 +118,7 @@ export const Input = React.forwardRef<any, InputProps>(
           type={type}
           onChange={onChange ? onChange : () => null}
           style={style}
+          defaultValue={defaultValue}
           {...props}
         />
         {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
