@@ -103,9 +103,9 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
       )
     }, [])
 
-    const Control = useCallback(({ children }) => {
+    const ValueContainer = useCallback(({ children, ...rest }) => {
       return (
-        <DotsButton onClick={() => setOpen((prev) => !prev)} variant="secondary-borderless">
+        <DotsButton {...rest} variant="secondary-borderless">
           <img src={dots} alt="see-more" /> {children}
         </DotsButton>
       )
@@ -211,6 +211,10 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
         display: 'none',
         // color: isDisabled ? theme.grey40 : theme.grey70,
       }),
+      container: (style) => ({
+        ...style,
+        width: 40,
+      }),
       menuList: (style) => ({
         ...style,
         zIndex: 5,
@@ -259,7 +263,7 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
           menuIsOpen={open}
           styles={colourStyles}
           formatGroupLabel={formatGroupLabel}
-          components={{ Control, Option, Menu: CustomMenu }}
+          components={{ ValueContainer, Option, Menu: CustomMenu }}
           placeholder=""
         />
       </div>
