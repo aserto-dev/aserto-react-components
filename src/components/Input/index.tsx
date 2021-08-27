@@ -24,6 +24,7 @@ export type InputProps = {
   autoComplete?: string
   block?: boolean
   defaultValue?: string | number
+  id?: string
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
@@ -45,6 +46,7 @@ const AsertoInput = styled(FormControl)<{
 }>`
   background-color: ${theme.primaryBlack};
   color: ${theme.grey100};
+  margin-top: 8px;
   border-color: ${theme.grey40};
   &:focus {
     background-color: ${theme.primaryBlack};
@@ -99,6 +101,7 @@ export const Input = React.forwardRef<any, InputProps>(
       hasSmallLabel,
       block,
       defaultValue,
+      id,
       ...props
     },
     ref
@@ -107,20 +110,23 @@ export const Input = React.forwardRef<any, InputProps>(
     const testId = props['data-testid']
     return (
       <InputContainer $block={block}>
-        {label && <Label $small={hasSmallLabel}>{label}</Label>}
-        <AsertoInput
-          ref={ref}
-          isValid={isValid}
-          isInvalid={error}
-          $isUnavailable={isUnavailable}
-          placeholder={placeholder}
-          value={value}
-          type={type}
-          onChange={onChange ? onChange : () => null}
-          style={style}
-          defaultValue={defaultValue}
-          {...props}
-        />
+        <Label htmlFor={id} $small={hasSmallLabel}>
+          {label}
+          <AsertoInput
+            ref={ref}
+            isValid={isValid}
+            isInvalid={error}
+            id={id}
+            $isUnavailable={isUnavailable}
+            placeholder={placeholder}
+            value={value}
+            type={type}
+            onChange={onChange ? onChange : () => null}
+            style={style}
+            defaultValue={defaultValue}
+            {...props}
+          />
+        </Label>
         {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
         {error && <Error {...mapTestIdToProps(`${testId}-error`)}>{error}</Error>}
       </InputContainer>
