@@ -167,6 +167,7 @@ export const Select = React.forwardRef<any, SelectProps>(
           {...props}
           name={name}
           inputId={name}
+          value={value}
           ref={forRef || null}
           isLoading={isLoading}
           isDisabled={disabled}
