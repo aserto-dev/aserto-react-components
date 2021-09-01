@@ -5,8 +5,6 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { User } from '../../types'
 import { UserCard } from '../UserCard'
 
-const MOBILE_PAGE_SIZE = 40
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 399px);
@@ -76,17 +74,6 @@ const filterUsers = (users: Array<User>, filter: string): Array<User> => {
 export const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-const mapUsersToInfiniteScroll = (
-  users: Array<User>,
-  page: number,
-  pageSize = MOBILE_PAGE_SIZE
-) => {
-  try {
-    return users.slice(0, page * pageSize)
-  } catch (er) {
-    return []
-  }
-}
 
 export type DirectoryBrowserGridProps = {
   pageSize: number
@@ -110,15 +97,10 @@ export const DirectoryBrowserGrid: React.FC<DirectoryBrowserGridProps> = ({
   }, [page, filter])
 
   const filteredUsers = useMemo(() => filterUsers(users, filter.toLowerCase()), [users, filter])
-  const usersToDisplay = useMemo(() => mapUsersToInfiniteScroll(filteredUsers, page, pageSize), [
-    filteredUsers,
-    page,
-    pageSize,
-  ])
 
-  const lastPage = useMemo(() => Math.ceil(usersToDisplay?.length / pageSize), [
+  const lastPage = useMemo(() => Math.ceil(filteredUsers?.length / pageSize), [
     pageSize,
-    usersToDisplay,
+    filteredUsers,
   ])
 
   const onReachEnd = async () => {
@@ -128,12 +110,12 @@ export const DirectoryBrowserGrid: React.FC<DirectoryBrowserGridProps> = ({
   return (
     <div>
       <InfiniteScrollView
-        dataLength={usersToDisplay?.length}
+        dataLength={filteredUsers?.length}
         next={onReachEnd}
         hasMore={page <= lastPage}
         loader={page < lastPage && <div>Loading...</div>}
       >
-        <Grid>{renderUserCards(usersToDisplay, onClickCard)}</Grid>
+        <Grid>{renderUserCards(filteredUsers, onClickCard)}</Grid>
       </InfiniteScrollView>
     </div>
   )
