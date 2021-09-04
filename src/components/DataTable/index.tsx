@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTable, useSortBy, useExpanded } from 'react-table'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
 import desc from './desc.svg'
@@ -15,6 +15,29 @@ const Icon = styled.img`
   margin-left: 8px;
 `
 
+const Tbody = styled.tbody`
+  transition: visibility 700ms ease, opacity 500ms ease;
+`
+const Tr = styled.tr<{ $isExpanded?: boolean; $shouldShowSubRow?: boolean }>`
+  ${({ $isExpanded, $shouldShowSubRow }) => {
+    if ($isExpanded) {
+      return css`
+        background-color: ${theme.grey30};
+        color: ${theme.grey100} !important;
+        cursor: pointer;
+      `
+    } else if ($shouldShowSubRow) {
+      return css`
+        &:hover {
+          background-color: ${theme.grey20};
+          color: ${theme.grey100};
+          cursor: pointer;
+        }
+      `
+    }
+  }}
+`
+
 const TableContainer = styled.div`
   display: block;
   max-width: 100%;
@@ -27,7 +50,7 @@ const TableContainer = styled.div`
   }
 `
 
-const Table = styled.table`
+const Table = styled.table<{ $hasSubRow: boolean }>`
   background-color: ${theme.primaryBlack};
   width: 100%;
   thead {
@@ -62,10 +85,14 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
     rows,
     prepareRow,
     visibleColumns,
+    getToggleAllRowsExpandedProps,
+    toggleAllRowsExpanded,
+    toggleRowExpanded,
   } = useTable(
     {
       columns,
       data,
+      expandSubRows: false,
     },
     useSortBy,
     useExpanded
@@ -73,7 +100,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
 
   return (
     <TableContainer>
-      <Table {...getTableProps()}>
+      <Table $hasSubRow={renderRowSubComponent} {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -101,12 +128,17 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        <Tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row)
+            const shouldShowSubRow = renderRowSubComponent && row.isExpanded
             return (
               <>
-                <tr {...row.getRowProps()}>
+                <Tr
+                  $isExpanded={row.isExpanded}
+                  $shouldShowSubRow={renderRowSubComponent}
+                  {...row.getRowProps()}
+                >
                   {row.cells.map((cell) => {
                     return (
                       <td
@@ -117,20 +149,46 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
                       </td>
                     )
                   })}
-                </tr>
-                {renderRowSubComponent && row.isExpanded ? (
-                  <tr
+                </Tr>
+                <tr
+                  style={{
+                    backgroundColor: theme.grey10,
+                  }}
+                >
+                  <td
                     style={{
-                      backgroundColor: 'rgba(89, 89, 89, .45)',
+                      backgroundColor: theme.grey10,
+                      padding: 20,
+                      transition: 'max-height 900ms ease, opacity 900ms, padding 200ms',
+                      maxHeight: 300,
+                      opacity: 1,
+                      ...(!shouldShowSubRow && {
+                        maxHeight: 0,
+                        height: 0,
+                        padding: 0,
+                        opacity: 0,
+                        overflow: 'hidden',
+                      }),
                     }}
+                    colSpan={visibleColumns.length}
                   >
-                    <td colSpan={visibleColumns.length}>{renderRowSubComponent({ row })}</td>
-                  </tr>
-                ) : null}
+                    <div
+                      style={{
+                        transition: 'all 10ms',
+                        ...(!shouldShowSubRow && {
+                          visibility: 'hidden',
+                          height: 0,
+                        }),
+                      }}
+                    >
+                      {shouldShowSubRow && renderRowSubComponent({ row })}
+                    </div>
+                  </td>
+                </tr>
               </>
             )
           })}
-        </tbody>
+        </Tbody>
       </Table>
     </TableContainer>
   )

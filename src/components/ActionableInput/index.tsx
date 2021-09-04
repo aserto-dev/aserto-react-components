@@ -6,6 +6,7 @@ import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
 import { mapTestIdToProps } from '../../utils'
+import { Label } from '../Label'
 
 const Anm = keyframes`
   0% {
@@ -32,6 +33,11 @@ const Anm = keyframes`
   100% {
     opacity: 1;
   }
+`
+
+const CenteredRow = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const ActionableInputContainer = styled.div`
@@ -63,6 +69,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
   onClickCopy,
   shouldShowHideShowButton,
   testId,
+  label,
   ...inputProps
 }) => {
   const [type, setType] = useState(inputProps.type || 'text')
@@ -78,42 +85,47 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
 
   return (
     <ActionableInputContainer>
-      <Input {...inputProps} type={type} data-testid={testId} />
-      {onClickCopy && (
-        <ButtonContainer
-          $wasClicked={wasClicked}
-          variant="secondary-borderless"
-          onClick={(e) => {
-            setWasClicked(true)
-            e.currentTarget.blur()
-            onClickCopy(String(inputProps.value))
-          }}
-          {...mapTestIdToProps(`${testId}-copy-btn`)}
-        >
-          <img src={copy} alt="copy" />
-        </ButtonContainer>
-      )}
-      {shouldShowHideShowButton && (
-        <>
-          {type === 'password' ? (
-            <Button
+      <Label>
+        {label}
+        <CenteredRow>
+          <Input {...inputProps} type={type} data-testid={testId} />
+          {onClickCopy && (
+            <ButtonContainer
+              $wasClicked={wasClicked}
               variant="secondary-borderless"
-              onClick={() => setType('text')}
-              {...mapTestIdToProps(`${testId}-show-btn`)}
+              onClick={(e) => {
+                setWasClicked(true)
+                e.currentTarget.blur()
+                onClickCopy(String(inputProps.value))
+              }}
+              {...mapTestIdToProps(`${testId}-copy-btn`)}
             >
-              <img alt="show" src={show} />
-            </Button>
-          ) : (
-            <Button
-              onClick={() => setType('password')}
-              variant="secondary-borderless"
-              {...mapTestIdToProps(`${testId}-hide-btn`)}
-            >
-              <img alt="hide" src={hide} />
-            </Button>
+              <img src={copy} alt="copy" />
+            </ButtonContainer>
           )}
-        </>
-      )}
+          {shouldShowHideShowButton && (
+            <>
+              {type === 'password' ? (
+                <Button
+                  variant="secondary-borderless"
+                  onClick={() => setType('text')}
+                  {...mapTestIdToProps(`${testId}-show-btn`)}
+                >
+                  <img alt="show" src={show} />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => setType('password')}
+                  variant="secondary-borderless"
+                  {...mapTestIdToProps(`${testId}-hide-btn`)}
+                >
+                  <img alt="hide" src={hide} />
+                </Button>
+              )}
+            </>
+          )}
+        </CenteredRow>
+      </Label>
     </ActionableInputContainer>
   )
 }

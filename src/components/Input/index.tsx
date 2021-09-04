@@ -57,8 +57,9 @@ const AsertoInput = styled(FormControl)<{
     -webkit-box-shadow: none;
   }
   &:disabled {
-    color: ${theme.grey40};
+    color: ${theme.grey70};
     background-color: ${theme.grey20};
+    border-color: ${theme.grey20};
     opacity: 0.6;
   }
   ${({ isValid, isInvalid, $isUnavailable }) =>
