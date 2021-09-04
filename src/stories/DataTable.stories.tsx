@@ -3,6 +3,15 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { DataTable, DataTableProps } from '../components/DataTable'
 import styled from 'styled-components'
 import { Button } from '../components/Button'
+import { ActionableInput, SelectWithDots } from '..'
+
+const DotsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  max-height: 35px;
+  min-height: 35px;
+  height: 35px !important;
+`
 
 export default {
   title: 'Common/DataTable',
@@ -105,7 +114,11 @@ const columns = [
       },
     },
     Cell: () => {
-      return <DotsButton variant="secondary-borderless">{/*<img src={dots} />*/}</DotsButton>
+      return (
+        <DotsContainer>
+          <SelectWithDots options={[]} onChange={console.log} />
+        </DotsContainer>
+      )
     },
   },
 ]
@@ -117,13 +130,14 @@ Primary.args = {
 }
 
 const renderRowSubComponent = ({ row }) => (
-  <pre
-    style={{
-      fontSize: '10px',
-    }}
-  >
-    <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
-  </pre>
+  <div>
+    <ActionableInput
+      onClickCopy={console.log}
+      disabled
+      label={'leke'}
+      shouldShowHideShowButton={true}
+    />
+  </div>
 )
 
 export const PrimaryWithExpandedSubComponent = Template.bind({})

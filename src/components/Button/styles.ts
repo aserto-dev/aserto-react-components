@@ -58,7 +58,7 @@ export const SecondaryButton = styled(BaseButton)`
     border: 1px solid ${theme.grey40} !important;
     outline: none;
     box-shadow: none !important;
-    background-color: ${theme.grey30};
+    background-color: ${theme.grey40};
   }
   &:disabled {
     background-color: ${theme.grey10};
@@ -100,7 +100,7 @@ export const SecondaryBorderlessButton = styled(BaseButton)`
   &:visited,
   &:focus {
     outline: none;
-    background-color: ${theme.grey30};
+    background-color: ${theme.grey40};
   }
   &:disabled {
     background-color: ${theme.grey10};

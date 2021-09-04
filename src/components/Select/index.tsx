@@ -105,7 +105,7 @@ export const Select = React.forwardRef<any, SelectProps>(
           backgroundColor: isDisabled
             ? theme.grey20
             : isFocused
-            ? theme.grey30
+            ? theme.grey40
             : isSelected
             ? theme.grey20
             : theme.grey20,
@@ -116,7 +116,7 @@ export const Select = React.forwardRef<any, SelectProps>(
           cursor: isDisabled ? 'not-allowed' : 'default',
           ':active': {
             ...styles[':active'],
-            backgroundColor: theme.grey30,
+            backgroundColor: theme.grey40,
           },
         }
       },

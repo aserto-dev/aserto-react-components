@@ -145,12 +145,6 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
           outline: isFocused ? 'none' : '',
           boxShadow: 'none',
           borderWidth: 1,
-          ':hover': {
-            ...styles[':hover'],
-            backgroundColor: theme.grey10,
-            borderColor: theme.lochivarAccent1,
-            color: theme.grey100,
-          },
         }
       },
       option: (styles, { isDisabled, isFocused, isSelected }) => {
@@ -159,7 +153,7 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
           backgroundColor: isDisabled
             ? theme.grey20
             : isFocused
-            ? theme.grey30
+            ? theme.grey40
             : isSelected
             ? theme.grey20
             : theme.grey20,
@@ -170,7 +164,7 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
           cursor: isDisabled ? 'not-allowed' : 'default',
           ':active': {
             ...styles[':active'],
-            backgroundColor: theme.grey30,
+            backgroundColor: theme.grey40,
           },
         }
       },
