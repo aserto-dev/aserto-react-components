@@ -159,7 +159,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
                     style={{
                       backgroundColor: theme.grey10,
                       padding: 20,
-                      transition: 'max-height 900ms ease, opacity 900ms, padding 200ms',
+                      transition: 'max-height 900ms ease, opacity 900ms, padding-top 200ms',
                       maxHeight: 300,
                       opacity: 1,
                       ...(!shouldShowSubRow && {
