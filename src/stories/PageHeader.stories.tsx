@@ -15,6 +15,18 @@ Primary.args = {
   title: 'Page title',
 }
 
+export const PrimaryWithSubtitle = Template.bind({})
+PrimaryWithSubtitle.args = {
+  title: 'Page title',
+  subtitle: 'Tenant ID',
+}
+
+export const PrimaryWithSubtitleAsReactComponent = Template.bind({})
+PrimaryWithSubtitleAsReactComponent.args = {
+  title: 'Page title',
+  subtitle: <div>Hey!</div>,
+}
+
 export const PrimaryWithLoading = Template.bind({})
 PrimaryWithLoading.args = {
   title: 'Page title',

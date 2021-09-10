@@ -7,6 +7,7 @@ import { mapTestIdToProps } from '../../utils'
 
 export type PageHeaderProps = {
   title?: string
+  subtitle?: React.ReactElement | string
   load?: () => void
   loading?: boolean
   hasBorderBottom?: boolean
@@ -43,6 +44,7 @@ const PageHeaderContainer = styled.div<{
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
   title,
+  subtitle,
   load,
   loading,
   hasBorderBottom,
@@ -60,7 +62,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     {...mapTestIdToProps(testId)}
   >
     {load && <RefreshButton load={load} loading={loading} />}
-    {title && <PageTitle title={title} />}
+    <div>
+      {title && <PageTitle title={title} />}
+      {subtitle && <div>{subtitle}</div>}
+    </div>
     {children}
   </PageHeaderContainer>
 )
