@@ -16,8 +16,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Install dependencies
         run: yarn
+
       - name: Read Configuration
         uses: hashicorp/vault-action@v2.3.0
         id: vault
@@ -26,6 +28,18 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/chromatic TOKENS.REACT_COMPONENTS | CHROMATIC_PROJECT_TOKEN;
+            
+      - name: Install Vault CLI
+        uses: innovationnorway/setup-vault@v1.0.3
+        with:
+          version: 1.4.2
+
+      - name: Renew Vault Token
+        env:
+          VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+        run: |
+          vault token renew
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
