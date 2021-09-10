@@ -12,7 +12,7 @@ const Template: Story = (args) => <EvaluateDisplayState {...args} />
 export const WithVisibleAndDisabled = Template.bind({})
 WithVisibleAndDisabled.args = {
   children: <Button>I'm a button!</Button>,
-  displayStateMap: {
+  displayState: {
     visible: true,
     enabled: false,
   },
@@ -21,7 +21,7 @@ WithVisibleAndDisabled.args = {
 export const WithVisibleAndEnabled = Template.bind({})
 WithVisibleAndEnabled.args = {
   children: <Button>I'm a button!</Button>,
-  displayStateMap: {
+  displayState: {
     visible: true,
     enabled: true,
   },
@@ -30,7 +30,7 @@ WithVisibleAndEnabled.args = {
 export const WithInvisible = Template.bind({})
 WithInvisible.args = {
   children: <Button>I'm a button!</Button>,
-  displayStateMap: {
+  displayState: {
     visible: false,
     enabled: true,
   },
@@ -39,7 +39,7 @@ WithInvisible.args = {
 export const WithInputVisibleAndDisabled = Template.bind({})
 WithInputVisibleAndDisabled.args = {
   children: <Input placeholder="Im a input" onChange={console.log} />,
-  displayStateMap: {
+  displayState: {
     visible: true,
     enabled: false,
   },
