@@ -4,17 +4,17 @@ export type DisplayState = {
   [key: string]: string | boolean
 }
 
-const EvaluateDisplayMapComponent = ({
+const EvaluateDisplayStateComponent = ({
   children,
-  displayStateMap,
+  displayState,
 }: {
   children: React.ReactElement
-  displayStateMap: DisplayState
+  displayState: DisplayState
 }) => {
-  const isVisible = displayStateMap.visible
-  const isEnabled = displayStateMap.enabled
+  const isVisible = displayState.visible
+  const isEnabled = displayState.enabled
 
   return <>{isVisible && React.cloneElement(children, { disabled: !isEnabled })}</>
 }
 
-export const EvaluateDisplayMap = React.memo(EvaluateDisplayMapComponent)
+export const EvaluateDisplayState = React.memo(EvaluateDisplayStateComponent)

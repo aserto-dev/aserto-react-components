@@ -1,13 +1,13 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { Button, EvaluateDisplayMap, Input } from '..'
+import { Button, EvaluateDisplayState, Input } from '..'
 
 export default {
-  title: 'Common/EvaluateDisplayMap',
-  component: EvaluateDisplayMap,
+  title: 'Common/EvaluateDisplayState',
+  component: EvaluateDisplayState,
 } as Meta
 
-const Template: Story = (args) => <EvaluateDisplayMap {...args} />
+const Template: Story = (args) => <EvaluateDisplayState {...args} />
 
 export const WithVisibleAndDisabled = Template.bind({})
 WithVisibleAndDisabled.args = {
