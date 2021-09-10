@@ -7,11 +7,11 @@ import { mapTestIdToProps } from '../../utils'
 
 export type PageHeaderProps = {
   title?: string
-  subtitle?: React.ReactElement | string
+  subtitle?: React.ReactNode | string
   load?: () => void
   loading?: boolean
   hasBorderBottom?: boolean
-  children?: React.ReactElement
+  children?: React.ReactNode
   topPosition?: number
   id?: string
   mobileBreakpoint?: number
