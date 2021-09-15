@@ -3,13 +3,7 @@ import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import usericon from './user.svg'
 import { mapTestIdToProps } from '../../utils'
-
-interface User {
-  display_name: string
-  email: string
-  id: string
-  picture: string
-}
+import { User } from '../../types'
 
 export type UserCardProps = {
   user: User

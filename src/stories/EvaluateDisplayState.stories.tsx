@@ -7,7 +7,9 @@ export default {
   component: EvaluateDisplayState,
 } as Meta
 
-const Template: Story = (args) => <EvaluateDisplayState {...args} />
+const Template: Story = (args: React.ComponentProps<typeof EvaluateDisplayState>) => (
+  <EvaluateDisplayState {...args} />
+)
 
 export const WithVisibleAndDisabled = Template.bind({})
 WithVisibleAndDisabled.args = {
