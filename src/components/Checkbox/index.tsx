@@ -9,8 +9,6 @@ const CheckboxContainer = styled.div`
 `
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
-  // Hide checkbox visually but remain accessible to screen readers.
-  // Source: https://polished.js.org/docs/#hidevisually
   border: 0;
   clip: rect(0 0 0 0);
   clippath: inset(50%);

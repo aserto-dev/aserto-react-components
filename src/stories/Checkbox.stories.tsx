@@ -11,11 +11,14 @@ const Template: Story<any> = (args) => <Checkbox {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
-  onChange: console.log
+}
+
+export const PrimaryWithLabel = Template.bind({})
+PrimaryWithLabel.args = {
+  label: 'Im a label'
 }
 
 export const PrimaryChecked = Template.bind({})
 PrimaryChecked.args = {
-  onChange: console.log,
   checked: true
 }
