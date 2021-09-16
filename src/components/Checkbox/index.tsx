@@ -27,7 +27,7 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `
 
-const StyledCheckbox = styled.div<{ checked?: boolean, $disabled?: boolean }>`
+const StyledCheckbox = styled.div<{ checked: boolean, $disabled?: boolean }>`
   display: inline-block;
   border: 1px solid ${props => props.checked ? theme.primary : theme.grey50};;
   margin-right: 10px;
@@ -56,7 +56,7 @@ const HorizontalLabel = styled(Label)`
 `
 
 export type CheckboxProps = {
-  checked?: boolean
+  checked: boolean
   onChange: (checked: boolean) => void
   label?: string
   name?: string
@@ -66,7 +66,7 @@ export type CheckboxProps = {
 export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, name, disabled }) => {
   return <CheckboxContainer>
     <HorizontalLabel $small>
-      <HiddenCheckbox disabled={disabled} name="name" checked={checked} onChange={(e) => onChange(e.target.checked)}/>
+      <HiddenCheckbox disabled={disabled} name={name} checked={checked} onChange={(e) => onChange(e.target.checked)}/>
       <StyledCheckbox $disabled={disabled} checked={checked}>
         {checked && <Icon  viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
