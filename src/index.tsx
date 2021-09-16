@@ -36,6 +36,8 @@ import { IdentityContext } from './components/IdentityContext'
 import { RequestEditor } from './components/RequestEditor'
 import { SelectWithDots } from './components/SelectWithDots'
 import { EvaluateDisplayState } from './components/EvaluateDisplayState'
+import { Checkbox } from './components/Checkbox'
+import { TooltipDialog } from './components/TooltipDialog'
 
 export {
   PolicyCard,
@@ -68,5 +70,7 @@ export {
   RequestEditor,
   SelectWithDots,
   EvaluateDisplayState,
+  Checkbox,
+  TooltipDialog,
   theme,
 }
