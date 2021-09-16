@@ -1,14 +1,16 @@
 import React from 'react'
-import { useTable, useSortBy, useExpanded } from 'react-table'
+import { Column, Row, useTable, useSortBy, useExpanded } from 'react-table'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
 import desc from './desc.svg'
 
+type SubComponent = React.FunctionComponent<{ row: Row }>
+
 export type DataTableProps = {
-  data: Array<any>
-  columns: Array<any>
-  renderRowSubComponent?: ({ row }: { row: any }) => React.ReactElement | string
+  data: readonly object[]
+  columns: readonly Column[]
+  renderRowSubComponent?: SubComponent
 }
 
 const Icon = styled.img`
@@ -85,9 +87,6 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
     rows,
     prepareRow,
     visibleColumns,
-    getToggleAllRowsExpandedProps,
-    toggleAllRowsExpanded,
-    toggleRowExpanded,
   } = useTable(
     {
       columns,
@@ -100,7 +99,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
 
   return (
     <TableContainer>
-      <Table $hasSubRow={renderRowSubComponent} {...getTableProps()}>
+      <Table $hasSubRow={renderRowSubComponent !== undefined} {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -131,12 +130,12 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
         <Tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row)
-            const shouldShowSubRow = renderRowSubComponent && row.isExpanded
+            const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
             return (
               <>
                 <Tr
                   $isExpanded={row.isExpanded}
-                  $shouldShowSubRow={renderRowSubComponent}
+                  $shouldShowSubRow={renderRowSubComponent !== undefined}
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => {
@@ -192,4 +191,29 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
       </Table>
     </TableContainer>
   )
+}
+
+// Must use module declaration augmentation to type the useSortBy and useExpanded plugins
+// https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-table#configuration-using-declaration-merging
+declare module 'react-table' {
+  export interface TableOptions<D extends object>
+    extends UseExpandedOptions<D>,
+      UseSortByOptions<D> {}
+  export interface Hooks<D extends object = {}> extends UseExpandedHooks<D>, UseSortByHooks<D> {}
+  export interface TableInstance<D extends object = {}>
+    extends UseExpandedInstanceProps<D>,
+      UseSortByInstanceProps<D> {}
+  export interface TableState<D extends object = {}>
+    extends UseExpandedState<D>,
+      UseSortByState<D> {}
+  export interface ColumnInterface<D extends object = {}> extends UseSortByColumnOptions<D> {}
+  export interface ColumnInstance<D extends object = {}> extends UseSortByColumnProps<D> {
+    // DataTable-specific properties
+    style?: {
+      cellWidth?: string | number
+      headerCell?: React.CSSProperties
+    }
+  }
+  export interface Cell<D extends object = {}, V = any> extends UseRowStateCellProps<D> {}
+  export interface Row<D extends object = {}> extends UseExpandedRowProps<D> {}
 }

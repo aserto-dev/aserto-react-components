@@ -46,7 +46,7 @@ const EmptyUsersContainer = styled.div`
   }
 `
 
-const renderUserCards = (users: Array<User>, onClick: (id: string) => void) => {
+const renderUserCards = (users: readonly User[], onClick: (id: string) => void) => {
   if (users.length === 0) {
     return (
       <EmptyUsersContainer>
@@ -60,7 +60,7 @@ const renderUserCards = (users: Array<User>, onClick: (id: string) => void) => {
   ))
 }
 
-const filterUsers = (users: Array<User>, filter: string): Array<User> => {
+const filterUsers = (users: readonly User[], filter: string): readonly User[] => {
   if (filter) {
     return users.filter(
       (value) =>
@@ -77,7 +77,7 @@ export const scrollToTop = () => {
 
 export type DirectoryBrowserGridProps = {
   pageSize: number
-  users: Array<User>
+  users: readonly User[]
   filter: string
   onClickCard: (id: string) => void
 }

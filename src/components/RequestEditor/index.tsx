@@ -84,8 +84,8 @@ const HighlightWrapper = styled.div`
 
 export const RequestEditor = ({ identity, setIdentity, onExecute, output }) => {
   const [mode, setMode] = useState(identity ? 'MANUAL' : 'ANONYMOUS')
-  const [input, setInput] = useState()
-  const [query, setQuery] = useState()
+  const [input, setInput] = useState<string>()
+  const [query, setQuery] = useState<string>()
 
   const requestOptions = [
     {

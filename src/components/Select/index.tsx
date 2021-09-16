@@ -11,7 +11,7 @@ export type SelectOption = {
 }
 
 export type SelectProps = {
-  options: Array<SelectOption>
+  options: readonly SelectOption[]
   defaultValue?: SelectOption
   onChange: (e: any) => void
   disabled?: boolean

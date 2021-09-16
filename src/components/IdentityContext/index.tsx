@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Input, Select } from '../..'
-// import { Input, Select } from '@aserto/aserto-react-components'
 
 const Col = styled.div`
   width: 100%;

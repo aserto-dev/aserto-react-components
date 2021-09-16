@@ -52,7 +52,8 @@ const SwitchHandle = styled.div<{ $isChecked?: boolean }>`
   background-color: #4a4a4a;
 `
 
-export type SwitchButtonProps = {
+export interface SwitchButtonProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof SwitchLabel>, 'onChange'> {
   className?: string
   checked: boolean
   onChange: (checked: boolean) => void
@@ -61,7 +62,6 @@ export type SwitchButtonProps = {
   handleColor?: string
   focusShadow?: string
   disabled?: boolean
-  [props: string]: any
   testId?: string
 }
 

@@ -21,7 +21,7 @@ export type SelectOption = {
 }
 
 export type SelectWithDotsProps = {
-  options: Array<SelectOption>
+  options: readonly SelectOption[]
   defaultValue?: SelectOption
   onChange: (e: any) => void
   disabled?: boolean
