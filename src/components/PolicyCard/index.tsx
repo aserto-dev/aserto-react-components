@@ -19,7 +19,7 @@ export type PolicyCardProps = {
   testId?: string
   disabled?: boolean
   policyIconVariant?: 'pending' | 'error' | 'loaded'
-  errors?: Array<string>
+  errors?: readonly string[]
 }
 
 const Icon = styled.img`

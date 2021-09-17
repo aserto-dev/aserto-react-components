@@ -1,10 +1,10 @@
 import React from 'react'
-import { FormControl } from 'react-bootstrap'
+import { FormControl, FormControlProps } from 'react-bootstrap'
 import './TextArea.css'
 
 export type TextAreaProps = {
   value: string | number
-  onChange: (e: any) => void
+  onChange: FormControlProps['onChange']
   rows?: number
   placeholder?: string
   style?: unknown

@@ -1,8 +1,8 @@
 import React from 'react'
 
-export type DisplayState = {
+export type DisplayState = Readonly<{
   [key: string]: string | boolean
-}
+}>
 
 const EvaluateDisplayStateComponent = ({
   children,

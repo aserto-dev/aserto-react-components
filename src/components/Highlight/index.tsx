@@ -157,7 +157,7 @@ const Code = styled.div`
 `
 interface Props {
   children: React.ReactElement | string | unknown
-  style?: unknown
+  style?: React.CSSProperties
 }
 export const Highlight: React.FC<Props> = ({ children, style }) => {
   useLayoutEffect(() => {
