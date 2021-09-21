@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components } from 'react-select'
+import ReactSelect, { components, Props } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -20,15 +20,17 @@ export type SelectOption = {
   isDisabled?: boolean
 }
 
-export type SelectWithDotsProps = {
+export type ReactSelectElement = ReactSelect<SelectOption>
+
+export interface SelectWithDotsProps extends Omit<Props<SelectOption>, 'onFocus' | 'onBlur'> {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
-  onChange: (e: any) => void
+  onChange?: (value: SelectOption | null) => void
   disabled?: boolean
   label?: string
   isLoading?: boolean
   value?: SelectOption | null
-  style?: any
+  style?: React.CSSProperties
   disableLabel?: boolean
   name?: string
   menuIsOpen?: boolean
@@ -51,7 +53,9 @@ const groupStyles = {
 
 const formatGroupLabel = () => <div style={groupStyles} />
 
-export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
+export const SelectWithDots: React.ForwardRefExoticComponent<
+  SelectWithDotsProps & React.RefAttributes<ReactSelectElement>
+> = React.forwardRef(
   (
     {
       options,
@@ -68,7 +72,7 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
       onBlur,
       ...props
     },
-    forRef
+    ref
   ) => {
     const [open, setOpen] = useState(false)
     const [firstSelectedOption, setFirstSelectedOption] = useState<SelectOption | null>(null)
@@ -237,7 +241,7 @@ export const SelectWithDots = React.forwardRef<any, SelectWithDotsProps>(
           isClearable={false}
           inputId={name}
           isSearchable={false}
-          ref={forRef || null}
+          ref={ref}
           isLoading={isLoading}
           isDisabled={disabled}
           options={options}

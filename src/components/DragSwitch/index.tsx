@@ -2,16 +2,15 @@ import React, { useRef, useState, useEffect } from 'react'
 import './styles.css'
 import { mapTestIdToProps } from '../../utils'
 
-interface Props {
+interface Props extends Omit<React.ComponentProps<'label'>, 'onChange'> {
   className?: string
   checked: boolean
-  onChange: (checked: boolean) => void
+  onChange?: (checked: boolean) => void
   onColor?: string
   offColor?: string
   handleColor?: string
   focusShadow?: string
   disabled?: boolean
-  [props: string]: any
   testId?: string
 }
 

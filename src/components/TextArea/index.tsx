@@ -4,7 +4,7 @@ import './TextArea.css'
 
 export type TextAreaProps = {
   value: string | number
-  onChange: FormControlProps['onChange']
+  onChange?: FormControlProps['onChange']
   rows?: number
   placeholder?: string
   style?: unknown

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import ReactSelect, { components } from 'react-select'
+import ReactSelect, { components, Props } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
@@ -10,15 +10,16 @@ export type SelectOption = {
   onClick?: () => void
 }
 
-export type SelectProps = {
+export type ReactSelectElement = ReactSelect<SelectOption>
+
+export interface SelectProps extends Props<SelectOption> {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
-  onChange: (e: any) => void
   disabled?: boolean
   label?: string
   isLoading?: boolean
   value?: SelectOption | null
-  style?: any
+  style?: React.CSSProperties
   disableLabel?: boolean
   name?: string
 }
@@ -38,7 +39,9 @@ const groupStyles = {
 
 const formatGroupLabel = () => <div style={groupStyles} />
 
-export const Select = React.forwardRef<any, SelectProps>(
+export const Select: React.ForwardRefExoticComponent<
+  SelectProps & React.RefAttributes<ReactSelectElement>
+> = React.forwardRef(
   (
     {
       options,
@@ -53,7 +56,7 @@ export const Select = React.forwardRef<any, SelectProps>(
       name,
       ...props
     },
-    forRef
+    ref
   ) => {
     const removeFocusBox = {
       outline: 'none',
@@ -168,7 +171,7 @@ export const Select = React.forwardRef<any, SelectProps>(
           name={name}
           inputId={name}
           value={value}
-          ref={forRef || null}
+          ref={ref}
           isLoading={isLoading}
           isDisabled={disabled}
           options={options}
