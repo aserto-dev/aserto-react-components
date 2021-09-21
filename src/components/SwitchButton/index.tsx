@@ -56,7 +56,7 @@ export interface SwitchButtonProps
   extends Omit<React.ComponentPropsWithoutRef<typeof SwitchLabel>, 'onChange'> {
   className?: string
   checked: boolean
-  onChange: (checked: boolean) => void
+  onChange?: (checked: boolean) => void
   onColor?: string
   offColor?: string
   handleColor?: string

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormControl } from 'react-bootstrap'
+import { FormControl, FormControlProps } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import valid from './valid.svg'
@@ -11,7 +11,8 @@ import { mapTestIdToProps } from '../../utils'
 export type InputProps = {
   placeholder?: string
   value?: string | number
-  onChange?: (e: any) => void
+  onChange?: FormControlProps['onChange']
+  onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   label?: string
   info?: string
   error?: string
@@ -19,7 +20,7 @@ export type InputProps = {
   isUnavailable?: boolean
   disabled?: boolean
   type?: 'text' | 'number' | 'password' | 'email' | string | null
-  style?: any
+  style?: React.CSSProperties
   hasSmallLabel?: boolean
   autoComplete?: string
   block?: boolean
@@ -86,7 +87,7 @@ const Error = styled(Info)`
 `
 
 // eslint-disable-next-line react/display-name
-export const Input = React.forwardRef<any, InputProps>(
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       placeholder,
@@ -122,7 +123,7 @@ export const Input = React.forwardRef<any, InputProps>(
             placeholder={placeholder}
             value={value}
             type={type}
-            onChange={onChange ? onChange : () => null}
+            onChange={onChange}
             style={style}
             defaultValue={defaultValue}
             {...props}

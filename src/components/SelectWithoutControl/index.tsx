@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components } from 'react-select'
+import ReactSelect, { components, Props } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -20,15 +20,17 @@ export type SelectOption = {
   onClick?: () => void
 }
 
-export type SelectWithoutControlProps = {
+export type ReactSelectElement = ReactSelect<SelectOption>
+
+export interface SelectWithoutControlProps extends Omit<Props<SelectOption>, 'onFocus' | 'onBlur'> {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
-  onChange: (e: any) => void
+  onChange?: (value: SelectOption | null) => void
   disabled?: boolean
   label?: string
   isLoading?: boolean
   value?: SelectOption | null
-  style?: any
+  style?: React.CSSProperties
   disableLabel?: boolean
   name?: string
   onClickRemoveTenant: () => void
@@ -75,7 +77,9 @@ const removeFromTenantStyle = {
   marginTop: -4,
 }
 
-export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlProps>(
+export const SelectWithoutControl: React.ForwardRefExoticComponent<
+  SelectWithoutControlProps & React.RefAttributes<ReactSelectElement>
+> = React.forwardRef(
   (
     {
       options,
@@ -96,7 +100,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
       onBlur,
       ...props
     },
-    forRef
+    ref
   ) => {
     const [open, setOpen] = useState(false)
     const [firstSelectedOption, setFirstSelectedOption] = useState<SelectOption | null>(null)
@@ -288,7 +292,7 @@ export const SelectWithoutControl = React.forwardRef<any, SelectWithoutControlPr
           isClearable={false}
           inputId={name}
           isSearchable={false}
-          ref={forRef || null}
+          ref={ref}
           isLoading={isLoading}
           isDisabled={disabled}
           options={options}

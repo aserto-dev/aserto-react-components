@@ -57,7 +57,7 @@ const HorizontalLabel = styled(Label)`
 
 export type CheckboxProps = {
   checked: boolean
-  onChange: (checked: boolean) => void
+  onChange?: (checked: boolean) => void
   label?: string
   name?: string
   disabled?: boolean

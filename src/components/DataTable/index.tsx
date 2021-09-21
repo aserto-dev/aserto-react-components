@@ -5,12 +5,12 @@ import { theme } from '../../theme'
 import asc from './asc.svg'
 import desc from './desc.svg'
 
-type SubComponent = React.FunctionComponent<{ row: Row }>
+type SubComponent<Data extends object> = React.FunctionComponent<{ row: Row<Data> }>
 
-export type DataTableProps = {
-  data: readonly object[]
-  columns: readonly Column[]
-  renderRowSubComponent?: SubComponent
+export type DataTableProps<Data extends object> = {
+  data: readonly Data[]
+  columns: readonly Column<Data>[]
+  renderRowSubComponent?: SubComponent<Data>
 }
 
 const Icon = styled.img`
@@ -79,7 +79,11 @@ const Table = styled.table<{ $hasSubRow: boolean }>`
   }
 `
 
-export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSubComponent }) => {
+export const DataTable = <Data extends object>({
+  data,
+  columns,
+  renderRowSubComponent,
+}: DataTableProps<Data>) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -87,7 +91,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns, renderRowSu
     rows,
     prepareRow,
     visibleColumns,
-  } = useTable(
+  } = useTable<Data>(
     {
       columns,
       data,
@@ -206,7 +210,13 @@ declare module 'react-table' {
   export interface TableState<D extends object = {}>
     extends UseExpandedState<D>,
       UseSortByState<D> {}
-  export interface ColumnInterface<D extends object = {}> extends UseSortByColumnOptions<D> {}
+  export interface ColumnInterface<D extends object = {}> extends UseSortByColumnOptions<D> {
+    // DataTable-specific properties
+    style?: {
+      cellWidth?: string | number
+      headerCell?: React.CSSProperties
+    }
+  }
   export interface ColumnInstance<D extends object = {}> extends UseSortByColumnProps<D> {
     // DataTable-specific properties
     style?: {
