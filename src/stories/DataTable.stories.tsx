@@ -40,8 +40,15 @@ const DotsButton = styled(Button)`
   float: right;
   width: 40px;
 `
+interface Account {
+  image: string
+  name: string
+  email: string
+  role: string
+  status: string
+}
 
-const Template: Story<DataTableProps> = (args) => <DataTable {...args} />
+const Template: Story<DataTableProps<Account>> = (args) => <DataTable {...args} />
 
 const data = [
   {
