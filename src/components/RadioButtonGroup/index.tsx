@@ -73,7 +73,7 @@ interface Option {
 
 export type RadioButtonGroupProps = {
   options: readonly Option[]
-  onChange: (val: string) => void
+  onChange?: (val: string) => void
   defaultSelected?: string
   label?: string
   value?: string
