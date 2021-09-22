@@ -1,4 +1,4 @@
-export const mapTestIdToProps = (testId: string) => {
+export const mapTestIdToProps = (testId: string | undefined) => {
   return {
     ...(testId && {
       'data-testid': testId,

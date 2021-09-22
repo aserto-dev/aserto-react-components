@@ -88,15 +88,15 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
   value,
   testId,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(defaultSelected || '')
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(value ?? defaultSelected)
 
   const onChangeOption = (val: string) => {
     setSelectedOption(val)
   }
 
   useEffect(() => {
-    if (selectedOption) {
-      onChange(selectedOption)
+    if (selectedOption !== undefined) {
+      onChange?.(selectedOption)
     }
   }, [selectedOption])
 
