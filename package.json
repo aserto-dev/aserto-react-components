@@ -1,6 +1,6 @@
 {
   "name": "@aserto/aserto-react-components",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Aserto React components",
   "main": "dist/index.js",
   "scripts": {
@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "@atlaskit/tooltip": "^17.2.0",
-    "@types/react-select": "^4.0.17",
+    "@types/react-select": "^4.0.18",
     "@types/react-table": "^7.7.4",
     "bootstrap": "^4.5.3",
     "font-awesome": "^4.7.0",
