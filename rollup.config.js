@@ -7,7 +7,6 @@ import postcss from 'rollup-plugin-postcss'
 import image from '@rollup/plugin-image'
 import commonjs from '@rollup/plugin-commonjs'
 import multiInput from 'rollup-plugin-multi-input'
-
 import typescript from 'rollup-plugin-typescript2'
 
 const makeExternalPredicate = (externalArr) => {
@@ -17,14 +16,11 @@ const makeExternalPredicate = (externalArr) => {
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
 const config = {
-  input: ['src/index.tsx', 'src/components/**/index.tsx', 'src/components/**/index.tsx'],
+  input: ['src/index.tsx', 'src/components/**/index.tsx'],
   preserveModules: false,
   output: [
     {
       dir: 'dist',
-      sourcemapPathTransform: (relativePath) => {
-        return path.relative('src', relativePath)
-      },
       format: 'es',
       sourcemap: false,
     },
@@ -36,45 +32,11 @@ const config = {
     // Convert CommonJS modules to ES6
     commonjs({
       include: 'node_modules/**',
-      // This was required to fix some random errors while building
-      namedExports: {
-        'node_modules/react-dom/index.js': ['findDOMNode', 'createPortal'],
-        'node_modules/react/index.js': [
-          'Component',
-          'PureComponent',
-          'Fragment',
-          'cloneElement',
-          'forwardRef',
-          'createElement',
-          'createFactory',
-          'Children',
-          'createContext',
-          'createRef',
-          'isValidElement',
-          'lazy',
-          'memo',
-          'Suspense',
-          'Profiler',
-          'StrictMode',
-          'useContext',
-          'useDebugValue',
-          'useImperativeHandle',
-          'useMemo',
-          'useReducer',
-          'useRef',
-          'useState',
-          'useLayoutEffect',
-          'useEffect',
-          'useCallback',
-          'version',
-        ],
-      },
     }),
     external(),
     babel({
       babelHelpers: 'runtime',
       extensions,
-      include: ['src/**/*'],
       exclude: 'node_modules/**',
       babelrc: true,
     }),

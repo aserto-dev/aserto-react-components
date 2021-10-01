@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Input, Select } from '../..'
+import { Input } from '../Input'
+import { Select } from '../Select'
 
 const Col = styled.div`
   width: 100%;
