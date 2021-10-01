@@ -1,13 +1,14 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
-import logo from './aserto-horizontal-white-text.svg'
+import AsertoLogo from './aserto-horizontal-white-text.svg'
 import separator from './separator.svg'
 import { NavBarContainer, NavBarBrand, Separator } from './styles'
 import { mapTestIdToProps } from '../../utils'
 
 export type NavBarProps = {
-  children: React.ReactElement
-  uncollapsableContent?: React.ReactElement | string
+  children?: React.ReactNode
+  logo?: React.ReactNode
+  uncollapsableContent?: React.ReactNode
   showBrandSeparator?: boolean
   topPosition?: number
   expand?: 'sm' | 'md' | 'lg' | 'xl'
@@ -20,8 +21,11 @@ const expansionBreakpointsMap = {
   lg: 991,
 }
 
+const DEFAULT_LOGO = <img src={AsertoLogo} alt="logo" />
+
 export const NavBar: React.FC<NavBarProps> = ({
   children,
+  logo = DEFAULT_LOGO,
   showBrandSeparator,
   topPosition,
   expand,
@@ -32,31 +36,26 @@ export const NavBar: React.FC<NavBarProps> = ({
 }) => {
   return (
     <NavBarContainer
-      $expandBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
+      $expandBreakpoint={expansionBreakpointsMap[expand] ?? expandBreakpoint}
       $topPosition={topPosition}
       {...props}
       {...mapTestIdToProps(testId)}
     >
-      <Navbar className="navbar-dark" expand={expand || 'xl'} collapseOnSelect>
-        <NavBarBrand>
-          <img
-            src={logo}
-            width="131"
-            height="48"
-            style={{ marginLeft: 10 }}
-            className="d-inline-block align-center"
-            alt="logo"
-          />
-        </NavBarBrand>
+      <Navbar className="navbar-dark" expand={expand ?? 'xl'} collapseOnSelect>
+        <NavBarBrand>{logo}</NavBarBrand>
         {uncollapsableContent && <Navbar.Text>{uncollapsableContent}</Navbar.Text>}
         {showBrandSeparator && (
           <Separator
-            $hideBreakpoint={expansionBreakpointsMap[expand] || expandBreakpoint}
+            $hideBreakpoint={expansionBreakpointsMap[expand] ?? expandBreakpoint}
             src={separator}
           />
         )}
-        <Navbar.Toggle />
-        <Navbar.Collapse>{children}</Navbar.Collapse>
+        {children && (
+          <>
+            <Navbar.Toggle />
+            <Navbar.Collapse>{children}</Navbar.Collapse>
+          </>
+        )}
       </Navbar>
     </NavBarContainer>
   )
