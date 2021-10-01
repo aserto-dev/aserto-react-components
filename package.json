@@ -14,7 +14,6 @@
     "url": "git+https://github.com/aserto-dev/aserto-react-components.git"
   },
   "files": [
-    "src/*",
     "dist/*"
   ],
   "homepage": "https://github.com/aserto-dev/aserto-react-components#readme",
@@ -59,13 +58,16 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.12.0",
+    "bootstrap": "^4.5.3",
     "chromatic": "5.5.1-dev.0",
     "cross-env": "^5.2.0",
     "eslint": "^7.21.0",
     "eslint-config-airbnb": "^18.2.1",
+    "font-awesome": "^4.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.40.0",
@@ -84,13 +86,9 @@
     "@atlaskit/tooltip": "^17.2.0",
     "@types/react-select": "^4.0.18",
     "@types/react-table": "^7.7.4",
-    "bootstrap": "^4.5.3",
-    "font-awesome": "^4.7.0",
     "postcss": "^8.2.7",
-    "react-bootstrap": "^1.4.3",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
     "react-select": "^4.0.2",
     "react-table": "^7.7.0"
   },
