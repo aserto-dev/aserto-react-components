@@ -4,7 +4,7 @@ import { theme } from '../../theme'
 
 export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakpoint?: number }>`
   position: fixed;
-  top: ${({ $topPosition }) => $topPosition || 0}px;
+  top: ${({ $topPosition = 0 }) => $topPosition}px;
   width: 100%;
   z-index: 10;
 
@@ -103,19 +103,22 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
   }
   
   .navbar .router-link-exact-active {
-    ${'border-bottom: 1px solid ' + theme.lochivarAccent4};
+    border-bottom: 1px solid ${theme.lochivarAccent4};
     color: ${theme.grey100} !important;
   }
 
-  @media (min-width: ${({ $expandBreakpoint }) => $expandBreakpoint + 1 || 1200}px) {
+  @media (min-width: ${({ $expandBreakpoint = 1200 }) => $expandBreakpoint}px) {
     .navbar-brand {
-      margin-left: 10px;
-      margin-right: 30px;
+      margin-right: 24px;
       margin-top: -18px;
     }
   }
 
-  @media (max-width: ${({ $expandBreakpoint }) => $expandBreakpoint || 1200}px) {
+  .navbar-brand {
+    margin-left: 20px;
+  }
+
+  @media (max-width: ${({ $expandBreakpoint = 1200 }) => $expandBreakpoint - 1}px) {
     .navbar {
       padding: 12px;
       display: flex;
@@ -141,13 +144,12 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     }
 
     .navbar-brand {
+      margin-left: 10px;
       vertical-align: top;
       img {
-        margin-left: 0 !important;
         height: 38px;
       }
     }
-
 
     .navbar-nav {
       margin-left: 1.5rem;
@@ -160,8 +162,6 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
 
     .navbar-nav:last-child {
       background-color: ${theme.grey10};
-      //margin: 0;
-      //padding: 1.5em 2.5rem;
     }
 
     .navbar-nav:last-child li {
@@ -190,12 +190,12 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
   }
 `
 
-export const NavBarBrand = styled(Navbar.Brand)``
+export const NavBarBrand = Navbar.Brand
 
 export const Separator = styled.img<{ $hideBreakpoint?: number }>`
   margin-bottom: 16px;
   margin-right: 30px;
-  @media (max-width: ${({ $hideBreakpoint }) => $hideBreakpoint || 1200}px) {
+  @media (max-width: ${({ $hideBreakpoint = 1200 }) => $hideBreakpoint}px) {
     display: none;
   }
 `

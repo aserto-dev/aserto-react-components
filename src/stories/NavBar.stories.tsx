@@ -4,7 +4,7 @@ import { NavBar, NavBarProps } from '../components/NavBar'
 import { Nav } from 'react-bootstrap'
 import { NavLink as RouterNavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { Select } from '../components/Select'
+import { Select, SelectOption } from '../components/Select'
 
 export default {
   title: 'Common/NavBar',
@@ -25,9 +25,10 @@ const TenantInputContainer = styled.div`
 `
 
 const Template: Story<NavBarProps> = (args) => <NavBar {...args} />
-const options = [
+const options: SelectOption[] = [
   { value: 'tenant', label: 'tenant' },
   {
+    // @ts-expect-error
     options: [
       {
         label: 'Manage tenant',
@@ -81,7 +82,6 @@ Primary.args = {
           width: '100%',
           height: 35,
         }}
-        // @ts-ignore
         options={options}
         onChange={console.log}
       />
