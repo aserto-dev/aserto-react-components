@@ -27,26 +27,29 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `
 
-const StyledCheckbox = styled.div<{ checked: boolean, $disabled?: boolean }>`
+const StyledCheckbox = styled.div<{ checked: boolean; $disabled?: boolean; hasLabel: boolean }>`
   display: inline-block;
-  border: 1px solid ${props => props.checked ? theme.primary : theme.grey50};;
-  margin-right: 10px;
+  border: 1px solid ${(props) => (props.checked ? theme.primary : theme.grey50)};
+  ${({ hasLabel }) => (hasLabel ? 'margin-right: 10px;' : '')}
   width: 16px;
   height: 16px;
-  background: ${props => props.checked ? theme.primary : 'transparent'};
+  background: ${(props) => (props.checked ? theme.primary : 'transparent')};
   display: flex;
   transition: all 150ms;
   ${HiddenCheckbox}:focus + & {
     box-shadow: 0 0 0 3px ${theme.grey40};
   }
-  ${({$disabled}) => $disabled ? css`
-    pointer-events: none;
-    background-color: ${theme.grey10};
-    border-color: ${theme.grey30};
-    svg {
-      stroke: ${theme.grey40};
-    }
-  ` : ''};
+  ${({ $disabled }) =>
+    $disabled
+      ? css`
+          pointer-events: none;
+          background-color: ${theme.grey10};
+          border-color: ${theme.grey30};
+          svg {
+            stroke: ${theme.grey40};
+          }
+        `
+      : ''};
 `
 
 const HorizontalLabel = styled(Label)`
@@ -64,15 +67,24 @@ export type CheckboxProps = {
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, name, disabled }) => {
-  return <CheckboxContainer>
-    <HorizontalLabel $small>
-      <HiddenCheckbox disabled={disabled} name={name} checked={checked} onChange={(e) => onChange(e.target.checked)}/>
-      <StyledCheckbox $disabled={disabled} checked={checked}>
-        {checked && <Icon  viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" />
-        </Icon>}
-      </StyledCheckbox>
-      {label || null}
-    </HorizontalLabel>
-  </CheckboxContainer>
+  return (
+    <CheckboxContainer>
+      <HorizontalLabel $small>
+        <HiddenCheckbox
+          disabled={disabled}
+          name={name}
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+        />
+        <StyledCheckbox $disabled={disabled} checked={checked} hasLabel={!!label}>
+          {checked && (
+            <Icon viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </Icon>
+          )}
+        </StyledCheckbox>
+        {label}
+      </HorizontalLabel>
+    </CheckboxContainer>
+  )
 }
