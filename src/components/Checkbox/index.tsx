@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
@@ -58,25 +58,41 @@ const HorizontalLabel = styled(Label)`
   align-items: center;
 `
 
-export type CheckboxProps = {
-  checked: boolean
+export interface CheckboxProps
+  extends Omit<React.ComponentPropsWithoutRef<'input'>, 'onChange' | 'type'> {
   onChange?: (checked: boolean) => void
   label?: string
-  name?: string
   disabled?: boolean
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, name, disabled }) => {
+export const Checkbox: React.FC<CheckboxProps> = ({
+  onChange,
+  label,
+  disabled,
+  checked,
+  className,
+  ...checkboxProps
+}) => {
+  const onCheckboxChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => onChange(event.target.checked),
+    [onChange]
+  )
+
   return (
     <CheckboxContainer>
       <HorizontalLabel $small>
         <HiddenCheckbox
-          disabled={disabled}
-          name={name}
           checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
+          disabled={disabled}
+          onChange={onCheckboxChange}
+          {...checkboxProps}
         />
-        <StyledCheckbox $disabled={disabled} checked={checked} hasLabel={!!label}>
+        <StyledCheckbox
+          $disabled={disabled}
+          checked={checked}
+          hasLabel={!!label}
+          className={className}
+        >
           {checked && (
             <Icon viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
