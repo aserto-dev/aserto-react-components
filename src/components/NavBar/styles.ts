@@ -2,6 +2,13 @@ import { Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 
+export const DEFAULT_EXPANSION_BREAKPOINT = 1200
+
+export const NavBarPixelHeight = {
+  Expanded: 83,
+  Collapsed: 78,
+} as const
+
 export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakpoint?: number }>`
   position: fixed;
   top: ${({ $topPosition = 0 }) => $topPosition}px;
@@ -9,7 +16,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
   z-index: 10;
 
   .navbar-toggler {
-    padding: 0.25rem 0.50rem;
+    padding: 0.25rem 0.5rem;
     color: ${theme.grey70};
     font-size: 1.1rem;
   }
@@ -24,7 +31,8 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
 
   .navbar {
     background-color: ${theme.grey10};
-    padding: 1.375rem 0;
+    height: ${NavBarPixelHeight.Expanded}px;
+    padding: 1.375rem 0 0 0;
     border-bottom: 1px solid ${theme.grey30};
   }
 
@@ -32,7 +40,6 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     padding-top: 10px;
     padding-bottom: 25px;
   }
-
 
   .navbar-nav .nav-link {
     color: ${theme.grey70} !important;
@@ -54,7 +61,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     border-radius: 50% 50%;
     max-width: 3.785rem;
     height: auto;
-    box0px ${theme.grey70};
+    box-shadow: 0px 0px 4px 0px ${theme.grey30};
   }
 
   .nav-item.dropdown .dropdown-toggle {
@@ -98,16 +105,13 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     border-bottom: 0;
   }
 
-  .navbar {
-    padding: 1.375rem 0 0 0;
-  }
-  
   .navbar .router-link-exact-active {
     border-bottom: 1px solid ${theme.lochivarAccent4};
     color: ${theme.grey100} !important;
   }
 
-  @media (min-width: ${({ $expandBreakpoint = 1200 }) => $expandBreakpoint}px) {
+  @media (min-width: ${({ $expandBreakpoint = DEFAULT_EXPANSION_BREAKPOINT }) =>
+      $expandBreakpoint}px) {
     .navbar-brand {
       margin-right: 24px;
       margin-top: -18px;
@@ -118,8 +122,10 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
     margin-left: 20px;
   }
 
-  @media (max-width: ${({ $expandBreakpoint = 1200 }) => $expandBreakpoint - 1}px) {
+  @media (max-width: ${({ $expandBreakpoint = DEFAULT_EXPANSION_BREAKPOINT }) =>
+      $expandBreakpoint - 1}px) {
     .navbar {
+      height: ${NavBarPixelHeight.Collapsed}px;
       padding: 12px;
       display: flex;
       align-items: center;
@@ -195,7 +201,7 @@ export const NavBarBrand = Navbar.Brand
 export const Separator = styled.img<{ $hideBreakpoint?: number }>`
   margin-bottom: 16px;
   margin-right: 30px;
-  @media (max-width: ${({ $hideBreakpoint = 1200 }) => $hideBreakpoint}px) {
+  @media (max-width: ${({ $hideBreakpoint = DEFAULT_EXPANSION_BREAKPOINT }) => $hideBreakpoint}px) {
     display: none;
   }
 `

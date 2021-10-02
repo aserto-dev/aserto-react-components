@@ -2,8 +2,10 @@ import React from 'react'
 import { Navbar } from 'react-bootstrap'
 import AsertoLogo from './aserto-horizontal-white-text.svg'
 import separator from './separator.svg'
-import { NavBarContainer, NavBarBrand, Separator } from './styles'
+import { DEFAULT_EXPANSION_BREAKPOINT, NavBarContainer, NavBarBrand, Separator } from './styles'
 import { mapTestIdToProps } from '../../utils'
+
+export { DEFAULT_EXPANSION_BREAKPOINT, NavBarPixelHeight } from './styles'
 
 export type NavBarProps = {
   children?: React.ReactNode
@@ -17,7 +19,7 @@ export type NavBarProps = {
 }
 
 const expansionBreakpointsMap = {
-  xl: 1200,
+  xl: DEFAULT_EXPANSION_BREAKPOINT,
   lg: 991,
 }
 
