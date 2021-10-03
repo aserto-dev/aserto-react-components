@@ -2,7 +2,7 @@ import React from 'react'
 import { FormControl, FormControlProps } from 'react-bootstrap'
 import './TextArea.css'
 
-export type TextAreaProps = {
+export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   value: string | number
   onChange?: FormControlProps['onChange']
   rows?: number

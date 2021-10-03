@@ -8,7 +8,7 @@ import unavaliable from './unavailable.svg'
 import { Label } from '../Label'
 import { mapTestIdToProps } from '../../utils'
 
-export type InputProps = {
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string
   value?: string | number
   onChange?: FormControlProps['onChange']
