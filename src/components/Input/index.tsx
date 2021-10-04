@@ -9,8 +9,6 @@ import { Label } from '../Label'
 import { mapTestIdToProps } from '../../utils'
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  placeholder?: string
-  value?: string | number
   onChange?: FormControlProps['onChange']
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   label?: string
@@ -18,8 +16,6 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string
   isValid?: boolean
   isUnavailable?: boolean
-  disabled?: boolean
-  type?: 'text' | 'number' | 'password' | 'email' | string | null
   style?: React.CSSProperties
   hasSmallLabel?: boolean
   autoComplete?: string
@@ -90,15 +86,12 @@ const Error = styled(Info)`
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      placeholder,
-      value,
       onChange,
       label,
       info,
       error,
       isValid,
       isUnavailable,
-      type,
       style,
       hasSmallLabel,
       block,
@@ -118,11 +111,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             isValid={isValid}
             isInvalid={error}
-            id={id}
             $isUnavailable={isUnavailable}
-            placeholder={placeholder}
-            value={value}
-            type={type}
             onChange={onChange}
             style={style}
             defaultValue={defaultValue}
