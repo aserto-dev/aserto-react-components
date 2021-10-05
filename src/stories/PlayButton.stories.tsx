@@ -10,7 +10,6 @@ export default {
 const Template: Story<PlayButtonProps> = (args) => <PlayButton {...args} />
 
 export const Primary = Template.bind({})
-Primary.args = {}
-
-export const PrimaryWithLoading = Template.bind({})
-PrimaryWithLoading.args = {}
+Primary.args = {
+  disabled: false
+}

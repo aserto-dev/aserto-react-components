@@ -12,7 +12,6 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
   ${({ size }) => {
     if (size === 'sm') {
       return css`
-        //height: 24px;
         font-size: 12px;
       `
     } else if (size === 'lg') {
@@ -33,7 +32,7 @@ const BaseButton = styled(BootstrapButton)<{ size?: 'sm' | 'md' | 'lg' }>`
 export const PrimaryButton = styled(BaseButton)`
   background-color: ${theme.lochivar60};
   color: ${theme.fullWhite};
-  &:hover,
+  &:hover:not(:disabled),
   &:visited,
   &:focus {
     background-color: ${theme.lochivar90};
@@ -52,7 +51,7 @@ export const SecondaryButton = styled(BaseButton)`
   color: ${theme.grey100};
   background-color: ${theme.grey20};
   border: 1px solid ${theme.grey30};
-  &:hover,
+  &:hover:not(:disabled),
   &:visited,
   &:focus {
     border: 1px solid ${theme.grey40} !important;
@@ -74,7 +73,7 @@ export const SecondaryButton = styled(BaseButton)`
 export const DangerButton = styled(BaseButton)`
   color: ${theme.fullWhite};
   background-color: ${theme.mojo80};
-  &:hover,
+  &:hover:not(:disabled),
   &:visited,
   &:focus {
     box-shadow: none !important;
@@ -96,7 +95,7 @@ export const SecondaryBorderlessButton = styled(BaseButton)`
   background-color: transparent;
   outline: none;
   box-shadow: none !important;
-  &:hover,
+  &:hover:not(:disabled),
   &:visited,
   &:focus {
     outline: none;
