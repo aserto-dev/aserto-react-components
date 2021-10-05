@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components, Props } from 'react-select'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import ReactSelect, { components, NamedProps } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -22,20 +22,31 @@ export type SelectOption = {
 
 export type ReactSelectElement = ReactSelect<SelectOption>
 
-export interface SelectWithDotsProps extends Omit<Props<SelectOption>, 'onFocus' | 'onBlur'> {
-  options: readonly SelectOption[]
+export interface SelectWithDotsProps
+  extends Omit<
+    NamedProps<SelectOption>,
+    | 'onFocus'
+    | 'onBlur'
+    | 'isDisabled'
+    | 'isClearable'
+    | 'isSearchable'
+    | 'closeMenuOnSelect'
+    | 'menuIsOpen'
+    | 'inputId'
+    | 'styles'
+    | 'formatGroupId'
+    | 'components'
+    | 'value'
+  > {
   defaultValue?: SelectOption
-  onChange?: (value: SelectOption | null) => void
+  onChange?: (value: SelectOption) => void
   disabled?: boolean
   label?: string
-  isLoading?: boolean
-  value?: SelectOption | null
   style?: React.CSSProperties
   disableLabel?: boolean
-  name?: string
-  menuIsOpen?: boolean
   shouldDisabledOptions?: boolean
   onBlur?: (firstSelectedOption?: SelectOption) => void
+  menuAlignment: 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
 }
 
 const groupStyles = {
@@ -58,18 +69,16 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
 > = React.forwardRef(
   (
     {
-      options,
       defaultValue,
       onChange,
       label,
       disabled,
-      isLoading,
       style,
-      value,
       disableLabel,
       name,
       shouldDisabledOptions,
       onBlur,
+      menuAlignment = 'bottom-right',
       ...props
     },
     ref
@@ -88,24 +97,75 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       }
     }, [defaultValue])
 
-    const CustomMenu = useCallback(({ innerRef, innerProps, children }) => {
-      return (
-        <div
-          ref={innerRef}
-          style={{
-            zIndex: 20,
-            position: 'absolute',
-            top: 35,
-            right: 0,
-            width: 250,
-            paddingBottom: 0,
-          }}
-          {...innerProps}
-        >
-          {children}
-        </div>
-      )
-    }, [])
+    const selectRef = useRef<ReactSelectElement | undefined>(undefined)
+
+    const setSelectRef = useCallback((selectElement: ReactSelectElement) => {
+      if (typeof ref === 'function') {
+        ref(selectElement)
+      } else if (ref != null) {
+        ref.current = selectElement
+      }
+
+      selectRef.current = selectElement
+    }, [ref, selectRef])
+
+    useEffect(() => {
+      if (!open) {
+        selectRef.current?.blur?.()
+      }
+    }, [open, selectRef])
+
+    const CustomMenu = useCallback(
+      ({ innerRef, innerProps, children }) => {
+        let overrides: React.CSSProperties = {}
+        switch (menuAlignment) {
+          case 'bottom-left':
+            overrides = {
+              top: 35,
+              left: 0,
+            }
+            break
+          case 'bottom-right':
+            overrides = {
+              top: 35,
+              right: 0,
+            }
+            break
+          case 'right-bottom':
+            overrides = {
+              bottom: 0,
+              left: 40,
+              marginBottom: -3,
+              marginLeft: 2,
+            }
+            break
+          case 'right-top':
+            overrides = {
+              top: 0,
+              left: 40,
+              marginTop: -2,
+              marginLeft: 2,
+            }
+            break
+        }
+
+        return (
+          <div
+            ref={innerRef}
+            style={{
+              zIndex: 20,
+              position: 'absolute',
+              width: 250,
+              ...overrides,
+            }}
+            {...innerProps}
+          >
+            {children}
+          </div>
+        )
+      },
+      [menuAlignment]
+    )
 
     const ValueContainer = useCallback(({ children, ...rest }) => {
       return (
@@ -238,13 +298,12 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
         <ReactSelect
           {...props}
           name={name}
+          value={null}
           isClearable={false}
           inputId={name}
           isSearchable={false}
-          ref={ref}
-          isLoading={isLoading}
+          ref={setSelectRef}
           isDisabled={disabled}
-          options={options}
           onFocus={() => {
             setOpen(true)
           }}
@@ -254,9 +313,9 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           }}
           defaultValue={defaultValue}
           closeMenuOnSelect={false}
-          onChange={(e) => {
+          onChange={(option) => {
             setOpen(false)
-            onChange(e)
+            onChange(option)
           }}
           menuIsOpen={open}
           styles={colourStyles}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components, Props } from 'react-select'
+import ReactSelect, { components, NamedProps } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -22,21 +22,32 @@ export type SelectOption = {
 
 export type ReactSelectElement = ReactSelect<SelectOption>
 
-export interface SelectWithoutControlProps extends Omit<Props<SelectOption>, 'onFocus' | 'onBlur'> {
+export interface SelectWithoutControlProps
+  extends Omit<
+    NamedProps<SelectOption>,
+    | 'onFocus'
+    | 'onBlur'
+    | 'isDisabled'
+    | 'isClearable'
+    | 'isSearchable'
+    | 'closeMenuOnSelect'
+    | 'menuIsOpen'
+    | 'inputId'
+    | 'styles'
+    | 'formatGroupId'
+    | 'components'
+  > {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
   onChange?: (value: SelectOption | null) => void
   disabled?: boolean
   label?: string
-  isLoading?: boolean
   value?: SelectOption | null
   style?: React.CSSProperties
   disableLabel?: boolean
-  name?: string
   onClickRemoveTenant: () => void
   onClickSave: () => void
   onClickCancel: (firstSelectedOption?: SelectOption) => void
-  menuIsOpen?: boolean
   shouldDisabledOptions?: boolean
   removeTenantText?: string
   onBlur?: (firstSelectedOption?: SelectOption) => void
@@ -87,7 +98,6 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
       onChange,
       label,
       disabled,
-      isLoading,
       style,
       value,
       disableLabel,
@@ -293,7 +303,6 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
           inputId={name}
           isSearchable={false}
           ref={ref}
-          isLoading={isLoading}
           isDisabled={disabled}
           options={options}
           onFocus={() => {

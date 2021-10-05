@@ -7,7 +7,9 @@ export default {
   component: SelectWithDots,
 } as Meta
 
-const Template: Story<SelectWithDotsProps> = (args) => <SelectWithDots {...args} />
+const Template: Story<SelectWithDotsProps> = (args) => (
+  <SelectWithDots {...args} />
+)
 
 const identityOptions = [
   {
@@ -62,6 +64,7 @@ const groupedOptions = [
 export const Primary = Template.bind({})
 Primary.args = {
   options: identityOptions,
+  menuAlignment: 'bottom-right',
 }
 
 export const PrimaryGrouped = Template.bind({})
@@ -120,20 +123,3 @@ OwnerVariantWithMessage.args = {
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
-
-// export const PrimaryWithRef = () => {
-//   const ref = useRef(null)
-//   return (
-//     <div>
-//       <PrimaryWithLabel forRef={ref} />
-//       <button
-//         onClick={() => {
-//           console.log(ref?.current)
-//           // ref?.current?.focus()
-//         }}
-//       >
-//         Click to focus
-//       </button>
-//     </div>
-//   )
-// }
