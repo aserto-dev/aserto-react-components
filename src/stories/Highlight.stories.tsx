@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Highlight } from '../components/Highlight'
+import 'prismjs/components/prism-rego'
 
 export default {
   title: 'Common/Highlight',
@@ -34,4 +35,5 @@ Primary.args = {
     'enabled {\n' +
     '\tallowed\n' +
     '}',
+  language: 'rego',
 }

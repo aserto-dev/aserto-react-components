@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import Prism from 'prismjs'
 import styled, { css } from 'styled-components'
 
@@ -155,18 +155,26 @@ const Code = styled.div`
     }
   `}
 `
-interface Props {
-  children: React.ReactElement | string | unknown
-  style?: React.CSSProperties
+
+interface Props extends React.ComponentPropsWithoutRef<'div'> {
+  language?: 'rego' | 'javascript' | 'typescript'
 }
-export const Highlight: React.FC<Props> = ({ children, style }) => {
+
+export const Highlight: React.FC<Props> = ({ children, language = 'javascript', ...rest }) => {
+  const codeRef = useRef<HTMLElement | null>(null)
+
   useLayoutEffect(() => {
-    Prism.highlightAll()
-  }, [children])
+    if (codeRef.current !== null) {
+      Prism.highlightElement(codeRef.current)
+    }
+  }, [children, codeRef])
+
   return (
-    <Code style={style}>
+    <Code {...rest}>
       <pre>
-        <code className="language-javascript">{children}</code>
+        <code ref={codeRef} className={`language-${language}`}>
+          {children}
+        </code>
       </pre>
     </Code>
   )
