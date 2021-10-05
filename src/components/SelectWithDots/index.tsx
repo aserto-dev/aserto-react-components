@@ -12,6 +12,31 @@ const DotsButton = styled(Button)`
   height: 35px;
 `
 
+type MenuAlignment = 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
+
+const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
+  'bottom-left': {
+    top: 35,
+    left: 0,
+  },
+  'bottom-right': {
+    top: 35,
+    right: 0,
+  },
+  'right-bottom': {
+    bottom: 0,
+    left: 40,
+    marginBottom: -3,
+    marginLeft: 2,
+  },
+  'right-top': {
+    top: 0,
+    left: 40,
+    marginTop: -2,
+    marginLeft: 2,
+  },
+}
+
 export type SelectOption = {
   value: string | number
   label: string
@@ -46,7 +71,7 @@ export interface SelectWithDotsProps
   disableLabel?: boolean
   shouldDisabledOptions?: boolean
   onBlur?: (firstSelectedOption?: SelectOption) => void
-  menuAlignment: 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
+  menuAlignment: MenuAlignment
 }
 
 const groupStyles = {
@@ -99,15 +124,18 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
 
     const selectRef = useRef<ReactSelectElement | undefined>(undefined)
 
-    const setSelectRef = useCallback((selectElement: ReactSelectElement) => {
-      if (typeof ref === 'function') {
-        ref(selectElement)
-      } else if (ref != null) {
-        ref.current = selectElement
-      }
+    const setSelectRef = useCallback(
+      (selectElement: ReactSelectElement) => {
+        if (typeof ref === 'function') {
+          ref(selectElement)
+        } else if (ref != null) {
+          ref.current = selectElement
+        }
 
-      selectRef.current = selectElement
-    }, [ref, selectRef])
+        selectRef.current = selectElement
+      },
+      [ref, selectRef]
+    )
 
     useEffect(() => {
       if (!open) {
@@ -117,38 +145,6 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
 
     const CustomMenu = useCallback(
       ({ innerRef, innerProps, children }) => {
-        let overrides: React.CSSProperties = {}
-        switch (menuAlignment) {
-          case 'bottom-left':
-            overrides = {
-              top: 35,
-              left: 0,
-            }
-            break
-          case 'bottom-right':
-            overrides = {
-              top: 35,
-              right: 0,
-            }
-            break
-          case 'right-bottom':
-            overrides = {
-              bottom: 0,
-              left: 40,
-              marginBottom: -3,
-              marginLeft: 2,
-            }
-            break
-          case 'right-top':
-            overrides = {
-              top: 0,
-              left: 40,
-              marginTop: -2,
-              marginLeft: 2,
-            }
-            break
-        }
-
         return (
           <div
             ref={innerRef}
@@ -156,7 +152,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
               zIndex: 20,
               position: 'absolute',
               width: 250,
-              ...overrides,
+              ...alignmentStyleOverrides[menuAlignment],
             }}
             {...innerProps}
           >
