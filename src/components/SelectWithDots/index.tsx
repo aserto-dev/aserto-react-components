@@ -14,29 +14,6 @@ const DotsButton = styled(Button)`
 
 type MenuAlignment = 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
 
-const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
-  'bottom-left': {
-    top: 35,
-    left: 0,
-  },
-  'bottom-right': {
-    top: 35,
-    right: 0,
-  },
-  'right-bottom': {
-    bottom: 0,
-    left: 40,
-    marginBottom: -3,
-    marginLeft: 2,
-  },
-  'right-top': {
-    top: 0,
-    left: 40,
-    marginTop: -2,
-    marginLeft: 2,
-  },
-}
-
 export type SelectOption = {
   value: string | number
   label: string
@@ -145,6 +122,29 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
 
     const CustomMenu = useCallback(
       ({ innerRef, innerProps, children }) => {
+        const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
+          'bottom-left': {
+            top: 35,
+            left: 0,
+          },
+          'bottom-right': {
+            top: 35,
+            right: 0,
+          },
+          'right-bottom': {
+            bottom: 0,
+            left: 40,
+            marginBottom: -3,
+            marginLeft: 2,
+          },
+          'right-top': {
+            top: 0,
+            left: 40,
+            marginTop: -2,
+            marginLeft: 2,
+          },
+        }
+        
         return (
           <div
             ref={innerRef}
