@@ -134,7 +134,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           'right-bottom': {
             bottom: 0,
             left: 40,
-            marginBottom: -3,
+            marginBottom: -2,
             marginLeft: 2,
           },
           'right-top': {
