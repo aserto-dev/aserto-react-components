@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import ReactSelect, { components, Props } from 'react-select'
+import ReactSelect, { components, NamedProps } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
@@ -12,16 +12,22 @@ export type SelectOption = {
 
 export type ReactSelectElement = ReactSelect<SelectOption>
 
-export interface SelectProps extends Props<SelectOption> {
+export interface SelectProps
+  extends Omit<
+    NamedProps<SelectOption>,
+    | 'isDisabled'
+    | 'inputId'
+    | 'styles'
+    | 'formatGroupId'
+    | 'components'
+  > {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
   disabled?: boolean
   label?: string
-  isLoading?: boolean
   value?: SelectOption | null
   style?: React.CSSProperties
   disableLabel?: boolean
-  name?: string
 }
 
 const groupStyles = {
@@ -42,22 +48,7 @@ const formatGroupLabel = () => <div style={groupStyles} />
 export const Select: React.ForwardRefExoticComponent<
   SelectProps & React.RefAttributes<ReactSelectElement>
 > = React.forwardRef(
-  (
-    {
-      options,
-      defaultValue,
-      onChange,
-      label,
-      disabled,
-      isLoading,
-      style,
-      value,
-      disableLabel,
-      name,
-      ...props
-    },
-    ref
-  ) => {
+  ({ onChange, label, disabled, style, value, disableLabel, name, ...props }, ref) => {
     const removeFocusBox = {
       outline: 'none',
       webkitBoxShadow: 'none',
@@ -172,10 +163,7 @@ export const Select: React.ForwardRefExoticComponent<
           inputId={name}
           value={value}
           ref={ref}
-          isLoading={isLoading}
           isDisabled={disabled}
-          options={options}
-          defaultValue={defaultValue}
           onChange={onChange}
           styles={colourStyles}
           formatGroupLabel={formatGroupLabel}
