@@ -144,7 +144,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
             marginLeft: 2,
           },
         }
-        
+
         return (
           <div
             ref={innerRef}
