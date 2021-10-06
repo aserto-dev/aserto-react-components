@@ -13,7 +13,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   label?: string
   info?: string
-  error?: string
+  error?: string | boolean
   isValid?: boolean
   isUnavailable?: boolean
   style?: React.CSSProperties
@@ -25,10 +25,10 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 }
 
 const getInputValueForState = (isValid: boolean, isInvalid: boolean, isUnavailable: boolean) => {
-  if (isValid) {
-    return `border-color: ${theme.lochivarAccent2} !important;background-image: url("${valid}") !important; background-size: calc(4.2em + 0.375rem) calc(1em + 0.375rem) !important;`
-  } else if (isUnavailable) {
+  if (isUnavailable) {
     return `border-color: ${theme.mojoAccent3} !important;background-image: url("${unavaliable}") !important; background-size: calc(5.2em + 0.375rem) calc(1em + 0.375rem) !important;`
+  } else if (isValid) {
+    return `border-color: ${theme.lochivarAccent2} !important;background-image: url("${valid}") !important; background-size: calc(4.2em + 0.375rem) calc(1em + 0.375rem) !important;`
   } else if (isInvalid) {
     return `border-color: ${theme.mojoAccent3} !important;background-image: url("${invalid}") !important; background-size: calc(3em + 0.375rem) calc(1em + 0.375rem) !important;`
   }
@@ -101,16 +101,20 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const shouldDisplayInfo = !error && info
     const testId = props['data-testid']
+    const shouldShowErrorState =
+      !(error === false || error === '' || error === undefined) || isUnavailable
+    const shouldDisplayInfo = !shouldShowErrorState && info
+    const errorMessage = typeof error === 'string' ? error : null
+
     return (
       <InputContainer $block={block}>
         <Label htmlFor={id} $small={hasSmallLabel}>
           {label}
           <AsertoInput
             ref={ref}
-            isValid={isValid}
-            isInvalid={error}
+            isValid={isValid && !shouldShowErrorState}
+            isInvalid={shouldShowErrorState}
             $isUnavailable={isUnavailable}
             onChange={onChange}
             style={style}
@@ -119,7 +123,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
         </Label>
         {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
-        {error && <Error {...mapTestIdToProps(`${testId}-error`)}>{error}</Error>}
+        {errorMessage && <Error {...mapTestIdToProps(`${testId}-error`)}>{errorMessage}</Error>}
       </InputContainer>
     )
   }
