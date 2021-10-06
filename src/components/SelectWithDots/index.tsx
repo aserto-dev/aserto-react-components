@@ -48,7 +48,7 @@ export interface SelectWithDotsProps
   disableLabel?: boolean
   shouldDisabledOptions?: boolean
   onBlur?: (firstSelectedOption?: SelectOption) => void
-  menuAlignment: MenuAlignment
+  menuAlignment?: MenuAlignment
 }
 
 const groupStyles = {
