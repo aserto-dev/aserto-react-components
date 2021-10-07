@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components, NamedProps } from 'react-select'
+import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -53,11 +53,8 @@ export interface SelectWithoutControlProps
   onBlur?: (firstSelectedOption?: SelectOption) => void
 }
 
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 0,
+const groupLabelStyle = {
+  position: 'relative' as const,
   marginTop: -8,
   marginBottom: -3,
   marginLeft: -11,
@@ -66,7 +63,7 @@ const groupStyles = {
   backgroundColor: theme.grey,
 }
 
-const formatGroupLabel = () => <div style={groupStyles} />
+const formatGroupLabel = () => <div style={groupLabelStyle} />
 
 const menuHeaderStyle = {
   padding: '4px 12px',
@@ -205,7 +202,7 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
       )
     }, [])
 
-    const colourStyles = {
+    const colourStyles: StylesConfig<SelectOption, false> = {
       control: (styles, { isDisabled, isFocused }) => {
         return {
           ...styles,
@@ -243,6 +240,12 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
             ...styles[':active'],
             backgroundColor: theme.grey30,
           },
+        }
+      },
+      group: (styles) => {
+        return {
+          ...styles,
+          paddingBottom: 0,
         }
       },
       input: (styles) => {

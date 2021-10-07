@@ -29,12 +29,22 @@ const groupedOptions = [
   {
     options: [
       {
-        label: "I'm another group!",
-        value: 'x',
-        shouldStopPropagation: true,
-        onClick: () => console.log('clicked'),
+        label: "I'm a group!",
+        value: 'group',
       },
     ],
+  },
+  {
+    options: [
+      {
+        label: "I'm another group!",
+        value: 'another_group',
+      },
+    ],
+  },
+  {
+    label: 'Ungrouped option',
+    value: 'ungrouped',
   },
 ]
 

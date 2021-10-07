@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import ReactSelect, { components, NamedProps } from 'react-select'
+import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
@@ -15,11 +15,7 @@ export type ReactSelectElement = ReactSelect<SelectOption>
 export interface SelectProps
   extends Omit<
     NamedProps<SelectOption>,
-    | 'isDisabled'
-    | 'inputId'
-    | 'styles'
-    | 'formatGroupId'
-    | 'components'
+    'isDisabled' | 'inputId' | 'styles' | 'formatGroupId' | 'components'
   > {
   options: readonly SelectOption[]
   defaultValue?: SelectOption
@@ -30,11 +26,8 @@ export interface SelectProps
   disableLabel?: boolean
 }
 
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 0,
+const groupLabelStyle = {
+  position: 'relative' as const,
   marginTop: -8,
   marginBottom: -3,
   marginLeft: -11,
@@ -43,7 +36,7 @@ const groupStyles = {
   backgroundColor: theme.grey,
 }
 
-const formatGroupLabel = () => <div style={groupStyles} />
+const formatGroupLabel = () => <div style={groupLabelStyle} />
 
 export const Select: React.ForwardRefExoticComponent<
   SelectProps & React.RefAttributes<ReactSelectElement>
@@ -74,7 +67,7 @@ export const Select: React.ForwardRefExoticComponent<
       )
     }, [])
 
-    const colourStyles = {
+    const colourStyles: StylesConfig<SelectOption, false> = {
       control: (styles, { isDisabled, isFocused }) => {
         return {
           ...styles,
@@ -112,6 +105,12 @@ export const Select: React.ForwardRefExoticComponent<
             ...styles[':active'],
             backgroundColor: theme.grey40,
           },
+        }
+      },
+      group: (styles) => {
+        return {
+          ...styles,
+          paddingBottom: 0,
         }
       },
       input: (styles) => {
