@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReactSelect, { components, NamedProps } from 'react-select'
+import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -51,11 +51,8 @@ export interface SelectWithDotsProps
   menuAlignment?: MenuAlignment
 }
 
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 0,
+const groupLabelStyle = {
+  position: 'relative' as const,
   marginTop: -8,
   marginBottom: -3,
   marginLeft: -11,
@@ -64,7 +61,7 @@ const groupStyles = {
   backgroundColor: theme.grey,
 }
 
-const formatGroupLabel = () => <div style={groupStyles} />
+const formatGroupLabel = () => <div style={groupLabelStyle} />
 
 export const SelectWithDots: React.ForwardRefExoticComponent<
   SelectWithDotsProps & React.RefAttributes<ReactSelectElement>
@@ -81,6 +78,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       shouldDisabledOptions,
       onBlur,
       menuAlignment = 'bottom-right',
+      menuPortalTarget,
       ...props
     },
     ref
@@ -124,25 +122,30 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       ({ innerRef, innerProps, children }) => {
         const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
           'bottom-left': {
-            top: 35,
+            top: 39,
             left: 0,
           },
           'bottom-right': {
-            top: 35,
+            top: 39,
             right: 0,
           },
           'right-bottom': {
             bottom: 0,
             left: 40,
-            marginBottom: -2,
+            marginBottom: 1,
             marginLeft: 2,
           },
           'right-top': {
             top: 0,
             left: 40,
-            marginTop: -3,
+            marginTop: 1,
             marginLeft: 2,
           },
+        }
+
+        const alignmentStyleOverride = alignmentStyleOverrides[menuAlignment]
+        if (menuPortalTarget != null && 'top' in alignmentStyleOverride) {
+          alignmentStyleOverride.top = Number(alignmentStyleOverride.top) - 38
         }
 
         return (
@@ -152,7 +155,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
               zIndex: 20,
               position: 'absolute',
               width: 250,
-              ...alignmentStyleOverrides[menuAlignment],
+              ...alignmentStyleOverride,
             }}
             {...innerProps}
           >
@@ -194,7 +197,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       )
     }, [])
 
-    const colourStyles = {
+    const colourStyles: StylesConfig<SelectOption, false> = {
       control: (styles, { isDisabled, isFocused }) => {
         return {
           ...styles,
@@ -272,7 +275,8 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       menuList: (style) => ({
         ...style,
         zIndex: 5,
-        borderRadius: 6,
+        padding: 0,
+        border: `1px solid ${theme.grey50}`,
       }),
       indicatorSeparator: (styles) => ({
         ...styles,
@@ -314,6 +318,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
             onChange(option)
           }}
           menuIsOpen={open}
+          menuPortalTarget={menuPortalTarget}
           styles={colourStyles}
           formatGroupLabel={formatGroupLabel}
           components={{ ValueContainer, Option, Menu: CustomMenu }}

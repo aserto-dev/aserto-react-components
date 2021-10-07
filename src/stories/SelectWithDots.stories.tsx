@@ -7,9 +7,7 @@ export default {
   component: SelectWithDots,
 } as Meta
 
-const Template: Story<SelectWithDotsProps> = (args) => (
-  <SelectWithDots {...args} />
-)
+const Template: Story<SelectWithDotsProps> = (args) => <SelectWithDots {...args} />
 
 const identityOptions = [
   {
@@ -38,7 +36,6 @@ const groupedOptions = [
     value: 'EDIT',
   },
   {
-    //@ts-ignore
     options: [
       {
         label: 'Disconnect',
@@ -49,7 +46,6 @@ const groupedOptions = [
     ],
   },
   {
-    //@ts-ignore
     options: [
       {
         label: 'Remove',
