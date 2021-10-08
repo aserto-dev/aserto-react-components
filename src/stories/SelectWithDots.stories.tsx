@@ -106,7 +106,7 @@ PrimaryWithDefaultValueDisabled.args = {
 export const OwnerVariant = Template.bind({})
 OwnerVariant.args = {
   options: identityOptions,
-  shouldDisabledOptions: true,
+  shouldDisableOptions: true,
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
@@ -114,8 +114,18 @@ OwnerVariant.args = {
 export const OwnerVariantWithMessage = Template.bind({})
 OwnerVariantWithMessage.args = {
   options: identityOptions,
-  shouldDisabledOptions: true,
+  shouldDisableOptions: true,
   removeTenantText: 'Remove myself from tenant',
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
+}
+
+const CustomValueContainer = ({ children}) => {
+  return <a>Hello, world! {children}</a>
+}
+
+export const PrimaryWithCustomValueContainer = Template.bind({})
+PrimaryWithCustomValueContainer.args = {
+  options: identityOptions,
+  components: { ValueContainer: CustomValueContainer },
 }

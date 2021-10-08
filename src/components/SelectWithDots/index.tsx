@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
+import ReactSelect, {
+  components,
+  MenuProps,
+  OptionProps,
+  Props,
+  SelectInstance,
+  StylesConfig,
+} from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -22,11 +29,11 @@ export type SelectOption = {
   isDisabled?: boolean
 }
 
-export type ReactSelectElement = ReactSelect<SelectOption>
+export type ReactSelectElement = SelectInstance<SelectOption>
 
 export interface SelectWithDotsProps
   extends Omit<
-    NamedProps<SelectOption>,
+    Props<SelectOption, false>,
     | 'onFocus'
     | 'onBlur'
     | 'isDisabled'
@@ -37,7 +44,6 @@ export interface SelectWithDotsProps
     | 'inputId'
     | 'styles'
     | 'formatGroupId'
-    | 'components'
     | 'value'
   > {
   defaultValue?: SelectOption
@@ -46,7 +52,7 @@ export interface SelectWithDotsProps
   label?: string
   style?: React.CSSProperties
   disableLabel?: boolean
-  shouldDisabledOptions?: boolean
+  shouldDisableOptions?: boolean
   onBlur?: (firstSelectedOption?: SelectOption) => void
   menuAlignment?: MenuAlignment
 }
@@ -75,9 +81,10 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       style,
       disableLabel,
       name,
-      shouldDisabledOptions,
+      shouldDisableOptions,
       onBlur,
       menuAlignment = 'bottom-right',
+      components: componentsProp,
       menuPortalTarget,
       ...props
     },
@@ -119,7 +126,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
     }, [open, selectRef])
 
     const CustomMenu = useCallback(
-      ({ innerRef, innerProps, children }) => {
+      ({ innerRef, innerProps, children }: MenuProps<SelectOption, false>) => {
         const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
           'bottom-left': {
             top: 39,
@@ -163,39 +170,41 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           </div>
         )
       },
-      [menuAlignment]
+      [menuAlignment, selectRef]
     )
 
-    const ValueContainer = useCallback(({ children, ...rest }) => {
+    const ValueContainer = useCallback(({ children }) => {
       return (
-        <DotsButton {...rest} variant="secondary-borderless">
+        <DotsButton variant="secondary-borderless">
           <img src={dots} alt="see-more" /> {children}
         </DotsButton>
       )
     }, [])
 
-    const Option = useCallback((props) => {
-      return (
-        <div>
-          <components.Option
-            {...props}
-            isDisabled={props.isDisabled}
-            innerProps={{
-              ...props.innerProps,
-              onMouseDown: (e) => {
-                if (shouldDisabledOptions) {
-                  return
-                }
-                if (props.data.shouldStopPropagation) {
-                  e.stopPropagation()
-                  props.data?.onClick()
-                }
-              },
-            }}
-          />
-        </div>
-      )
-    }, [])
+    const Option = useCallback(
+      (props: OptionProps<SelectOption, false>) => {
+        return (
+          <div>
+            <components.Option
+              {...props}
+              innerProps={{
+                ...props.innerProps,
+                onMouseDown: (e) => {
+                  if (shouldDisableOptions) {
+                    return
+                  }
+                  if (props.data.shouldStopPropagation) {
+                    e.stopPropagation()
+                    props.data?.onClick()
+                  }
+                },
+              }}
+            />
+          </div>
+        )
+      },
+      [shouldDisableOptions]
+    )
 
     const colourStyles: StylesConfig<SelectOption, false> = {
       control: (styles, { isDisabled, isFocused }) => {
@@ -266,7 +275,6 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       dropdownIndicator: (styles) => ({
         ...styles,
         display: 'none',
-        // color: isDisabled ? theme.grey40 : theme.grey70,
       }),
       container: (style) => ({
         ...style,
@@ -315,13 +323,13 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           closeMenuOnSelect={false}
           onChange={(option) => {
             setOpen(false)
-            onChange(option)
+            onChange && onChange(option)
           }}
           menuIsOpen={open}
           menuPortalTarget={menuPortalTarget}
           styles={colourStyles}
           formatGroupLabel={formatGroupLabel}
-          components={{ ValueContainer, Option, Menu: CustomMenu }}
+          components={{ ValueContainer, Option, Menu: CustomMenu, ...componentsProp }}
           placeholder=""
         />
       </div>
