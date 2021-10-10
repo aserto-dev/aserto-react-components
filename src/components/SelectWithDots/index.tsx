@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactSelect, {
   components,
   MenuProps,
@@ -18,6 +18,23 @@ const DotsButton = styled(Button)`
   width: 40px;
   height: 35px;
 `
+
+function composeStyles(
+  outer: StylesConfig<SelectOption, false>,
+  inner: StylesConfig<SelectOption, false>
+): StylesConfig<SelectOption, false> {
+  const composed: StylesConfig<SelectOption, false> = { ...inner }
+  for (const name of Object.keys(outer)) {
+    if (name in inner) {
+      composed[name] = (styles, ...rest) => {
+        return outer[name](inner[name](styles, ...rest), ...rest)
+      }
+    } else {
+      composed[name] = outer[name]
+    }
+  }
+  return composed
+}
 
 type MenuAlignment = 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
 
@@ -42,7 +59,6 @@ export interface SelectWithDotsProps
     | 'closeMenuOnSelect'
     | 'menuIsOpen'
     | 'inputId'
-    | 'styles'
     | 'formatGroupId'
     | 'value'
   > {
@@ -85,6 +101,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       onBlur,
       menuAlignment = 'bottom-right',
       components: componentsProp,
+      styles: stylesProp,
       menuPortalTarget,
       ...props
     },
@@ -206,9 +223,9 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       [shouldDisableOptions]
     )
 
-    const colourStyles: StylesConfig<SelectOption, false> = {
-      control: (styles, { isDisabled, isFocused }) => {
-        return {
+    const colourStyles = useMemo(() => {
+      const colourStyles: StylesConfig<SelectOption, false> = {
+        control: (styles, { isDisabled, isFocused }) => ({
           ...styles,
           backgroundColor: 'transparent',
           color: theme.grey70,
@@ -217,10 +234,8 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           outline: isFocused ? 'none' : '',
           boxShadow: 'none',
           borderWidth: 1,
-        }
-      },
-      option: (styles, { isDisabled, isFocused, isSelected }) => {
-        return {
+        }),
+        option: (styles, { isDisabled, isFocused, isSelected }) => ({
           ...styles,
           backgroundColor: isDisabled
             ? theme.grey20
@@ -238,63 +253,67 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
             ...styles[':active'],
             backgroundColor: theme.grey40,
           },
-        }
-      },
-      input: (styles) => {
-        return {
+        }),
+        input: (styles) => ({
           ...styles,
           color: theme.grey100,
           borderColor: theme.grey60,
-        }
-      },
-      group: (styles) => {
-        return {
+        }),
+        group: (styles) => {
+          return {
+            ...styles,
+            paddingBottom: 0,
+          }
+        },
+        placeholder: (styles, { isDisabled }) => ({
           ...styles,
-          paddingBottom: 0,
-        }
-      },
-      placeholder: (styles, { isDisabled }) => ({
-        ...styles,
-        color: isDisabled ? theme.grey40 : theme.grey90,
-      }),
-      singleValue: (styles, { isDisabled }) => ({
-        ...styles,
-        color: isDisabled ? theme.grey40 : theme.grey100,
-        width: '100%',
-        textAlign: 'right',
-        overflow: 'auto',
-        ...removeFocusBox,
-        display: 'none',
-      }),
-      menu: (styles) => ({
-        ...styles,
-        backgroundColor: theme.primaryBlack,
-        zIndex: 6,
-        marginTop: -5,
-      }),
-      dropdownIndicator: (styles) => ({
-        ...styles,
-        display: 'none',
-      }),
-      container: (style) => ({
-        ...style,
-        width: 40,
-      }),
-      menuList: (style) => ({
-        ...style,
-        zIndex: 5,
-        padding: 0,
-        border: `1px solid ${theme.grey50}`,
-      }),
-      indicatorSeparator: (styles) => ({
-        ...styles,
-        display: 'none',
-      }),
-      valueContainer: (styles) => ({
-        ...styles,
-        overflow: 'none',
-      }),
-    }
+          color: isDisabled ? theme.grey40 : theme.grey90,
+        }),
+        singleValue: (styles, { isDisabled }) => ({
+          ...styles,
+          color: isDisabled ? theme.grey40 : theme.grey100,
+          width: '100%',
+          textAlign: 'right',
+          overflow: 'auto',
+          ...removeFocusBox,
+          display: 'none',
+        }),
+        menu: (styles) => ({
+          ...styles,
+          backgroundColor: theme.primaryBlack,
+          zIndex: 6,
+          marginTop: -5,
+        }),
+        dropdownIndicator: (styles) => ({
+          ...styles,
+          display: 'none',
+        }),
+        container: (style) => ({
+          ...style,
+          width: 40,
+        }),
+        menuList: (style) => ({
+          ...style,
+          zIndex: 5,
+          padding: 0,
+          border: `1px solid ${theme.grey50}`,
+        }),
+        indicatorSeparator: (styles) => ({
+          ...styles,
+          display: 'none',
+        }),
+        valueContainer: (styles) => ({
+          ...styles,
+          overflow: 'none',
+        }),
+      }
+
+      if (stylesProp !== undefined) {
+        return composeStyles(stylesProp, colourStyles)
+      } else {
+        return colourStyles
+      }
+    }, [stylesProp])
 
     return (
       <div style={style}>
