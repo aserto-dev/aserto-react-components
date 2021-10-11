@@ -1,5 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import ReactSelect, {
+  components,
+  MenuProps,
+  OptionProps,
+  Props,
+  SelectInstance,
+  StylesConfig,
+} from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -12,6 +19,23 @@ const DotsButton = styled(Button)`
   height: 35px;
 `
 
+function composeStyles(
+  outer: StylesConfig<SelectOption, false>,
+  inner: StylesConfig<SelectOption, false>
+): StylesConfig<SelectOption, false> {
+  const composed: StylesConfig<SelectOption, false> = { ...inner }
+  for (const name of Object.keys(outer)) {
+    if (name in inner) {
+      composed[name] = (styles, ...rest) => {
+        return outer[name](inner[name](styles, ...rest), ...rest)
+      }
+    } else {
+      composed[name] = outer[name]
+    }
+  }
+  return composed
+}
+
 type MenuAlignment = 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-top'
 
 export type SelectOption = {
@@ -22,11 +46,11 @@ export type SelectOption = {
   isDisabled?: boolean
 }
 
-export type ReactSelectElement = ReactSelect<SelectOption>
+export type ReactSelectElement = SelectInstance<SelectOption>
 
 export interface SelectWithDotsProps
   extends Omit<
-    NamedProps<SelectOption>,
+    Props<SelectOption, false>,
     | 'onFocus'
     | 'onBlur'
     | 'isDisabled'
@@ -35,9 +59,7 @@ export interface SelectWithDotsProps
     | 'closeMenuOnSelect'
     | 'menuIsOpen'
     | 'inputId'
-    | 'styles'
     | 'formatGroupId'
-    | 'components'
     | 'value'
   > {
   defaultValue?: SelectOption
@@ -46,7 +68,7 @@ export interface SelectWithDotsProps
   label?: string
   style?: React.CSSProperties
   disableLabel?: boolean
-  shouldDisabledOptions?: boolean
+  shouldDisableOptions?: boolean
   onBlur?: (firstSelectedOption?: SelectOption) => void
   menuAlignment?: MenuAlignment
 }
@@ -75,9 +97,11 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
       style,
       disableLabel,
       name,
-      shouldDisabledOptions,
+      shouldDisableOptions,
       onBlur,
       menuAlignment = 'bottom-right',
+      components: componentsProp,
+      styles: stylesProp,
       menuPortalTarget,
       ...props
     },
@@ -119,7 +143,7 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
     }, [open, selectRef])
 
     const CustomMenu = useCallback(
-      ({ innerRef, innerProps, children }) => {
+      ({ innerRef, innerProps, children }: MenuProps<SelectOption, false>) => {
         const alignmentStyleOverrides: Record<MenuAlignment, React.CSSProperties> = {
           'bottom-left': {
             top: 39,
@@ -163,43 +187,45 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           </div>
         )
       },
-      [menuAlignment]
+      [menuAlignment, selectRef]
     )
 
-    const ValueContainer = useCallback(({ children, ...rest }) => {
+    const ValueContainer = useCallback(({ children }) => {
       return (
-        <DotsButton {...rest} variant="secondary-borderless">
+        <DotsButton variant="secondary-borderless">
           <img src={dots} alt="see-more" /> {children}
         </DotsButton>
       )
     }, [])
 
-    const Option = useCallback((props) => {
-      return (
-        <div>
-          <components.Option
-            {...props}
-            isDisabled={props.isDisabled}
-            innerProps={{
-              ...props.innerProps,
-              onMouseDown: (e) => {
-                if (shouldDisabledOptions) {
-                  return
-                }
-                if (props.data.shouldStopPropagation) {
-                  e.stopPropagation()
-                  props.data?.onClick()
-                }
-              },
-            }}
-          />
-        </div>
-      )
-    }, [])
+    const Option = useCallback(
+      (props: OptionProps<SelectOption, false>) => {
+        return (
+          <div>
+            <components.Option
+              {...props}
+              innerProps={{
+                ...props.innerProps,
+                onMouseDown: (e) => {
+                  if (shouldDisableOptions) {
+                    return
+                  }
+                  if (props.data.shouldStopPropagation) {
+                    e.stopPropagation()
+                    props.data?.onClick()
+                  }
+                },
+              }}
+            />
+          </div>
+        )
+      },
+      [shouldDisableOptions]
+    )
 
-    const colourStyles: StylesConfig<SelectOption, false> = {
-      control: (styles, { isDisabled, isFocused }) => {
-        return {
+    const colourStyles = useMemo(() => {
+      const colourStyles: StylesConfig<SelectOption, false> = {
+        control: (styles, { isDisabled, isFocused }) => ({
           ...styles,
           backgroundColor: 'transparent',
           color: theme.grey70,
@@ -208,10 +234,8 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           outline: isFocused ? 'none' : '',
           boxShadow: 'none',
           borderWidth: 1,
-        }
-      },
-      option: (styles, { isDisabled, isFocused, isSelected }) => {
-        return {
+        }),
+        option: (styles, { isDisabled, isFocused, isSelected }) => ({
           ...styles,
           backgroundColor: isDisabled
             ? theme.grey20
@@ -229,64 +253,67 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
             ...styles[':active'],
             backgroundColor: theme.grey40,
           },
-        }
-      },
-      input: (styles) => {
-        return {
+        }),
+        input: (styles) => ({
           ...styles,
           color: theme.grey100,
           borderColor: theme.grey60,
-        }
-      },
-      group: (styles) => {
-        return {
+        }),
+        group: (styles) => {
+          return {
+            ...styles,
+            paddingBottom: 0,
+          }
+        },
+        placeholder: (styles, { isDisabled }) => ({
           ...styles,
-          paddingBottom: 0,
-        }
-      },
-      placeholder: (styles, { isDisabled }) => ({
-        ...styles,
-        color: isDisabled ? theme.grey40 : theme.grey90,
-      }),
-      singleValue: (styles, { isDisabled }) => ({
-        ...styles,
-        color: isDisabled ? theme.grey40 : theme.grey100,
-        width: '100%',
-        textAlign: 'right',
-        overflow: 'auto',
-        ...removeFocusBox,
-        display: 'none',
-      }),
-      menu: (styles) => ({
-        ...styles,
-        backgroundColor: theme.primaryBlack,
-        zIndex: 6,
-        marginTop: -5,
-      }),
-      dropdownIndicator: (styles) => ({
-        ...styles,
-        display: 'none',
-        // color: isDisabled ? theme.grey40 : theme.grey70,
-      }),
-      container: (style) => ({
-        ...style,
-        width: 40,
-      }),
-      menuList: (style) => ({
-        ...style,
-        zIndex: 5,
-        padding: 0,
-        border: `1px solid ${theme.grey50}`,
-      }),
-      indicatorSeparator: (styles) => ({
-        ...styles,
-        display: 'none',
-      }),
-      valueContainer: (styles) => ({
-        ...styles,
-        overflow: 'none',
-      }),
-    }
+          color: isDisabled ? theme.grey40 : theme.grey90,
+        }),
+        singleValue: (styles, { isDisabled }) => ({
+          ...styles,
+          color: isDisabled ? theme.grey40 : theme.grey100,
+          width: '100%',
+          textAlign: 'right',
+          overflow: 'auto',
+          ...removeFocusBox,
+          display: 'none',
+        }),
+        menu: (styles) => ({
+          ...styles,
+          backgroundColor: theme.primaryBlack,
+          zIndex: 6,
+          marginTop: -5,
+        }),
+        dropdownIndicator: (styles) => ({
+          ...styles,
+          display: 'none',
+        }),
+        container: (style) => ({
+          ...style,
+          width: 40,
+        }),
+        menuList: (style) => ({
+          ...style,
+          zIndex: 5,
+          padding: 0,
+          border: `1px solid ${theme.grey50}`,
+        }),
+        indicatorSeparator: (styles) => ({
+          ...styles,
+          display: 'none',
+        }),
+        valueContainer: (styles) => ({
+          ...styles,
+          overflow: 'none',
+        }),
+      }
+
+      if (stylesProp !== undefined) {
+        return composeStyles(stylesProp, colourStyles)
+      } else {
+        return colourStyles
+      }
+    }, [stylesProp])
 
     return (
       <div style={style}>
@@ -315,13 +342,13 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
           closeMenuOnSelect={false}
           onChange={(option) => {
             setOpen(false)
-            onChange(option)
+            onChange && onChange(option)
           }}
           menuIsOpen={open}
           menuPortalTarget={menuPortalTarget}
           styles={colourStyles}
           formatGroupLabel={formatGroupLabel}
-          components={{ ValueContainer, Option, Menu: CustomMenu }}
+          components={{ ValueContainer, Option, Menu: CustomMenu, ...componentsProp }}
           placeholder=""
         />
       </div>

@@ -7,7 +7,9 @@ export default {
   component: Select,
 } as Meta
 
-const Template: Story<SelectProps> = (args) => <Select {...args} />
+const Template: Story<SelectProps> = (args) => (
+  <Select onChange={(option) => console.log(option)} {...args} />
+)
 
 const identityOptions = [
   {
@@ -56,7 +58,6 @@ Primary.args = {
 export const PrimaryGrouped = Template.bind({})
 PrimaryGrouped.args = {
   options: groupedOptions,
-  value: 'option1',
 }
 
 export const PrimaryWithLabel = Template.bind({})

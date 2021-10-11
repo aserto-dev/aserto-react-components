@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
+import ReactSelect, {
+  components,
+  Props,
+  MenuProps,
+  OptionProps,
+  SelectInstance,
+  StylesConfig,
+} from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { Button } from '../Button'
@@ -20,11 +27,11 @@ export type SelectOption = {
   onClick?: () => void
 }
 
-export type ReactSelectElement = ReactSelect<SelectOption>
+export type ReactSelectElement = SelectInstance<SelectOption>
 
 export interface SelectWithoutControlProps
   extends Omit<
-    NamedProps<SelectOption>,
+    Props<SelectOption, false>,
     | 'onFocus'
     | 'onBlur'
     | 'isDisabled'
@@ -48,7 +55,7 @@ export interface SelectWithoutControlProps
   onClickRemoveTenant: () => void
   onClickSave: () => void
   onClickCancel: (firstSelectedOption?: SelectOption) => void
-  shouldDisabledOptions?: boolean
+  shouldDisableOptions?: boolean
   removeTenantText?: string
   onBlur?: (firstSelectedOption?: SelectOption) => void
 }
@@ -102,7 +109,7 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
       onClickRemoveTenant,
       onClickSave,
       onClickCancel,
-      shouldDisabledOptions,
+      shouldDisableOptions,
       removeTenantText,
       onBlur,
       ...props
@@ -124,7 +131,7 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
     }, [defaultValue])
 
     const CustomMenu = useCallback(
-      ({ innerRef, innerProps, children }) => {
+      ({ innerRef, innerProps, children }: MenuProps<SelectOption, false>) => {
         return (
           <div
             ref={innerRef}
@@ -132,7 +139,7 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
               zIndex: 20,
               position: 'absolute',
               width: 250,
-              left: -150,
+              right: 0,
               paddingBottom: 0,
             }}
             {...innerProps}
@@ -164,7 +171,7 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
               </Button>
               <Button
                 size="sm"
-                disabled={shouldDisabledOptions}
+                disabled={shouldDisableOptions}
                 onClick={() => {
                   onClickSave()
                   setOpen(false)
@@ -179,28 +186,31 @@ export const SelectWithoutControl: React.ForwardRefExoticComponent<
       [onClickRemoveTenant, onClickCancel, onClickSave]
     )
 
-    const Option = useCallback((props) => {
-      return (
-        <div>
-          <components.Option
-            {...props}
-            isDisabled={shouldDisabledOptions}
-            innerProps={{
-              ...props.innerProps,
-              onMouseDown: (e) => {
-                if (shouldDisabledOptions) {
-                  return
-                }
-                if (props.data.shouldStopPropagation) {
-                  e.stopPropagation()
-                  props.data?.onClick()
-                }
-              },
-            }}
-          />
-        </div>
-      )
-    }, [])
+    const Option = useCallback(
+      (props: OptionProps<SelectOption, false>) => {
+        return (
+          <div>
+            <components.Option
+              {...props}
+              isDisabled={shouldDisableOptions}
+              innerProps={{
+                ...props.innerProps,
+                onMouseDown: (e) => {
+                  if (shouldDisableOptions) {
+                    return
+                  }
+                  if (props.data.shouldStopPropagation) {
+                    e.stopPropagation()
+                    props.data?.onClick()
+                  }
+                },
+              }}
+            />
+          </div>
+        )
+      },
+      [shouldDisableOptions]
+    )
 
     const colourStyles: StylesConfig<SelectOption, false> = {
       control: (styles, { isDisabled, isFocused }) => {

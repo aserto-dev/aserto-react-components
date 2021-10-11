@@ -7,7 +7,11 @@ export default {
   component: SelectWithoutControl,
 } as Meta
 
-const Template: Story<SelectWithoutControlProps> = (args) => <SelectWithoutControl {...args} />
+const Template: Story<SelectWithoutControlProps> = (args) => (
+  <div style={{ display: 'flex', justifyContent: 'right', margin: 8, width: 250 }}>
+    <SelectWithoutControl {...args} />
+  </div>
+)
 
 const identityOptions = [
   {
@@ -87,7 +91,7 @@ PrimaryWithDefaultValueDisabled.args = {
 export const OwnerVariant = Template.bind({})
 OwnerVariant.args = {
   options: identityOptions,
-  shouldDisabledOptions: true,
+  shouldDisableOptions: true,
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
@@ -95,25 +99,8 @@ OwnerVariant.args = {
 export const OwnerVariantWithMessage = Template.bind({})
 OwnerVariantWithMessage.args = {
   options: identityOptions,
-  shouldDisabledOptions: true,
+  shouldDisableOptions: true,
   removeTenantText: 'Remove myself from tenant',
   label: 'Organization',
   defaultValue: identityOptions.find((option) => option.value === 'MANUAL'),
 }
-
-// export const PrimaryWithRef = () => {
-//   const ref = useRef(null)
-//   return (
-//     <div>
-//       <PrimaryWithLabel forRef={ref} />
-//       <button
-//         onClick={() => {
-//           console.log(ref?.current)
-//           // ref?.current?.focus()
-//         }}
-//       >
-//         Click to focus
-//       </button>
-//     </div>
-//   )
-// }

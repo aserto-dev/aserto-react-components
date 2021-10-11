@@ -1,5 +1,11 @@
 import React, { useCallback } from 'react'
-import ReactSelect, { components, NamedProps, StylesConfig } from 'react-select'
+import ReactSelect, {
+  components,
+  OptionProps,
+  Props,
+  SelectInstance,
+  StylesConfig,
+} from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 
@@ -10,11 +16,11 @@ export type SelectOption = {
   onClick?: () => void
 }
 
-export type ReactSelectElement = ReactSelect<SelectOption>
+export type ReactSelectElement = SelectInstance<SelectOption>
 
 export interface SelectProps
   extends Omit<
-    NamedProps<SelectOption>,
+    Props<SelectOption, false>,
     'isDisabled' | 'inputId' | 'styles' | 'formatGroupId' | 'components'
   > {
   options: readonly SelectOption[]
@@ -48,7 +54,7 @@ export const Select: React.ForwardRefExoticComponent<
       boxShadow: 'none',
     }
 
-    const Option = useCallback((props) => {
+    const Option = useCallback((props: OptionProps<SelectOption, false>) => {
       return (
         <div>
           <components.Option
