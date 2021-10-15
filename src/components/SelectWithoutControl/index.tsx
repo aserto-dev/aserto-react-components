@@ -23,7 +23,7 @@ const RemoveFromTenant = styled.div`
 export type SelectOption = {
   value: string | number
   label: string
-  shouldStopPropagation?: string
+  shouldStopPropagation?: boolean
   onClick?: () => void
 }
 

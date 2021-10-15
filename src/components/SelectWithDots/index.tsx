@@ -41,7 +41,7 @@ type MenuAlignment = 'bottom-left' | 'bottom-right' | 'right-bottom' | 'right-to
 export type SelectOption = {
   value: string | number
   label: string
-  shouldStopPropagation?: string
+  shouldStopPropagation?: boolean
   onClick?: () => void
   isDisabled?: boolean
 }
