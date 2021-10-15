@@ -10,6 +10,7 @@ import { Breadcrumb } from './components/Breadcrumb'
 import { Button } from './components/Button'
 import { Divider } from './components/Divider'
 import { Highlight } from './components/Highlight'
+import { CodeEditor } from './components/CodeEditor'
 import { Input } from './components/Input'
 import { Loading } from './components/Loading'
 import { NavBar } from './components/NavBar'
@@ -33,7 +34,6 @@ import { DirectoryBrowserGrid } from './components/DirectoryBrowserGrid'
 import { SelectWithoutControl } from './components/SelectWithoutControl'
 import { StatusPill } from './components/StatusPill'
 import { IdentityContext } from './components/IdentityContext'
-import { RequestEditor } from './components/RequestEditor'
 import { SelectWithDots } from './components/SelectWithDots'
 import { EvaluateDisplayState } from './components/EvaluateDisplayState'
 import { Checkbox } from './components/Checkbox'
@@ -45,6 +45,7 @@ export {
   Button,
   Divider,
   Highlight,
+  CodeEditor,
   Input,
   Loading,
   NavBar,
@@ -67,7 +68,6 @@ export {
   SelectWithoutControl,
   StatusPill,
   IdentityContext,
-  RequestEditor,
   SelectWithDots,
   EvaluateDisplayState,
   Checkbox,
