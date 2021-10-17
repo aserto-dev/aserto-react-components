@@ -134,6 +134,7 @@ export const Primary = Template.bind({})
 Primary.args = {
   data,
   columns,
+  onClickRow: null,
 }
 
 const renderRowSubComponent = ({ row }) => (
@@ -152,4 +153,11 @@ PrimaryWithExpandedSubComponent.args = {
   data,
   columns,
   renderRowSubComponent,
+}
+
+export const PrimaryWithClickableRows = Template.bind({})
+PrimaryWithClickableRows.args = {
+  data,
+  columns,
+  onClickRow: console.log,
 }

@@ -11,6 +11,7 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
+  onClickRow?: () => void
 }
 
 const Icon = styled.img`
@@ -20,15 +21,15 @@ const Icon = styled.img`
 const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
-const Tr = styled.tr<{ $isExpanded?: boolean; $shouldShowSubRow?: boolean }>`
-  ${({ $isExpanded, $shouldShowSubRow }) => {
+const Tr = styled.tr<{ $isExpanded?: boolean; $shouldAddStyleOnHover?: boolean }>`
+  ${({ $isExpanded, $shouldAddStyleOnHover }) => {
     if ($isExpanded) {
       return css`
         background-color: ${theme.grey30};
         color: ${theme.grey100} !important;
         cursor: pointer;
       `
-    } else if ($shouldShowSubRow) {
+    } else if ($shouldAddStyleOnHover) {
       return css`
         &:hover {
           background-color: ${theme.grey20};
@@ -83,6 +84,7 @@ export const DataTable = <Data extends object>({
   data,
   columns,
   renderRowSubComponent,
+  onClickRow,
 }: DataTableProps<Data>) => {
   const {
     getTableProps,
@@ -135,11 +137,12 @@ export const DataTable = <Data extends object>({
           {rows.map((row) => {
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
+            const shouldAddStyleOnHover = renderRowSubComponent !== undefined || onClickRow
             return (
               <>
                 <Tr
                   $isExpanded={row.isExpanded}
-                  $shouldShowSubRow={renderRowSubComponent !== undefined}
+                  $shouldAddStyleOnHover={!!shouldAddStyleOnHover}
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => {
@@ -157,6 +160,7 @@ export const DataTable = <Data extends object>({
                   style={{
                     backgroundColor: theme.grey10,
                   }}
+                  onClick={onClickRow ? onClickRow : null}
                 >
                   <td
                     style={{
