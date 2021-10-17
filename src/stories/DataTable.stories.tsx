@@ -134,7 +134,7 @@ export const Primary = Template.bind({})
 Primary.args = {
   data,
   columns,
-  onClickRow: null,
+  onClickRow: undefined,
 }
 
 const renderRowSubComponent = ({ row }) => (

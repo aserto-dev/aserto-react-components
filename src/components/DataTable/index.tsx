@@ -11,7 +11,7 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
-  onClickRow?: () => void
+  onClickRow?: (row: Data) => void
 }
 
 const Icon = styled.img`
@@ -137,12 +137,13 @@ export const DataTable = <Data extends object>({
           {rows.map((row) => {
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
-            const shouldAddStyleOnHover = renderRowSubComponent !== undefined || onClickRow
+            const shouldAddStyleOnHover =
+              renderRowSubComponent !== undefined || onClickRow !== undefined
             return (
               <>
                 <Tr
                   $isExpanded={row.isExpanded}
-                  $shouldAddStyleOnHover={!!shouldAddStyleOnHover}
+                  $shouldAddStyleOnHover={shouldAddStyleOnHover}
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => {
@@ -160,7 +161,7 @@ export const DataTable = <Data extends object>({
                   style={{
                     backgroundColor: theme.grey10,
                   }}
-                  onClick={onClickRow ? onClickRow : null}
+                  onClick={onClickRow ? () => onClickRow(row) : null}
                 >
                   <td
                     style={{
