@@ -11,7 +11,7 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
-  onClickRow?: (row: Data) => void
+  onClickRow?: (row: Row<Data>) => void
 }
 
 const Icon = styled.img`
