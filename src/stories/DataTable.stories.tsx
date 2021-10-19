@@ -159,5 +159,10 @@ export const PrimaryWithClickableRows = Template.bind({})
 PrimaryWithClickableRows.args = {
   data,
   columns,
-  onClickRow: console.log,
+  shouldAddStyleOnHoverRow: true,
+  getCellProps: (cell) => {
+    return {
+      onClick: () => console.log(cell),
+    }
+  },
 }

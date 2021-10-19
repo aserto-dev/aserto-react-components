@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column, Row, useTable, useSortBy, useExpanded } from 'react-table'
+import { Column, Row, useTable, useSortBy, useExpanded, Cell } from 'react-table'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
@@ -11,7 +11,8 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
-  onClickRow?: (row: Row<Data>) => void
+  shouldAddStyleOnHoverRow?: boolean
+  getCellProps?: (cell: Cell<Data>) => void
 }
 
 const Icon = styled.img`
@@ -84,7 +85,8 @@ export const DataTable = <Data extends object>({
   data,
   columns,
   renderRowSubComponent,
-  onClickRow,
+  shouldAddStyleOnHoverRow,
+  getCellProps,
 }: DataTableProps<Data>) => {
   const {
     getTableProps,
@@ -138,7 +140,7 @@ export const DataTable = <Data extends object>({
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
             const shouldAddStyleOnHover =
-              renderRowSubComponent !== undefined || onClickRow !== undefined
+              renderRowSubComponent !== undefined || shouldAddStyleOnHoverRow
             return (
               <>
                 <Tr
@@ -147,9 +149,11 @@ export const DataTable = <Data extends object>({
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => {
+                    const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
                       <td
                         {...cell.getCellProps()}
+                        {...customCellProps}
                         width={cell.column?.style?.cellWidth ? cell.column.style.cellWidth : ''}
                       >
                         {cell.render('Cell')}
@@ -161,7 +165,6 @@ export const DataTable = <Data extends object>({
                   style={{
                     backgroundColor: theme.grey10,
                   }}
-                  onClick={onClickRow ? () => onClickRow(row) : null}
                 >
                   <td
                     style={{
