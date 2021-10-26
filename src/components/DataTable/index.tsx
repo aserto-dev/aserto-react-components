@@ -24,7 +24,7 @@ const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
 
-export const Tr = styled.tr<{ $isExpanded?: boolean }>`
+export const RowComponent = styled.tr<{ $isExpanded?: boolean }>`
   ${({ $isExpanded }) => {
     if ($isExpanded) {
       return css`
@@ -133,10 +133,10 @@ export const DataTable = <Data extends object>({
           {rows.map((row) => {
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
-            const RowComponent = rowComponent || Tr
+            const Tr = rowComponent || RowComponent
             return (
               <>
-                <RowComponent $isExpanded={row.isExpanded} {...row.getRowProps()}>
+                <Tr $isExpanded={row.isExpanded} {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
@@ -149,7 +149,7 @@ export const DataTable = <Data extends object>({
                       </td>
                     )
                   })}
-                </RowComponent>
+                </Tr>
                 <tr
                   style={{
                     backgroundColor: theme.grey10,
