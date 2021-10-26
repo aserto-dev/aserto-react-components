@@ -1,9 +1,9 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { DataTable, DataTableProps } from '../components/DataTable'
-import styled from 'styled-components'
+import { DataTable, DataTableProps, RowComponent } from '../components/DataTable'
+import styled, { css } from 'styled-components'
 import { Button } from '../components/Button'
-import { ActionableInput, SelectWithDots } from '..'
+import { ActionableInput, SelectWithDots, theme } from '..'
 
 const DotsContainer = styled.div`
   display: flex;
@@ -148,10 +148,19 @@ const renderRowSubComponent = ({ row }) => (
   </div>
 )
 
+const Tr = styled(RowComponent)`
+  &:hover {
+    background-color: ${theme.grey20};
+    color: ${theme.grey100};
+    cursor: pointer;
+  }
+`
+
 export const PrimaryWithExpandedSubComponent = Template.bind({})
 PrimaryWithExpandedSubComponent.args = {
   data,
   columns,
+  rowComponent: (rowProps) => <Tr {...rowProps} />,
   renderRowSubComponent,
 }
 
@@ -159,5 +168,10 @@ export const PrimaryWithClickableRows = Template.bind({})
 PrimaryWithClickableRows.args = {
   data,
   columns,
-  onClickRow: console.log,
+  shouldAddStyleOnHoverRow: true,
+  getCellProps: (cell) => {
+    return {
+      onClick: () => console.log(cell),
+    }
+  },
 }

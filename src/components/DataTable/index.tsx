@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column, Row, useTable, useSortBy, useExpanded } from 'react-table'
+import { Column, Row, useTable, useSortBy, useExpanded, Cell, TableRowProps } from 'react-table'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
@@ -11,7 +11,8 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
-  onClickRow?: (row: Row<Data>) => void
+  getCellProps?: (cell: Cell<Data>) => void
+  rowComponent?: React.ComponentType<TableRowProps & { isExpanded: boolean }>
 }
 
 const Icon = styled.img`
@@ -21,21 +22,14 @@ const Icon = styled.img`
 const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
-const Tr = styled.tr<{ $isExpanded?: boolean; $shouldAddStyleOnHover?: boolean }>`
-  ${({ $isExpanded, $shouldAddStyleOnHover }) => {
-    if ($isExpanded) {
+
+export const RowComponent = styled.tr<{ isExpanded?: boolean }>`
+  ${({ isExpanded }) => {
+    if (isExpanded) {
       return css`
         background-color: ${theme.grey30};
         color: ${theme.grey100} !important;
         cursor: pointer;
-      `
-    } else if ($shouldAddStyleOnHover) {
-      return css`
-        &:hover {
-          background-color: ${theme.grey20};
-          color: ${theme.grey100};
-          cursor: pointer;
-        }
       `
     }
   }}
@@ -84,7 +78,8 @@ export const DataTable = <Data extends object>({
   data,
   columns,
   renderRowSubComponent,
-  onClickRow,
+  rowComponent,
+  getCellProps,
 }: DataTableProps<Data>) => {
   const {
     getTableProps,
@@ -137,19 +132,16 @@ export const DataTable = <Data extends object>({
           {rows.map((row) => {
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
-            const shouldAddStyleOnHover =
-              renderRowSubComponent !== undefined || onClickRow !== undefined
+            const Tr = rowComponent || RowComponent
             return (
               <>
-                <Tr
-                  $isExpanded={row.isExpanded}
-                  $shouldAddStyleOnHover={shouldAddStyleOnHover}
-                  {...row.getRowProps()}
-                >
+                <Tr isExpanded={row.isExpanded} {...row.getRowProps()}>
                   {row.cells.map((cell) => {
+                    const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
                       <td
                         {...cell.getCellProps()}
+                        {...customCellProps}
                         width={cell.column?.style?.cellWidth ? cell.column.style.cellWidth : ''}
                       >
                         {cell.render('Cell')}
@@ -161,7 +153,6 @@ export const DataTable = <Data extends object>({
                   style={{
                     backgroundColor: theme.grey10,
                   }}
-                  onClick={onClickRow ? () => onClickRow(row) : null}
                 >
                   <td
                     style={{
