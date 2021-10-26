@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column, Row, useTable, useSortBy, useExpanded, Cell } from 'react-table'
+import { Column, Row, useTable, useSortBy, useExpanded, Cell, TableRowProps } from 'react-table'
 import styled, { css } from 'styled-components'
 import { theme } from '../../theme'
 import asc from './asc.svg'
@@ -12,8 +12,7 @@ export type DataTableProps<Data extends object> = {
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
   getCellProps?: (cell: Cell<Data>) => void
-  getRowStyle?: (row: Row<Data>) => void
-  rowComponent?: React.ReactNode
+  rowComponent?: React.ComponentType<TableRowProps & { isExpanded: boolean }>
 }
 
 const Icon = styled.img`
@@ -24,9 +23,9 @@ const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
 
-export const RowComponent = styled.tr<{ $isExpanded?: boolean }>`
-  ${({ $isExpanded }) => {
-    if ($isExpanded) {
+export const RowComponent = styled.tr<{ isExpanded?: boolean }>`
+  ${({ isExpanded }) => {
+    if (isExpanded) {
       return css`
         background-color: ${theme.grey30};
         color: ${theme.grey100} !important;
@@ -136,7 +135,7 @@ export const DataTable = <Data extends object>({
             const Tr = rowComponent || RowComponent
             return (
               <>
-                <Tr $isExpanded={row.isExpanded} {...row.getRowProps()}>
+                <Tr isExpanded={row.isExpanded} {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
