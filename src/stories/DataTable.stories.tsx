@@ -1,9 +1,9 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { DataTable, DataTableProps } from '../components/DataTable'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Button } from '../components/Button'
-import { ActionableInput, SelectWithDots } from '..'
+import { ActionableInput, SelectWithDots, theme } from '..'
 
 const DotsContainer = styled.div`
   display: flex;
@@ -148,10 +148,28 @@ const renderRowSubComponent = ({ row }) => (
   </div>
 )
 
+const Tr = styled.tr<{ $isExpanded?: boolean }>`
+  &:hover {
+    background-color: ${theme.grey20};
+    color: ${theme.grey100};
+    cursor: pointer;
+  }
+  ${({ $isExpanded }) => {
+    if ($isExpanded) {
+      return css`
+        background-color: ${theme.grey30};
+        color: ${theme.grey100} !important;
+        cursor: pointer;
+      `
+    }
+  }}
+`
+
 export const PrimaryWithExpandedSubComponent = Template.bind({})
 PrimaryWithExpandedSubComponent.args = {
   data,
   columns,
+  rowComponent: (rowProps) => <Tr {...rowProps} />,
   renderRowSubComponent,
 }
 

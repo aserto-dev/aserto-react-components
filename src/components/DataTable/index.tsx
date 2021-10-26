@@ -11,8 +11,9 @@ export type DataTableProps<Data extends object> = {
   data: readonly Data[]
   columns: readonly Column<Data>[]
   renderRowSubComponent?: SubComponent<Data>
-  shouldAddStyleOnHoverRow?: boolean
   getCellProps?: (cell: Cell<Data>) => void
+  getRowStyle?: (row: Row<Data>) => void
+  rowComponent?: React.ReactNode
 }
 
 const Icon = styled.img`
@@ -22,21 +23,13 @@ const Icon = styled.img`
 const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
-const Tr = styled.tr<{ $isExpanded?: boolean; $shouldAddStyleOnHover?: boolean }>`
-  ${({ $isExpanded, $shouldAddStyleOnHover }) => {
+const Tr = styled.tr<{ $isExpanded?: boolean }>`
+  ${({ $isExpanded }) => {
     if ($isExpanded) {
       return css`
         background-color: ${theme.grey30};
         color: ${theme.grey100} !important;
         cursor: pointer;
-      `
-    } else if ($shouldAddStyleOnHover) {
-      return css`
-        &:hover {
-          background-color: ${theme.grey20};
-          color: ${theme.grey100};
-          cursor: pointer;
-        }
       `
     }
   }}
@@ -85,7 +78,7 @@ export const DataTable = <Data extends object>({
   data,
   columns,
   renderRowSubComponent,
-  shouldAddStyleOnHoverRow,
+  rowComponent,
   getCellProps,
 }: DataTableProps<Data>) => {
   const {
@@ -139,15 +132,10 @@ export const DataTable = <Data extends object>({
           {rows.map((row) => {
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
-            const shouldAddStyleOnHover =
-              renderRowSubComponent !== undefined || shouldAddStyleOnHoverRow
+            const RowComponent = rowComponent || Tr
             return (
               <>
-                <Tr
-                  $isExpanded={row.isExpanded}
-                  $shouldAddStyleOnHover={shouldAddStyleOnHover}
-                  {...row.getRowProps()}
-                >
+                <RowComponent $isExpanded={row.isExpanded} {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
@@ -160,7 +148,7 @@ export const DataTable = <Data extends object>({
                       </td>
                     )
                   })}
-                </Tr>
+                </RowComponent>
                 <tr
                   style={{
                     backgroundColor: theme.grey10,
