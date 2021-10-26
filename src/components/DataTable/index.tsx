@@ -23,7 +23,8 @@ const Icon = styled.img`
 const Tbody = styled.tbody`
   transition: visibility 700ms ease, opacity 500ms ease;
 `
-const Tr = styled.tr<{ $isExpanded?: boolean }>`
+
+export const Tr = styled.tr<{ $isExpanded?: boolean }>`
   ${({ $isExpanded }) => {
     if ($isExpanded) {
       return css`
