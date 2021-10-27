@@ -31,7 +31,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
 
   .navbar {
     background-color: ${theme.grey10};
-    height: ${NavBarPixelHeight.Expanded}px;
+    min-height: ${NavBarPixelHeight.Expanded}px;
     padding: 1.375rem 0 0 0;
     border-bottom: 1px solid ${theme.grey30};
   }
@@ -125,7 +125,7 @@ export const NavBarContainer = styled.div<{ $topPosition?: number; $expandBreakp
   @media (max-width: ${({ $expandBreakpoint = DEFAULT_EXPANSION_BREAKPOINT }) =>
       $expandBreakpoint - 1}px) {
     .navbar {
-      height: ${NavBarPixelHeight.Collapsed}px;
+      min-height: ${NavBarPixelHeight.Collapsed}px;
       padding: 12px;
       display: flex;
       align-items: center;
