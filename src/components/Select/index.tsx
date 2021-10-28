@@ -77,6 +77,7 @@ export const Select: React.ForwardRefExoticComponent<
       control: (styles, { isDisabled, isFocused }) => {
         return {
           ...styles,
+          minHeight: 36,
           backgroundColor: isDisabled ? theme.grey20 : theme.primaryBlack,
           color: isDisabled ? theme.grey40 : theme.grey100,
           borderColor: isFocused ? theme.lochivarAccent2 : theme.grey40,
@@ -106,6 +107,7 @@ export const Select: React.ForwardRefExoticComponent<
           color: isFocused ? theme.grey100 : theme.grey70,
           height: 36,
           fontSize: 14,
+          lineHeight: '20px',
           cursor: isDisabled ? 'not-allowed' : 'default',
           ':active': {
             ...styles[':active'],
@@ -139,20 +141,25 @@ export const Select: React.ForwardRefExoticComponent<
         ...styles,
         backgroundColor: 'transparent',
         zIndex: 6,
-        marginTop: -5,
+        marginTop: 1,
       }),
       dropdownIndicator: (styles, { isDisabled }) => ({
         ...styles,
         color: isDisabled ? theme.grey40 : theme.grey70,
+        padding: 7,
       }),
       menuList: (style) => ({
         ...style,
         zIndex: 5,
-        borderRadius: 6,
+        padding: 0,
       }),
       indicatorSeparator: (styles, { isDisabled }) => ({
         ...styles,
         backgroundColor: isDisabled ? theme.grey30 : theme.grey30,
+      }),
+      valueContainer: (styles) => ({
+        ...styles,
+        fontSize: 14,
       }),
     }
     return (
