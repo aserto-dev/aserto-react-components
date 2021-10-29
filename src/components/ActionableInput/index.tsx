@@ -4,6 +4,7 @@ import { Input, InputProps } from '../Input'
 import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
+import rotateKey from './rotate-key.svg'
 import { Button } from '../Button'
 import { mapTestIdToProps } from '../../utils'
 import { Label } from '../Label'
@@ -48,7 +49,7 @@ const ActionableInputContainer = styled.div`
 
 const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   padding: 8px;
-  margin-left: 4px;
+  margin-left: -34px;
   ${({ $wasClicked }) => {
     return $wasClicked
       ? css`
@@ -59,10 +60,17 @@ const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   }}
 `
 
+const RotateKeyButton = styled(Button)`
+  margin-left: 55px;
+  background-color: #692525;
+  width: 120;
+`
+
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
   shouldShowHideShowButton?: boolean
   testId?: string
+  onClickRotateModal?: (value: string) => void
 }
 
 export const ActionableInput: React.FC<ActionableInputProps> = ({
@@ -70,6 +78,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
   shouldShowHideShowButton,
   testId,
   label,
+  onClickRotateModal,
   ...inputProps
 }) => {
   const [type, setType] = useState(inputProps.type || 'text')
@@ -110,6 +119,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
                   variant="secondary-borderless"
                   onClick={() => setType('text')}
                   {...mapTestIdToProps(`${testId}-show-btn`)}
+                  style={{ marginLeft: '-74px' }}
                 >
                   <img alt="show" src={show} />
                 </Button>
@@ -118,11 +128,23 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
                   onClick={() => setType('password')}
                   variant="secondary-borderless"
                   {...mapTestIdToProps(`${testId}-hide-btn`)}
+                  style={{ marginLeft: '-74px' }}
                 >
                   <img alt="hide" src={hide} />
                 </Button>
               )}
             </>
+          )}
+          {onClickRotateModal && (
+            <RotateKeyButton
+              onClick={() => onClickRotateModal}
+              variant="danger"
+              {...mapTestIdToProps(`${testId}-rotate-btn`)}
+              style={{ marginLeft: '55px', backgroundColor: '#692525', width: 120 }}
+            >
+              <img src={rotateKey} alt="rotate key" style={{ paddingRight: '10px' }} />
+              Rotate key
+            </RotateKeyButton>
           )}
         </CenteredRow>
       </Label>
