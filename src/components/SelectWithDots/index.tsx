@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactSelect, {
   components,
+  GroupBase,
   MenuProps,
   OptionProps,
+  OptionsOrGroups,
   Props,
   SelectInstance,
   StylesConfig,
@@ -45,6 +47,8 @@ export type SelectOption = {
   onClick?: () => void
   isDisabled?: boolean
 }
+
+export type SelectOptions = OptionsOrGroups<SelectOption, GroupBase<SelectOption>>
 
 export type ReactSelectElement = SelectInstance<SelectOption>
 
