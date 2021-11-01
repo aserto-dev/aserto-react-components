@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react'
 import ReactSelect, {
   components,
+  GroupBase,
   OptionProps,
+  OptionsOrGroups,
   Props,
   SelectInstance,
   StylesConfig,
@@ -12,9 +14,11 @@ import { Label } from '../Label'
 export type SelectOption = {
   value: string | number
   label: string
-  shouldStopPropagation?: string
+  shouldStopPropagation?: boolean
   onClick?: () => void
 }
+
+export type SelectOptions = OptionsOrGroups<SelectOption, GroupBase<SelectOption>>
 
 export type ReactSelectElement = SelectInstance<SelectOption>
 
@@ -23,7 +27,6 @@ export interface SelectProps
     Props<SelectOption, false>,
     'isDisabled' | 'inputId' | 'styles' | 'formatGroupId' | 'components'
   > {
-  options: readonly SelectOption[]
   defaultValue?: SelectOption
   disabled?: boolean
   label?: string

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Story, Meta } from '@storybook/react/types-6-0'
-import { NavBar, NavBarProps } from '../components/NavBar'
 import { Nav } from 'react-bootstrap'
 import { NavLink as RouterNavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { Select, SelectOption } from '../components/Select'
+import { Story, Meta } from '@storybook/react/types-6-0'
+import { NavBar, NavBarProps } from '../components/NavBar'
+import { Select, SelectOptions } from '../components/Select'
 
 export default {
   title: 'Common/NavBar',
@@ -25,10 +25,9 @@ const TenantInputContainer = styled.div`
 `
 
 const Template: Story<NavBarProps> = (args) => <NavBar {...args} />
-const options: SelectOption[] = [
+const options: SelectOptions = [
   { value: 'tenant', label: 'tenant' },
   {
-    // @ts-expect-error
     options: [
       {
         label: 'Manage tenant',
