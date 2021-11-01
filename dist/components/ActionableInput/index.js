@@ -99,7 +99,7 @@ var ActionableInput = function ActionableInput(_a) {
     src: img$2
   }))), onClickRotateModal && /*#__PURE__*/React.createElement(RotateKeyButton, __assign({
     onClick: function onClick() {
-      return onClickRotateModal;
+      return onClickRotateModal(true);
     },
     variant: "danger"
   }, mapTestIdToProps(testId + "-rotate-btn"), {

@@ -4,6 +4,6 @@ export declare type ActionableInputProps = InputProps & {
     onClickCopy?: (value: string) => void;
     shouldShowHideShowButton?: boolean;
     testId?: string;
-    onClickRotateModal?: (value: string) => void;
+    onClickRotateModal?: (value: boolean) => void;
 };
 export declare const ActionableInput: React.FC<ActionableInputProps>;
