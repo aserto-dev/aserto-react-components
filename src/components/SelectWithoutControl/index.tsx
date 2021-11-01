@@ -6,6 +6,8 @@ import ReactSelect, {
   OptionProps,
   SelectInstance,
   StylesConfig,
+  OptionsOrGroups,
+  GroupBase,
 } from 'react-select'
 import { theme } from '../../theme'
 import { Label } from '../Label'
@@ -27,6 +29,8 @@ export type SelectOption = {
   onClick?: () => void
 }
 
+export type SelectOptions = OptionsOrGroups<SelectOption, GroupBase<SelectOption>>
+
 export type ReactSelectElement = SelectInstance<SelectOption>
 
 export interface SelectWithoutControlProps
@@ -44,7 +48,6 @@ export interface SelectWithoutControlProps
     | 'formatGroupId'
     | 'components'
   > {
-  options: readonly SelectOption[]
   defaultValue?: SelectOption
   onChange?: (value: SelectOption | null) => void
   disabled?: boolean
