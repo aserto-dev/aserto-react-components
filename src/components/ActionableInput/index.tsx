@@ -70,7 +70,7 @@ export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
   shouldShowHideShowButton?: boolean
   testId?: string
-  onClickRotateModal?: (value: string) => void
+  onClickRotateModal?: (value: boolean) => void
 }
 
 export const ActionableInput: React.FC<ActionableInputProps> = ({
@@ -137,7 +137,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
           )}
           {onClickRotateModal && (
             <RotateKeyButton
-              onClick={() => onClickRotateModal}
+              onClick={() => onClickRotateModal(true)}
               variant="danger"
               {...mapTestIdToProps(`${testId}-rotate-btn`)}
               style={{ marginLeft: '55px', backgroundColor: '#692525', width: 120 }}
