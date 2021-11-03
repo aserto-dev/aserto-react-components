@@ -16,9 +16,12 @@ import styled from 'styled-components'
 import dots from './dots.svg'
 
 const DotsButton = styled(Button)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   float: right;
   width: 40px;
-  height: 35px;
+  height: 36px;
 `
 
 function composeStyles(
@@ -269,9 +272,9 @@ export const SelectWithDots: React.ForwardRefExoticComponent<
             paddingBottom: 0,
           }
         },
-        placeholder: (styles, { isDisabled }) => ({
+        placeholder: (styles) => ({
           ...styles,
-          color: isDisabled ? theme.grey40 : theme.grey90,
+          display: 'none',
         }),
         singleValue: (styles, { isDisabled }) => ({
           ...styles,
