@@ -50,6 +50,7 @@ const ActionableInputContainer = styled.div`
 const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   padding: 8px;
   margin-left: -34px;
+  z-index: 2;
   ${({ $wasClicked }) => {
     return $wasClicked
       ? css`
@@ -119,7 +120,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
                   variant="secondary-borderless"
                   onClick={() => setType('text')}
                   {...mapTestIdToProps(`${testId}-show-btn`)}
-                  style={{ marginLeft: '-74px' }}
+                  style={{ marginLeft: '-74px', zIndex: 2 }}
                 >
                   <img alt="show" src={show} />
                 </Button>
@@ -128,7 +129,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
                   onClick={() => setType('password')}
                   variant="secondary-borderless"
                   {...mapTestIdToProps(`${testId}-hide-btn`)}
-                  style={{ marginLeft: '-74px' }}
+                  style={{ marginLeft: '-74px', zIndex: 2 }}
                 >
                   <img alt="hide" src={hide} />
                 </Button>

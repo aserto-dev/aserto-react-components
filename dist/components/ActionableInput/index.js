@@ -28,7 +28,7 @@ var ActionableInputContainer = styled.div.withConfig({
 var ButtonContainer = styled(Button).withConfig({
   displayName: "ActionableInput__ButtonContainer",
   componentId: "sc-17yazxy-2"
-})(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  padding: 8px;\n  margin-left: -34px;\n  ", "\n"], ["\n  padding: 8px;\n  margin-left: -34px;\n  ", "\n"])), function (_a) {
+})(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  padding: 8px;\n  margin-left: -34px;\n  z-index: 2;\n  ", "\n"], ["\n  padding: 8px;\n  margin-left: -34px;\n  z-index: 2;\n  ", "\n"])), function (_a) {
   var $wasClicked = _a.$wasClicked;
   return $wasClicked ? css(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n          animation: ", " 0.6s 0.1s 1 linear alternate;\n          background-color: transparent !important;\n        "], ["\n          animation: ", " 0.6s 0.1s 1 linear alternate;\n          background-color: transparent !important;\n        "])), Anm) : '';
 });
@@ -80,7 +80,8 @@ var ActionableInput = function ActionableInput(_a) {
     }
   }, mapTestIdToProps(testId + "-show-btn"), {
     style: {
-      marginLeft: '-74px'
+      marginLeft: '-74px',
+      zIndex: 2
     }
   }), /*#__PURE__*/React.createElement("img", {
     alt: "show",
@@ -92,7 +93,8 @@ var ActionableInput = function ActionableInput(_a) {
     variant: "secondary-borderless"
   }, mapTestIdToProps(testId + "-hide-btn"), {
     style: {
-      marginLeft: '-74px'
+      marginLeft: '-74px',
+      zIndex: 2
     }
   }), /*#__PURE__*/React.createElement("img", {
     alt: "hide",
