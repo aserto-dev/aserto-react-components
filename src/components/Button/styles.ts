@@ -72,16 +72,18 @@ export const SecondaryButton = styled(BaseButton)`
 
 export const DangerButton = styled(BaseButton)`
   color: ${theme.fullWhite};
-  background-color: ${theme.mojo80};
-  &:hover:not(:disabled),
+  background-color: ${theme.mojo50};
+  &:hover:not(:disabled) {
+    background-color: ${theme.mojo60};
+  }
   &:visited,
   &:focus {
     box-shadow: none !important;
-    background-color: ${theme.mojo60} !important;
+    background-color: ${theme.mojo80} !important;
   }
   &:disabled {
     background-color: ${theme.mojo20};
-    color: ${theme.mojo50};
+    color: ${theme.grey50};
   }
   &:active {
     background-color: ${theme.grey80} !important;

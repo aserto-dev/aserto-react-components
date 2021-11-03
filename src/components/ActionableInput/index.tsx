@@ -61,10 +61,17 @@ const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   }}
 `
 
+const ShowButton = styled(Button)`
+  margin-left: -74px;
+  z-index: 2;
+`
+
 const RotateKeyButton = styled(Button)`
   margin-left: 55px;
-  background-color: #692525;
   width: 120;
+  img {
+    padding-right: 10px;
+  }
 `
 
 export type ActionableInputProps = InputProps & {
@@ -116,23 +123,21 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
           {shouldShowHideShowButton && (
             <>
               {type === 'password' ? (
-                <Button
+                <ShowButton
                   variant="secondary-borderless"
                   onClick={() => setType('text')}
                   {...mapTestIdToProps(`${testId}-show-btn`)}
-                  style={{ marginLeft: '-74px', zIndex: 2 }}
                 >
                   <img alt="show" src={show} />
-                </Button>
+                </ShowButton>
               ) : (
-                <Button
+                <ShowButton
                   onClick={() => setType('password')}
                   variant="secondary-borderless"
                   {...mapTestIdToProps(`${testId}-hide-btn`)}
-                  style={{ marginLeft: '-74px', zIndex: 2 }}
                 >
                   <img alt="hide" src={hide} />
-                </Button>
+                </ShowButton>
               )}
             </>
           )}
@@ -141,9 +146,8 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
               onClick={() => onClickRotateModal(true)}
               variant="danger"
               {...mapTestIdToProps(`${testId}-rotate-btn`)}
-              style={{ marginLeft: '55px', backgroundColor: '#692525', width: 120 }}
             >
-              <img src={rotateKey} alt="rotate key" style={{ paddingRight: '10px' }} />
+              <img src={rotateKey} alt="rotate key" />
               Rotate key
             </RotateKeyButton>
           )}
