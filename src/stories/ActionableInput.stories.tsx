@@ -27,13 +27,6 @@ PrimaryWithHideShow.args = {
   shouldShowHideShowButton: true,
 }
 
-// export const PrimaryWithRotateButton = Template.bind({})
-// PrimaryWithRotateButton.args = {
-//   placeholder: 'JWT',
-//   shouldShowHideShowButton: true,
-//   onClickRotateModal: console.log,
-// }
-
 export const PrimaryWithHideShowAndLabel = Template.bind({})
 PrimaryWithHideShowAndLabel.args = {
   placeholder: 'JWT',
