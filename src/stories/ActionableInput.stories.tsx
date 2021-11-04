@@ -12,6 +12,7 @@ const Template: Story<ActionableInputProps> = (args) => <ActionableInput {...arg
 export const Primary = Template.bind({})
 Primary.args = {
   placeholder: 'JWT',
+  onClickCopy: null,
 }
 
 export const PrimaryWithCopy = Template.bind({})
@@ -25,6 +26,7 @@ PrimaryWithHideShow.args = {
   placeholder: 'JWT',
   shouldShowHideShowButton: true,
 }
+
 export const PrimaryWithHideShowAndLabel = Template.bind({})
 PrimaryWithHideShowAndLabel.args = {
   placeholder: 'JWT',
