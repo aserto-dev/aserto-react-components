@@ -4,7 +4,6 @@ import { Input, InputProps } from '../Input'
 import show from './show.svg'
 import hide from './hide.svg'
 import copy from './copy.svg'
-import rotateKey from './rotate-key.svg'
 import { Button } from '../Button'
 import { mapTestIdToProps } from '../../utils'
 import { Label } from '../Label'
@@ -39,18 +38,24 @@ const Anm = keyframes`
 const CenteredRow = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 `
 
 const ActionableInputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  input {
+    pointer-events: none;
+  }
 `
 
 const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   padding: 8px;
-  margin-left: -34px;
-  z-index: 2;
+  position: absolute;
+  right: 3px;
+  align-items: center;
+  height: 65%;
   ${({ $wasClicked }) => {
     return $wasClicked
       ? css`
@@ -61,24 +66,25 @@ const ButtonContainer = styled(Button)<{ $wasClicked?: boolean }>`
   }}
 `
 
-const ShowButton = styled(Button)`
-  margin-left: -74px;
-  z-index: 2;
+const HideShowButton = styled(Button)`
+  position: absolute;
+  right: 35px;
+  height: 65%;
 `
 
-const RotateKeyButton = styled(Button)`
-  margin-left: 55px;
-  width: 120;
-  img {
-    padding-right: 10px;
-  }
-`
+// const RotateKeyButton = styled(Button)`
+//   margin-left: 55px;
+//   width: 120px;
+//   img {
+//     padding-right: 10px;
+//   }
+// `
 
 export type ActionableInputProps = InputProps & {
   onClickCopy?: (value: string) => void
   shouldShowHideShowButton?: boolean
   testId?: string
-  onClickRotateModal?: (value: boolean) => void
+  // onClickRotateModal?: (value: boolean) => void
 }
 
 export const ActionableInput: React.FC<ActionableInputProps> = ({
@@ -86,7 +92,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
   shouldShowHideShowButton,
   testId,
   label,
-  onClickRotateModal,
+  // onClickRotateModal,
   ...inputProps
 }) => {
   const [type, setType] = useState(inputProps.type || 'text')
@@ -123,25 +129,25 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
           {shouldShowHideShowButton && (
             <>
               {type === 'password' ? (
-                <ShowButton
+                <HideShowButton
                   variant="secondary-borderless"
                   onClick={() => setType('text')}
                   {...mapTestIdToProps(`${testId}-show-btn`)}
                 >
                   <img alt="show" src={show} />
-                </ShowButton>
+                </HideShowButton>
               ) : (
-                <ShowButton
+                <HideShowButton
                   onClick={() => setType('password')}
                   variant="secondary-borderless"
                   {...mapTestIdToProps(`${testId}-hide-btn`)}
                 >
                   <img alt="hide" src={hide} />
-                </ShowButton>
+                </HideShowButton>
               )}
             </>
           )}
-          {onClickRotateModal && (
+          {/* {onClickRotateModal && (
             <RotateKeyButton
               onClick={() => onClickRotateModal(true)}
               variant="danger"
@@ -150,7 +156,7 @@ export const ActionableInput: React.FC<ActionableInputProps> = ({
               <img src={rotateKey} alt="rotate key" />
               Rotate key
             </RotateKeyButton>
-          )}
+          )} */}
         </CenteredRow>
       </Label>
     </ActionableInputContainer>
