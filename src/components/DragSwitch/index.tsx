@@ -152,6 +152,7 @@ export const DragSwitch = ({
         }}
       />
       <input
+        className="switchInput"
         role="switch"
         aria-checked={checked}
         type="checkbox"
