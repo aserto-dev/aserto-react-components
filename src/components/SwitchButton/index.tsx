@@ -49,7 +49,7 @@ const SwitchHandle = styled.div<{ $isChecked?: boolean }>`
   ${({ $isChecked }) => {
     return $isChecked ? 'transform: translateX(26px)' : ''
   }};
-  background-color: #4a4a4a;
+  background-color: ${theme.fullWhite};
 `
 
 export interface SwitchButtonProps
@@ -107,7 +107,7 @@ export const SwitchButton = ({
     >
       <SwitchBackground
         style={{
-          backgroundColor: checked ? onColor || theme.lochivar100 : offColor || theme.grey20,
+          backgroundColor: checked ? onColor || theme.lochivarAccent2 : offColor || theme.grey20,
         }}
       />
       <SwitchHandle
