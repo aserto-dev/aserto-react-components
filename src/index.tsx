@@ -9,7 +9,6 @@ import { PolicyCard } from './components/PolicyCard'
 import { Breadcrumb } from './components/Breadcrumb'
 import { Button } from './components/Button'
 import { Divider } from './components/Divider'
-import { DragSwitch } from './components/DragSwitch'
 import { Highlight } from './components/Highlight'
 import { CodeEditor } from './components/CodeEditor'
 import { Input } from './components/Input'
@@ -45,7 +44,6 @@ export {
   Breadcrumb,
   Button,
   Divider,
-  DragSwitch,
   Highlight,
   CodeEditor,
   Input,
