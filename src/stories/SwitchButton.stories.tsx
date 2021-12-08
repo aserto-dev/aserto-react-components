@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { SwitchButton } from '../components/SwitchButton'
+import { SwitchButton, SwitchButtonProps } from '../components/SwitchButton'
 
 export default {
   title: 'Common/SwitchButton',
@@ -10,7 +10,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<any> = (args) => <SwitchButton {...args} />
+const Template: Story<SwitchButtonProps> = (args) => <SwitchButton {...args} />
 
 export const Primary = () => {
   const [checked, setChecked] = useState(false)
