@@ -49,7 +49,7 @@ const SwitchHandle = styled.div<{ $isChecked?: boolean }>`
   ${({ $isChecked }) => {
     return $isChecked ? 'transform: translateX(26px)' : ''
   }};
-  background-color: #ffff;
+  background-color: ${theme.fullWhite};
 `
 
 export interface SwitchButtonProps
