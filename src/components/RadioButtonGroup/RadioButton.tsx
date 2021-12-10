@@ -1,0 +1,58 @@
+import { theme } from '../../theme'
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { RadioButtonGroupContext } from './BaseRadioButtonGroup'
+
+interface RadioButtonProps {
+  disabled: boolean
+  value: string
+}
+
+const RadioButtonVisual = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
+  width: 17px;
+  min-width: 17px;
+  display: flex;
+  height: 17px;
+  min-height: 17px;
+  border-radius: 20px;
+  stroke-width: 1;
+  ${({ $disabled }) => {
+    return $disabled
+      ? css`
+          background-color: ${theme.grey10};
+          border: 1px solid ${theme.grey30};
+        `
+      : ''
+  }}
+  ${({ $selected, $disabled }) => {
+    const color = $disabled ? theme.lochivar30 : theme.lochivar100
+    return $selected
+      ? css`
+          border: 1px solid ${color};
+          &:after {
+            background: ${color};
+            width: 11px;
+            height: 11px;
+            display: flex;
+            margin: auto;
+            border-radius: 10px;
+            content: '';
+          }
+        `
+      : `border: 1px solid ${theme.grey50};`
+  }}
+`
+
+const RadioButton: React.FC<RadioButtonProps> = ({ disabled, value }) => (
+  <RadioButtonGroupContext.Consumer>
+    {({ onChangeOption, selectedOption }) => (
+      <RadioButtonVisual
+        $disabled={disabled}
+        $selected={value === selectedOption}
+        onClick={() => onChangeOption(value)}
+      />
+    )}
+  </RadioButtonGroupContext.Consumer>
+)
+
+export default RadioButton
