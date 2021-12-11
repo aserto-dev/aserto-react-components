@@ -27,7 +27,6 @@ import { PaddedContent } from './components/PaddedContent'
 import { Pagination } from './components/Pagination'
 import {
   BaseRadioButtonGroup,
-  BaseRadioButtonGroupProps,
   RadioButtonGroupContext,
   RadioButtonGroup,
 } from './components/RadioButtonGroup'
@@ -66,7 +65,6 @@ export {
   Pagination,
   RadioButtonGroup,
   BaseRadioButtonGroup,
-  BaseRadioButtonGroupProps,
   RadioButtonGroupContext,
   Label,
   SwitchButton,
