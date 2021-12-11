@@ -1,10 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react'
 
-export const RadioButtonGroupContext = createContext<RadioButtonGroupContext>(null)
+export const RadioButtonGroupContext = createContext<RadioButtonGroupContext>({
+  onSelectValue: () => undefined,
+  selectedValue: undefined,
+})
 
 interface RadioButtonGroupContext {
-  onChangeOption: (val: string) => void
-  selectedOption: string
+  onSelectValue: (val: string) => void
+  selectedValue: string
 }
 
 export interface BaseRadioButtonGroupProps {
@@ -41,9 +44,13 @@ const BaseRadioButtonGroup: React.FC<BaseRadioButtonGroupProps> = ({
 
   return (
     <>
-      <RadioButtonGroupContext.Provider value={{ onChangeOption, selectedOption }}>
-        {children}
-      </RadioButtonGroupContext.Provider>
+      <div role="radiogroup">
+        <RadioButtonGroupContext.Provider
+          value={{ onSelectValue: onChangeOption, selectedValue: selectedOption }}
+        >
+          {children}
+        </RadioButtonGroupContext.Provider>
+      </div>
     </>
   )
 }

@@ -8,7 +8,7 @@ interface RadioButtonProps {
   value: string
 }
 
-const RadioButtonVisual = styled.div<{ $selected?: boolean; $disabled?: boolean }>`
+const RadioButtonVisual = styled.div<{ 'aria-checked'?: boolean; 'aria-disabled'?: boolean }>`
   width: 17px;
   min-width: 17px;
   display: flex;
@@ -16,7 +16,7 @@ const RadioButtonVisual = styled.div<{ $selected?: boolean; $disabled?: boolean 
   min-height: 17px;
   border-radius: 20px;
   stroke-width: 1;
-  ${({ $disabled }) => {
+  ${({ 'aria-disabled': $disabled }) => {
     return $disabled
       ? css`
           background-color: ${theme.grey10};
@@ -24,7 +24,7 @@ const RadioButtonVisual = styled.div<{ $selected?: boolean; $disabled?: boolean 
         `
       : ''
   }}
-  ${({ $selected, $disabled }) => {
+  ${({ 'aria-checked': $selected, 'aria-disabled': $disabled }) => {
     const color = $disabled ? theme.lochivar30 : theme.lochivar100
     return $selected
       ? css`
@@ -45,11 +45,13 @@ const RadioButtonVisual = styled.div<{ $selected?: boolean; $disabled?: boolean 
 
 const RadioButton: React.FC<RadioButtonProps> = ({ disabled, value }) => (
   <RadioButtonGroupContext.Consumer>
-    {({ onChangeOption, selectedOption }) => (
+    {({ onSelectValue, selectedValue }) => (
       <RadioButtonVisual
-        $disabled={disabled}
-        $selected={value === selectedOption}
-        onClick={() => onChangeOption(value)}
+        role="radio"
+        aria-disabled={disabled}
+        aria-checked={value === selectedValue}
+        onClick={() => onSelectValue(value)}
+        {...(!disabled && { tabIndex: 0 })}
       />
     )}
   </RadioButtonGroupContext.Consumer>
