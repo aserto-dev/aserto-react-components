@@ -6,6 +6,21 @@ import { RadioButtonGroupContext } from '../../src/index'
 import RadioButton from '../../src/components/RadioButtonGroup/RadioButton'
 
 describe('<RadioButton>', () => {
+  test('It renders a radio', () => {
+    const { getAllByRole } = render(<RadioButton disabled={false} value="a" />)
+    expect(getAllByRole('radio')).toHaveLength(1)
+  })
+
+  test('It accepts HTML properties', () => {
+    render(<RadioButton id="a" disabled={false} value="a" />)
+    expect(document.getElementById('a')).toBeVisible()
+  })
+
+  test('It overwrites any HTML properties that conflict', () => {
+    render(<RadioButton aria-disabled={false} id="a" disabled={true} value="a" />)
+    expect(document.getElementById('a')).toHaveAttribute('aria-disabled', 'true')
+  })
+
   describe('When it is created as disabled', () => {
     let renderResult: RenderResult
     let radioButton: HTMLElement

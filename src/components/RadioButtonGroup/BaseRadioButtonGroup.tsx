@@ -11,42 +11,26 @@ interface RadioButtonGroupContext {
 }
 
 export interface BaseRadioButtonGroupProps {
-  onChange?: (val: string) => void
-  defaultSelected?: string
-  label?: string
-  value?: string
-  testId?: string
+  onCheck?: (val: string) => void
+  checked?: string
 }
 
-const BaseRadioButtonGroup: React.FC<BaseRadioButtonGroupProps> = ({
-  children,
-  defaultSelected,
-  onChange,
-  value,
-}) => {
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(value ?? defaultSelected)
-
-  const onChangeOption = (value: string) => {
-    setSelectedOption(value)
-  }
+const BaseRadioButtonGroup: React.FC<
+  React.ComponentPropsWithoutRef<'div'> & BaseRadioButtonGroupProps
+> = ({ children, onCheck, checked, ...rest }) => {
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(checked)
 
   useEffect(() => {
-    if (selectedOption !== undefined) {
-      onChange?.(selectedOption)
+    if (selectedValue !== checked) {
+      onCheck?.(selectedValue)
     }
-  }, [selectedOption])
-
-  useEffect(() => {
-    if (value) {
-      setSelectedOption(value)
-    }
-  }, [value])
+  }, [checked, selectedValue])
 
   return (
     <>
-      <div role="radiogroup">
+      <div {...rest} role="radiogroup">
         <RadioButtonGroupContext.Provider
-          value={{ onSelectValue: onChangeOption, selectedValue: selectedOption }}
+          value={{ onSelectValue: setSelectedValue, selectedValue: selectedValue }}
         >
           {children}
         </RadioButtonGroupContext.Provider>

@@ -43,14 +43,19 @@ const RadioButtonVisual = styled.div<{ 'aria-checked'?: boolean; 'aria-disabled'
   }}
 `
 
-const RadioButton: React.FC<RadioButtonProps> = ({ disabled, value }) => (
+const RadioButton: React.FC<React.ComponentPropsWithoutRef<'div'> & RadioButtonProps> = ({
+  disabled,
+  value,
+  ...rest
+}) => (
   <RadioButtonGroupContext.Consumer>
     {({ onSelectValue, selectedValue }) => (
       <RadioButtonVisual
-        role="radio"
+        {...rest}
         aria-disabled={disabled}
         aria-checked={value === selectedValue}
         onClick={() => onSelectValue(value)}
+        role="radio"
         {...(!disabled && { tabIndex: 0 })}
       />
     )}
