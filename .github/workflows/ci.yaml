@@ -40,7 +40,7 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - name: tests
-        run: yarn test:ci
+        run: yarn test
         env:
           JEST_JUNIT_OUTPUT: 'reports/junit/js-test-results.xml'
 

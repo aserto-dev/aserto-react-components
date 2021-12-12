@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
@@ -6,24 +6,24 @@ import { BaseRadioButtonGroup, RadioButtonGroupContext } from '../../src/index'
 import RadioButton from '../../src/components/RadioButtonGroup/RadioButton'
 
 describe('<BaseRadioButtonGroup/>', () => {
-  test('It renders a radiogroup', () => {
-    const { getAllByRole } = render(<BaseRadioButtonGroup />)
-    expect(getAllByRole('radiogroup')).toHaveLength(1)
+  it('renders a radiogroup', () => {
+    const { getByRole } = render(<BaseRadioButtonGroup />)
+    expect(getByRole('radiogroup')).toBeVisible()
   })
 
-  test('It accepts HTML properties', () => {
-    render(<BaseRadioButtonGroup id="a" />)
-    expect(document.getElementById('a')).toBeVisible()
+  it('accepts HTML properties', () => {
+    render(<BaseRadioButtonGroup data-base-radio-button-group-test="a" />)
+    expect(document.querySelector('[data-base-radio-button-group-test="a"]')).toBeVisible()
   })
 
-  test('It renders its children', () => {
+  it('renders its children', () => {
     const { getByRole, getByText } = render(
       <BaseRadioButtonGroup>
-        <div>{'a'}</div>
+        <div>a</div>
         <div>
-          <RadioButton disabled={false} value={''} />
+          <RadioButton disabled={false} value="" />
         </div>
-        <div>{'b'}</div>
+        <div>b</div>
       </BaseRadioButtonGroup>
     )
 
@@ -33,30 +33,32 @@ describe('<BaseRadioButtonGroup/>', () => {
   })
 
   test('When no value provided Then no <RadioButton> is aria-checked', () => {
-    render(
+    const { getAllByRole } = render(
       <BaseRadioButtonGroup>
-        <RadioButton disabled={false} id={'a'} value={'a'} />
-        <RadioButton disabled={false} id={'b'} value={'b'} />
+        <RadioButton disabled={false} value="a" />
+        <RadioButton disabled={false} value="b" />
       </BaseRadioButtonGroup>
     )
 
-    const radioButtonA = document.getElementById('a')
-    const radioButtonB = document.getElementById('b')
-
-    expect(radioButtonA).not.toHaveAttribute('aria-checked', 'true')
-    expect(radioButtonB).not.toHaveAttribute('aria-checked', 'true')
+    getAllByRole('radio').forEach((element) => {
+      expect(element).not.toHaveAttribute('aria-checked', 'true')
+    })
   })
 
   test('When value provided Then only matching <RadioButton> is aria-checked', () => {
     render(
       <BaseRadioButtonGroup checked="a">
-        <RadioButton disabled={false} id={'a'} value={'a'} />
-        <RadioButton disabled={false} id={'b'} value={'b'} />
+        <div id="a">
+          <RadioButton disabled={false} value="a" />
+        </div>
+        <div id="b">
+          <RadioButton disabled={false} value="b" />
+        </div>
       </BaseRadioButtonGroup>
     )
 
-    const radioButtonA = document.getElementById('a')
-    const radioButtonB = document.getElementById('b')
+    const radioButtonA = document.getElementById('a').firstChild
+    const radioButtonB = document.getElementById('b').firstChild
 
     expect(radioButtonA).toHaveAttribute('aria-checked', 'true')
     expect(radioButtonB).not.toHaveAttribute('aria-checked', 'true')
@@ -64,90 +66,144 @@ describe('<BaseRadioButtonGroup/>', () => {
 
   describe('When onChange is provided', () => {
     test('When `checked` is provided and it matches a <RadioButton/> Then onChange is not invoked on first render', () => {
-      const onCheck = jest.fn()
-
-      render(
-        <BaseRadioButtonGroup checked="a" onCheck={onCheck}>
-          <RadioButton disabled={false} id={'a'} value={'a'} />
-        </BaseRadioButtonGroup>
-      )
-
-      expect(onCheck).not.toHaveBeenCalled()
-    })
-
-    test('When `checked` is provided and it does not match a <RadioButton/> Then onChange is not invoked on first render', () => {
-      const onCheck = jest.fn()
-
-      render(
-        <BaseRadioButtonGroup checked="b" onCheck={onCheck}>
-          <RadioButton disabled={false} id={'a'} value={'a'} />
-        </BaseRadioButtonGroup>
-      )
-
-      expect(onCheck).not.toHaveBeenCalled()
-    })
-
-    test('When value is not provided Then onChanged is not called on first render', () => {
       const onChange = jest.fn()
 
       render(
-        <BaseRadioButtonGroup onCheck={onChange}>
-          <RadioButton disabled={false} id={'a'} value={'a'} />
+        <BaseRadioButtonGroup checked="a" onChange={onChange}>
+          <RadioButton disabled={false} value="a" />
         </BaseRadioButtonGroup>
       )
 
       expect(onChange).not.toHaveBeenCalled()
     })
 
-    test('When unchecked <RadioButton> is clicked Then onSelectValue is called with its value', () => {
-      const onCheck = jest.fn()
+    test('When `checked` is provided and it does not match a <RadioButton/> Then onChange is not invoked on first render', () => {
+      const onChange = jest.fn()
+
       render(
-        <BaseRadioButtonGroup onCheck={onCheck}>
-          <RadioButton disabled={false} id={'a'} value={'a'} />
+        <BaseRadioButtonGroup checked="b" onChange={onChange}>
+          <RadioButton disabled={false} value="a" />
         </BaseRadioButtonGroup>
       )
 
-      fireEvent.click(document.getElementById('a'))
-
-      expect(onCheck).toHaveBeenCalledWith('a')
+      expect(onChange).not.toHaveBeenCalled()
     })
 
-    test('When checked <RadioButton> is clicked Then onSelectValue is not called', () => {
-      const onCheck = jest.fn()
+    test('When `checked` is not provided Then onChanged is not called on first render', () => {
+      const onChange = jest.fn()
+
       render(
-        <BaseRadioButtonGroup onCheck={onCheck} checked="a">
-          <RadioButton disabled={false} id={'a'} value={'a'} />
+        <BaseRadioButtonGroup onChange={onChange}>
+          <RadioButton disabled={false} value="a" />
         </BaseRadioButtonGroup>
       )
 
-      fireEvent.click(document.getElementById('a'))
-
-      expect(onCheck).not.toHaveBeenCalled()
+      expect(onChange).not.toHaveBeenCalled()
     })
 
-    test('It allows custom components to review and update the value', () => {
-      const onCheck = jest.fn()
+    test('When unchecked <RadioButton> is clicked Then onChange is called with its value', () => {
+      const onChange = jest.fn()
+
+      const { getByRole } = render(
+        <BaseRadioButtonGroup onChange={onChange}>
+          <RadioButton disabled={false} value="a" />
+        </BaseRadioButtonGroup>
+      )
+
+      fireEvent.click(getByRole('radio'))
+
+      expect(onChange).toHaveBeenCalledWith('a')
+    })
+
+    test('When checked <RadioButton> is clicked Then onChange is not called', () => {
+      const onChange = jest.fn()
+      const { getByRole } = render(
+        <BaseRadioButtonGroup onChange={onChange} checked="a">
+          <RadioButton disabled={false} value="a" />
+        </BaseRadioButtonGroup>
+      )
+
+      fireEvent.click(getByRole('radio'))
+
+      expect(onChange).not.toHaveBeenCalled()
+    })
+
+    it('allows custom components to review and update the value', () => {
+      const onChange = jest.fn()
       let firstRenderedValue: string
       let renderedOnSelectValue: (v: string) => void
+      const ContextVerifier: React.FC = () => {
+        const { onSelectValue, selectedValue } = useContext(RadioButtonGroupContext)
+        firstRenderedValue = firstRenderedValue ?? selectedValue
+        renderedOnSelectValue = onSelectValue
+        return null
+      }
 
       act(() => {
         render(
-          <BaseRadioButtonGroup onCheck={onCheck} checked="a">
-            <RadioButtonGroupContext.Consumer>
-              {({ selectedValue, onSelectValue }) => {
-                firstRenderedValue = firstRenderedValue ?? selectedValue
-                renderedOnSelectValue = onSelectValue
-                return null
-              }}
-            </RadioButtonGroupContext.Consumer>
+          <BaseRadioButtonGroup onChange={onChange} checked="a">
+            <ContextVerifier />
           </BaseRadioButtonGroup>
         )
         renderedOnSelectValue('b')
       })
 
       expect(firstRenderedValue).toBe('a')
-      expect(onCheck).toHaveBeenCalledTimes(1)
-      expect(onCheck).toHaveBeenCalledWith('b')
+      expect(onChange).toHaveBeenCalledTimes(1)
+      expect(onChange).toHaveBeenCalledWith('b')
+    })
+  })
+
+  describe('When a user interacts with a <BaseRadioButtonGroup>', () => {
+    test('When unchecked <RadioButton> is clicked Then it becomes checked', () => {
+      const onChange = jest.fn()
+
+      const { getByRole } = render(
+        <BaseRadioButtonGroup onChange={onChange}>
+          <RadioButton disabled={false} value="a" />
+        </BaseRadioButtonGroup>
+      )
+
+      const radioButton = getByRole('radio')
+      fireEvent.click(radioButton)
+
+      expect(radioButton).toHaveAttribute('aria-checked', 'true')
+    })
+
+    test('When <RadioButtons> are toggled Then they transition consistently', () => {
+      let checked = 'a'
+      const onChange = (value: string) => {
+        checked = value
+      }
+
+      render(
+        <BaseRadioButtonGroup checked={checked} onChange={onChange}>
+          <div id="a">
+            <RadioButton disabled={false} value="a" />
+          </div>
+          <div id="b">
+            <RadioButton disabled={false} value="b" />
+          </div>
+        </BaseRadioButtonGroup>
+      )
+      const radioButtonA = document.getElementById('a').firstChild
+      const radioButtonB = document.getElementById('b').firstChild
+
+      expect(checked).toBe('a')
+      expect(radioButtonA).toHaveAttribute('aria-checked', 'true')
+      expect(radioButtonB).not.toHaveAttribute('aria-checked', 'true')
+
+      fireEvent.click(radioButtonB)
+
+      expect(checked).toBe('b')
+      expect(radioButtonA).not.toHaveAttribute('aria-checked', 'true')
+      expect(radioButtonB).toHaveAttribute('aria-checked', 'true')
+
+      fireEvent.click(radioButtonA)
+
+      expect(checked).toBe('a')
+      expect(radioButtonA).toHaveAttribute('aria-checked', 'true')
+      expect(radioButtonB).not.toHaveAttribute('aria-checked', 'true')
     })
   })
 })

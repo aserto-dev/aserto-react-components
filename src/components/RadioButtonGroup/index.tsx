@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
@@ -46,49 +46,46 @@ interface Option {
 
 export interface RadioButtonGroupProps extends BaseRadioButtonGroupProps {
   defaultSelected: string
-  label: string
-  options: Option[]
-  testId: string
+  label?: string
+  options: readonly Option[]
+  testId?: string
+  value?: string
 }
 
 export const RadioButtonGroup = ({
   defaultSelected,
   label,
-  onCheck: onChange,
+  onChange,
   options,
   testId,
   checked: value,
 }: RadioButtonGroupProps) => {
   useEffect(() => {
     defaultSelected && onChange(defaultSelected)
-  }, [defaultSelected])
+  }, [defaultSelected, onChange])
+
+  const { onSelectValue } = useContext(RadioButtonGroupContext)
 
   return (
     <>
       {label && <Label {...mapTestIdToProps(`${testId}-field-label`)}>{label}</Label>}
-      <BaseRadioButtonGroup onCheck={onChange} checked={value ?? defaultSelected}>
+      <BaseRadioButtonGroup onChange={onChange} checked={value ?? defaultSelected}>
         <RadioGroupContainer {...mapTestIdToProps(testId)}>
-          <RadioButtonGroupContext.Consumer>
-            {({ onSelectValue: onChangeOption }) =>
-              options.map((option) => (
-                <RadioRowContainer
-                  disabled={option.disabled}
-                  key={option.value}
-                  {...mapTestIdToProps(`${testId}-${option.value}-btn`)}
-                  onClick={() => onChangeOption(option.value)}
-                >
-                  <RadioButton
-                    disabled={option.disabled}
-                    value={option.value}
-                    {...mapTestIdToProps(`${testId}-radio-button`)}
-                  />
-                  <label {...mapTestIdToProps(`${testId}-${option.value}-label`)}>
-                    {option.label}
-                  </label>
-                </RadioRowContainer>
-              ))
-            }
-          </RadioButtonGroupContext.Consumer>
+          {options.map((option) => (
+            <RadioRowContainer
+              disabled={option.disabled}
+              key={option.value}
+              {...mapTestIdToProps(`${testId}-${option.value}-btn`)}
+              onClick={() => onSelectValue(option.value)}
+            >
+              <RadioButton
+                disabled={option.disabled}
+                value={option.value}
+                {...mapTestIdToProps(`${testId}-radio-button`)}
+              />
+              <label {...mapTestIdToProps(`${testId}-${option.value}-label`)}>{option.label}</label>
+            </RadioRowContainer>
+          ))}
         </RadioGroupContainer>
       </BaseRadioButtonGroup>
     </>

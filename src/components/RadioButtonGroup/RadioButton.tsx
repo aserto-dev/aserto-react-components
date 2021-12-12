@@ -1,10 +1,10 @@
 import { theme } from '../../theme'
-import React from 'react'
+import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import { RadioButtonGroupContext } from './BaseRadioButtonGroup'
 
 interface RadioButtonProps {
-  disabled: boolean
+  disabled?: boolean
   value: string
 }
 
@@ -16,17 +16,17 @@ const RadioButtonVisual = styled.div<{ 'aria-checked'?: boolean; 'aria-disabled'
   min-height: 17px;
   border-radius: 20px;
   stroke-width: 1;
-  ${({ 'aria-disabled': $disabled }) => {
-    return $disabled
+  ${({ 'aria-disabled': disabled }) => {
+    return disabled
       ? css`
           background-color: ${theme.grey10};
           border: 1px solid ${theme.grey30};
         `
       : ''
   }}
-  ${({ 'aria-checked': $selected, 'aria-disabled': $disabled }) => {
-    const color = $disabled ? theme.lochivar30 : theme.lochivar100
-    return $selected
+  ${({ 'aria-checked': selected, 'aria-disabled': disabled }) => {
+    const color = disabled ? theme.lochivar30 : theme.lochivar100
+    return selected
       ? css`
           border: 1px solid ${color};
           &:after {
@@ -43,23 +43,25 @@ const RadioButtonVisual = styled.div<{ 'aria-checked'?: boolean; 'aria-disabled'
   }}
 `
 
-const RadioButton: React.FC<React.ComponentPropsWithoutRef<'div'> & RadioButtonProps> = ({
-  disabled,
-  value,
-  ...rest
-}) => (
-  <RadioButtonGroupContext.Consumer>
-    {({ onSelectValue, selectedValue }) => (
-      <RadioButtonVisual
-        {...rest}
-        aria-disabled={disabled}
-        aria-checked={value === selectedValue}
-        onClick={() => onSelectValue(value)}
-        role="radio"
-        {...(!disabled && { tabIndex: 0 })}
-      />
-    )}
-  </RadioButtonGroupContext.Consumer>
-)
+const RadioButton: React.FC<
+  Omit<
+    React.ComponentPropsWithoutRef<'div'>,
+    'aria-disabled' | 'aria-checked' | 'onClick' | 'role'
+  > &
+    RadioButtonProps
+> = ({ disabled, tabIndex: tabIndexOverride, value, ...rest }) => {
+  const { onSelectValue, selectedValue } = useContext(RadioButtonGroupContext)
+
+  return (
+    <RadioButtonVisual
+      {...rest}
+      aria-disabled={disabled}
+      aria-checked={value === selectedValue}
+      onClick={() => value !== selectedValue && onSelectValue(value)}
+      role="radio"
+      {...(!disabled && { tabIndex: tabIndexOverride ?? 0 })}
+    />
+  )
+}
 
 export default RadioButton

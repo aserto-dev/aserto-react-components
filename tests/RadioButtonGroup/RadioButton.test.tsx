@@ -6,19 +6,19 @@ import { RadioButtonGroupContext } from '../../src/index'
 import RadioButton from '../../src/components/RadioButtonGroup/RadioButton'
 
 describe('<RadioButton>', () => {
-  test('It renders a radio', () => {
-    const { getAllByRole } = render(<RadioButton disabled={false} value="a" />)
+  it('renders a radio', () => {
+    const { getAllByRole } = render(<RadioButton value="a" />)
     expect(getAllByRole('radio')).toHaveLength(1)
   })
 
-  test('It accepts HTML properties', () => {
+  it('accepts HTML properties', () => {
     render(<RadioButton id="a" disabled={false} value="a" />)
     expect(document.getElementById('a')).toBeVisible()
   })
 
-  test('It overwrites any HTML properties that conflict', () => {
-    render(<RadioButton aria-disabled={false} id="a" disabled={true} value="a" />)
-    expect(document.getElementById('a')).toHaveAttribute('aria-disabled', 'true')
+  it('respects a provided tabIndex value', () => {
+    render(<RadioButton aria-disabled={false} id="a" tabIndex={42} value="a" />)
+    expect(document.getElementById('a')).toHaveAttribute('tabIndex', '42')
   })
 
   describe('When it is created as disabled', () => {
@@ -26,15 +26,15 @@ describe('<RadioButton>', () => {
     let radioButton: HTMLElement
 
     beforeEach(() => {
-      renderResult = render(<RadioButton disabled={true} value={''} />)
+      renderResult = render(<RadioButton disabled={true} value="" />)
       radioButton = renderResult.getByRole(`radio`)
     })
 
-    test('It has no tab index', () => {
+    it('has no tab index', () => {
       expect(radioButton).not.toHaveAttribute('tabIndex')
     })
 
-    test('It is aria-disabled', () => {
+    it('is aria-disabled', () => {
       expect(radioButton).toHaveAttribute('aria-disabled', 'true')
     })
   })
@@ -44,15 +44,15 @@ describe('<RadioButton>', () => {
     let radioButton: HTMLElement
 
     beforeEach(() => {
-      renderResult = render(<RadioButton disabled={false} value={''} />)
+      renderResult = render(<RadioButton disabled={false} value="" />)
       radioButton = renderResult.getByRole(`radio`)
     })
 
-    test('It has a tab index', () => {
+    it('has a tab index', () => {
       expect(radioButton).toHaveAttribute('tabIndex')
     })
 
-    test('It is not aria-disabled', () => {
+    it('is not aria-disabled', () => {
       expect(radioButton).not.toHaveAttribute('aria-disabled', 'true')
     })
   })
@@ -60,10 +60,8 @@ describe('<RadioButton>', () => {
   describe('When rendered in a <RadioButtonGroupContext.Provider/>', () => {
     test('When its value matches the selectedValue Then it is aria-checked', () => {
       const { getByRole } = render(
-        <RadioButtonGroupContext.Provider
-          value={{ selectedValue: 'a', onSelectValue: () => undefined }}
-        >
-          <RadioButton disabled={false} value={'a'} />
+        <RadioButtonGroupContext.Provider value={{ selectedValue: 'a', onSelectValue: () => {} }}>
+          <RadioButton disabled={false} value="a" />
         </RadioButtonGroupContext.Provider>
       )
 
@@ -74,10 +72,8 @@ describe('<RadioButton>', () => {
 
     test('When its value does not match the selectedValue Then it is not aria-checked', () => {
       const { getByRole } = render(
-        <RadioButtonGroupContext.Provider
-          value={{ selectedValue: 'a', onSelectValue: () => undefined }}
-        >
-          <RadioButton disabled={false} value={'b'} />
+        <RadioButtonGroupContext.Provider value={{ selectedValue: 'a', onSelectValue: () => {} }}>
+          <RadioButton disabled={false} value="b" />
         </RadioButtonGroupContext.Provider>
       )
 
@@ -86,20 +82,36 @@ describe('<RadioButton>', () => {
       expect(radioButton).not.toHaveAttribute('aria-checked', 'true')
     })
 
-    test('When clicked Then it invokes onSelectValue', () => {
+    test('When unchecked and clicked Then it invokes onSelectValue', () => {
       const onSelectValue = jest.fn()
 
       const { getByRole } = render(
         <RadioButtonGroupContext.Provider
           value={{ selectedValue: 'a', onSelectValue: onSelectValue }}
         >
-          <RadioButton disabled={false} value={'b'} />
+          <RadioButton disabled={false} value="b" />
         </RadioButtonGroupContext.Provider>
       )
 
       fireEvent.click(getByRole(`radio`))
 
       expect(onSelectValue).toHaveBeenCalledWith('b')
+    })
+
+    test('When checked and clicked Then it does not invoke onSelectValue', () => {
+      const onSelectValue = jest.fn()
+
+      const { getByRole } = render(
+        <RadioButtonGroupContext.Provider
+          value={{ selectedValue: 'a', onSelectValue: onSelectValue }}
+        >
+          <RadioButton disabled={false} value="a" />
+        </RadioButtonGroupContext.Provider>
+      )
+
+      fireEvent.click(getByRole(`radio`))
+
+      expect(onSelectValue).not.toHaveBeenCalledWith('b')
     })
   })
 })

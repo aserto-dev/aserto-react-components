@@ -1,4 +1,4 @@
-OUTPUT=$(yarn --silent ts-prune --ignore 'src/(factories|stories|types|.*\.js)' | grep -v 'Props (used in module)')
+OUTPUT=$(yarn --silent ts-prune --ignore 'src/(stories|.*\.js)' | grep -v 'Props (used in module)')
 
 if [ "$OUTPUT" != "" ]; then
     echo $OUTPUT
