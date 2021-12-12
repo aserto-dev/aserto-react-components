@@ -54,8 +54,8 @@ jobs:
       - name: typecheck
         run: yarn tsc
 
-      - name: lint
-        run: yarn lint
+      # - name: lint
+      #   run: yarn lint
 
-      - name: detect unused exports
-        run: yarn detect-unused-exports
+      # - name: detect unused exports
+      #   run: yarn detect-unused-exports
