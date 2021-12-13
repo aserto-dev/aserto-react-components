@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { RadioButtonGroup } from '../../src/index'
 
 describe('<RadioButtonGroup/>', () => {
-  describe('When a user interacts with a <UnstyledRadioButtonGroup>', () => {
+  describe('When a user interacts with a <EmptyRadioButtonGroup>', () => {
     test('When unchecked <RadioButton> is clicked Then it becomes checked', () => {
       const onChange = jest.fn()
 

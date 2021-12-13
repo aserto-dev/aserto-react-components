@@ -1,6 +1,6 @@
 {
   "name": "@aserto/aserto-react-components",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "description": "Aserto React components",
   "main": "dist/index.js",
   "scripts": {
@@ -54,10 +54,10 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-image": "^2.0.6",
     "@rollup/plugin-node-resolve": "^11.2.0",
-    "@storybook/addon-actions": "^6.1.21",
-    "@storybook/addon-essentials": "^6.1.21",
-    "@storybook/addon-links": "^6.1.21",
-    "@storybook/react": "^6.1.21",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/react": "^6.4.9",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest-matcher-utils": "^25.1.0",

@@ -10,13 +10,13 @@ interface RadioButtonGroupContext {
   selectedValue: string
 }
 
-export interface UnstyledRadioButtonGroupProps {
+export interface EmptyRadioButtonGroupProps {
   onChange?: (val: string) => void
   checked?: string
 }
 
-const UnstyledRadioButtonGroup: React.FC<
-  Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange'> & UnstyledRadioButtonGroupProps
+const EmptyRadioButtonGroup: React.FC<
+  Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange'> & EmptyRadioButtonGroupProps
 > = ({ children, onChange, checked, ...rest }) => {
   const onSelectValue = useCallback(
     (value: string) => {
@@ -38,4 +38,4 @@ const UnstyledRadioButtonGroup: React.FC<
   )
 }
 
-export default UnstyledRadioButtonGroup
+export default EmptyRadioButtonGroup

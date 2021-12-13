@@ -26,7 +26,7 @@ import { theme } from './theme'
 import { PaddedContent } from './components/PaddedContent'
 import { Pagination } from './components/Pagination'
 import {
-  UnstyledRadioButtonGroup,
+  EmptyRadioButtonGroup,
   RadioButtonGroupContext,
   RadioButtonGroup,
 } from './components/RadioButtonGroup'
@@ -64,7 +64,7 @@ export {
   PaddedContent,
   Pagination,
   RadioButtonGroup,
-  UnstyledRadioButtonGroup,
+  EmptyRadioButtonGroup,
   RadioButtonGroupContext,
   Label,
   SwitchButton,
