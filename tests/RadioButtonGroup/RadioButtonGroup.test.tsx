@@ -3,10 +3,9 @@ import { fireEvent, render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { RadioButtonGroup } from '../../src/index'
-import RadioButton from '../../src/components/RadioButtonGroup/RadioButton'
 
 describe('<RadioButtonGroup/>', () => {
-  describe('When a user interacts with a <BaseRadioButtonGroup>', () => {
+  describe('When a user interacts with a <UnstyledRadioButtonGroup>', () => {
     test('When unchecked <RadioButton> is clicked Then it becomes checked', () => {
       const onChange = jest.fn()
 
@@ -28,7 +27,7 @@ describe('<RadioButtonGroup/>', () => {
 
       const { getByTestId } = render(
         <RadioButtonGroup
-          checked="a"
+          value="a"
           onChange={onChange}
           options={[
             { label: 'a', value: 'a' },

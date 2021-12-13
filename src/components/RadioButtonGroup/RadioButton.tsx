@@ -1,7 +1,7 @@
 import { theme } from '../../theme'
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { RadioButtonGroupContext } from './BaseRadioButtonGroup'
+import { RadioButtonGroupContext } from './UnstyledRadioButtonGroup'
 
 interface RadioButtonProps {
   disabled?: boolean

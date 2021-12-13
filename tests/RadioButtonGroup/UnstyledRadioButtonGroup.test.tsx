@@ -2,29 +2,29 @@ import React, { useContext } from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import { BaseRadioButtonGroup, RadioButtonGroupContext } from '../../src/index'
+import { UnstyledRadioButtonGroup, RadioButtonGroupContext } from '../../src/index'
 import RadioButton from '../../src/components/RadioButtonGroup/RadioButton'
 
-describe('<BaseRadioButtonGroup/>', () => {
+describe('<UnstyledRadioButtonGroup/>', () => {
   it('renders a radiogroup', () => {
-    const { getByRole } = render(<BaseRadioButtonGroup />)
+    const { getByRole } = render(<UnstyledRadioButtonGroup />)
     expect(getByRole('radiogroup')).toBeVisible()
   })
 
   it('accepts HTML properties', () => {
-    render(<BaseRadioButtonGroup data-base-radio-button-group-test="a" />)
+    render(<UnstyledRadioButtonGroup data-base-radio-button-group-test="a" />)
     expect(document.querySelector('[data-base-radio-button-group-test="a"]')).toBeVisible()
   })
 
   it('renders its children', () => {
     const { getByRole, getByText } = render(
-      <BaseRadioButtonGroup>
+      <UnstyledRadioButtonGroup>
         <div>a</div>
         <div>
           <RadioButton disabled={false} value="" />
         </div>
         <div>b</div>
-      </BaseRadioButtonGroup>
+      </UnstyledRadioButtonGroup>
     )
 
     expect(getByText('a')).toBeVisible()
@@ -34,10 +34,10 @@ describe('<BaseRadioButtonGroup/>', () => {
 
   test('When no value provided Then no <RadioButton> is aria-checked', () => {
     const { getAllByRole } = render(
-      <BaseRadioButtonGroup>
+      <UnstyledRadioButtonGroup>
         <RadioButton disabled={false} value="a" />
         <RadioButton disabled={false} value="b" />
-      </BaseRadioButtonGroup>
+      </UnstyledRadioButtonGroup>
     )
 
     getAllByRole('radio').forEach((element) => {
@@ -47,14 +47,14 @@ describe('<BaseRadioButtonGroup/>', () => {
 
   test('When value provided Then only matching <RadioButton> is aria-checked', () => {
     render(
-      <BaseRadioButtonGroup checked="a">
+      <UnstyledRadioButtonGroup checked="a">
         <div id="a">
           <RadioButton disabled={false} value="a" />
         </div>
         <div id="b">
           <RadioButton disabled={false} value="b" />
         </div>
-      </BaseRadioButtonGroup>
+      </UnstyledRadioButtonGroup>
     )
 
     const radioButtonA = document.getElementById('a').firstChild
@@ -69,9 +69,9 @@ describe('<BaseRadioButtonGroup/>', () => {
       const onChange = jest.fn()
 
       render(
-        <BaseRadioButtonGroup checked="a" onChange={onChange}>
+        <UnstyledRadioButtonGroup checked="a" onChange={onChange}>
           <RadioButton disabled={false} value="a" />
-        </BaseRadioButtonGroup>
+        </UnstyledRadioButtonGroup>
       )
 
       expect(onChange).not.toHaveBeenCalled()
@@ -81,9 +81,9 @@ describe('<BaseRadioButtonGroup/>', () => {
       const onChange = jest.fn()
 
       render(
-        <BaseRadioButtonGroup checked="b" onChange={onChange}>
+        <UnstyledRadioButtonGroup checked="b" onChange={onChange}>
           <RadioButton disabled={false} value="a" />
-        </BaseRadioButtonGroup>
+        </UnstyledRadioButtonGroup>
       )
 
       expect(onChange).not.toHaveBeenCalled()
@@ -93,9 +93,9 @@ describe('<BaseRadioButtonGroup/>', () => {
       const onChange = jest.fn()
 
       render(
-        <BaseRadioButtonGroup onChange={onChange}>
+        <UnstyledRadioButtonGroup onChange={onChange}>
           <RadioButton disabled={false} value="a" />
-        </BaseRadioButtonGroup>
+        </UnstyledRadioButtonGroup>
       )
 
       expect(onChange).not.toHaveBeenCalled()
@@ -105,9 +105,9 @@ describe('<BaseRadioButtonGroup/>', () => {
       const onChange = jest.fn()
 
       const { getByRole } = render(
-        <BaseRadioButtonGroup onChange={onChange}>
+        <UnstyledRadioButtonGroup onChange={onChange}>
           <RadioButton disabled={false} value="a" />
-        </BaseRadioButtonGroup>
+        </UnstyledRadioButtonGroup>
       )
 
       fireEvent.click(getByRole('radio'))
@@ -118,9 +118,9 @@ describe('<BaseRadioButtonGroup/>', () => {
     test('When checked <RadioButton> is clicked Then onChange is not called', () => {
       const onChange = jest.fn()
       const { getByRole } = render(
-        <BaseRadioButtonGroup onChange={onChange} checked="a">
+        <UnstyledRadioButtonGroup onChange={onChange} checked="a">
           <RadioButton disabled={false} value="a" />
-        </BaseRadioButtonGroup>
+        </UnstyledRadioButtonGroup>
       )
 
       fireEvent.click(getByRole('radio'))
@@ -141,9 +141,9 @@ describe('<BaseRadioButtonGroup/>', () => {
 
       act(() => {
         render(
-          <BaseRadioButtonGroup onChange={onChange} checked="a">
+          <UnstyledRadioButtonGroup onChange={onChange} checked="a">
             <ContextVerifier />
-          </BaseRadioButtonGroup>
+          </UnstyledRadioButtonGroup>
         )
         renderedOnSelectValue('b')
       })

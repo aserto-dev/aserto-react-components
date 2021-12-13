@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
 import { mapTestIdToProps } from '../../utils'
-import BaseRadioButtonGroup, {
-  BaseRadioButtonGroupProps,
+import UnstyledRadioButtonGroup, {
+  UnstyledRadioButtonGroupProps,
   RadioButtonGroupContext,
-} from './BaseRadioButtonGroup'
+} from './UnstyledRadioButtonGroup'
 import RadioButton from './RadioButton'
 
-export { BaseRadioButtonGroup, BaseRadioButtonGroupProps, RadioButtonGroupContext }
+export { UnstyledRadioButtonGroup, UnstyledRadioButtonGroupProps, RadioButtonGroupContext }
 
 const RadioGroupContainer = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ interface Option {
   disabled?: boolean
 }
 
-export interface RadioButtonGroupProps extends BaseRadioButtonGroupProps {
+export interface RadioButtonGroupProps extends Omit<UnstyledRadioButtonGroupProps, 'checked'> {
   defaultSelected?: string
   label?: string
   options: readonly Option[]
@@ -58,7 +58,7 @@ export const RadioButtonGroup = ({
   onChange,
   options,
   testId,
-  checked: value,
+  value,
 }: RadioButtonGroupProps) => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>(value ?? defaultSelected)
 
@@ -79,7 +79,7 @@ export const RadioButtonGroup = ({
   return (
     <>
       {label && <Label {...mapTestIdToProps(`${testId}-field-label`)}>{label}</Label>}
-      <BaseRadioButtonGroup onChange={onChangeInternal} checked={selectedValue}>
+      <UnstyledRadioButtonGroup onChange={onChangeInternal} checked={selectedValue}>
         <RadioGroupContainer {...mapTestIdToProps(testId)}>
           {options.map((option) => (
             <RadioRowContainer
@@ -97,7 +97,7 @@ export const RadioButtonGroup = ({
             </RadioRowContainer>
           ))}
         </RadioGroupContainer>
-      </BaseRadioButtonGroup>
+      </UnstyledRadioButtonGroup>
     </>
   )
 }
