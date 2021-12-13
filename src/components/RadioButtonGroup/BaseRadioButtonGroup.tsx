@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState } from 'react'
+import React, { createContext, useCallback } from 'react'
 
 export const RadioButtonGroupContext = createContext<RadioButtonGroupContext>({
   onSelectValue: () => {},
@@ -18,11 +18,8 @@ export interface BaseRadioButtonGroupProps {
 const BaseRadioButtonGroup: React.FC<
   Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange'> & BaseRadioButtonGroupProps
 > = ({ children, onChange, checked, ...rest }) => {
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(checked)
-
   const onSelectValue = useCallback(
     (value: string) => {
-      setSelectedValue(value)
       onChange?.(value)
     },
     [onChange]
@@ -32,7 +29,7 @@ const BaseRadioButtonGroup: React.FC<
     <>
       <div {...rest} role="radiogroup">
         <RadioButtonGroupContext.Provider
-          value={{ onSelectValue: onSelectValue, selectedValue: selectedValue }}
+          value={{ onSelectValue: onSelectValue, selectedValue: checked }}
         >
           {children}
         </RadioButtonGroupContext.Provider>

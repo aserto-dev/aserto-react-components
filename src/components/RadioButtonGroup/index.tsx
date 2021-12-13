@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../theme'
 import { Label } from '../Label'
@@ -45,7 +45,7 @@ interface Option {
 }
 
 export interface RadioButtonGroupProps extends BaseRadioButtonGroupProps {
-  defaultSelected: string
+  defaultSelected?: string
   label?: string
   options: readonly Option[]
   testId?: string
@@ -60,6 +60,16 @@ export const RadioButtonGroup = ({
   testId,
   checked: value,
 }: RadioButtonGroupProps) => {
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(value ?? defaultSelected)
+
+  const onChangeInternal = useCallback(
+    (value: string) => {
+      setSelectedValue(value)
+      onChange?.(value)
+    },
+    [onChange]
+  )
+
   useEffect(() => {
     defaultSelected && onChange(defaultSelected)
   }, [defaultSelected, onChange])
@@ -69,7 +79,7 @@ export const RadioButtonGroup = ({
   return (
     <>
       {label && <Label {...mapTestIdToProps(`${testId}-field-label`)}>{label}</Label>}
-      <BaseRadioButtonGroup onChange={onChange} checked={value ?? defaultSelected}>
+      <BaseRadioButtonGroup onChange={onChangeInternal} checked={selectedValue}>
         <RadioGroupContainer {...mapTestIdToProps(testId)}>
           {options.map((option) => (
             <RadioRowContainer
@@ -81,7 +91,7 @@ export const RadioButtonGroup = ({
               <RadioButton
                 disabled={option.disabled}
                 value={option.value}
-                {...mapTestIdToProps(`${testId}-radio-button`)}
+                {...mapTestIdToProps(`${testId}-${option.value}-radio-button`)}
               />
               <label {...mapTestIdToProps(`${testId}-${option.value}-label`)}>{option.label}</label>
             </RadioRowContainer>
