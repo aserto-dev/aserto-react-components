@@ -74,8 +74,6 @@ export const RadioButtonGroup = ({
     defaultSelected && onChange(defaultSelected)
   }, [defaultSelected, onChange])
 
-  const { onSelectValue } = useContext(RadioButtonGroupContext)
-
   return (
     <>
       {label && <Label {...mapTestIdToProps(`${testId}-field-label`)}>{label}</Label>}
@@ -85,8 +83,10 @@ export const RadioButtonGroup = ({
             <RadioRowContainer
               disabled={option.disabled}
               key={option.value}
+              onClick={() => {
+                option.value !== selectedValue && onChangeInternal(option.value)
+              }}
               {...mapTestIdToProps(`${testId}-${option.value}-btn`)}
-              onClick={() => onSelectValue(option.value)}
             >
               <RadioButton
                 disabled={option.disabled}

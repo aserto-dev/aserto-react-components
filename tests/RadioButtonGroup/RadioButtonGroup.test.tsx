@@ -19,6 +19,20 @@ describe('<RadioButtonGroup/>', () => {
       expect(radioButton).toHaveAttribute('aria-checked', 'true')
     })
 
+    test('When unchecked <RadioButton>`s label is clicked Then the <RadioButton> becomes checked', () => {
+      const onChange = jest.fn()
+
+      const { getByTestId, getByText } = render(
+        <RadioButtonGroup onChange={onChange} options={[{ label: 'a', value: 'a' }]} testId="a" />
+      )
+
+      const radioButtonLabel = getByText('a')
+      fireEvent.click(radioButtonLabel)
+
+      const radioButton = getByTestId('a-a-radio-button')
+      expect(radioButton).toHaveAttribute('aria-checked', 'true')
+    })
+
     test('When <RadioButtons> are toggled Then they transition consistently', () => {
       let checked = 'a'
       const onChange = (value: string) => {
