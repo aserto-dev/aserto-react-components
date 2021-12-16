@@ -199,6 +199,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               defaultValue={defaultValue}
               {...props}
               type={inputType}
+              value={value}
             />
             {!(error || isUnavailable || isValid) && (
               <ButtonsContainer>
