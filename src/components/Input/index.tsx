@@ -10,7 +10,6 @@ import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
 import { Label } from '../Label'
-import { mapTestIdToProps } from '../../utils'
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   onChange?: FormControlProps['onChange']
@@ -157,15 +156,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       block,
       defaultValue,
       id,
-      onClickCopy = null,
+      onClickCopy,
       shouldShowHideShowButton,
+      type,
+      value,
       ...props
     },
     ref
   ) => {
-    const [type, setType] = useState(props.type || 'text')
+    const [inputType, setInputType] = useState(type || 'text')
     const [wasClicked, setWasClicked] = useState(false)
-    const testId = props['data-testid']
+
     const shouldShowErrorState =
       !(error === false || error === '' || error === undefined) || isUnavailable
     const shouldDisplayInfo = !shouldShowErrorState && info
@@ -173,9 +174,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     useEffect(() => {
       if (wasClicked) {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           setWasClicked(false)
         }, 800)
+        return () => clearTimeout(timeoutId)
       }
     }, [wasClicked])
 
@@ -193,25 +195,23 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               style={style}
               defaultValue={defaultValue}
               {...props}
-              type={type}
+              type={inputType}
             />
             {!(error || isUnavailable || isValid) && (
               <ButtonsContainer>
                 {shouldShowHideShowButton && (
                   <>
-                    {type === 'password' ? (
+                    {inputType === 'password' ? (
                       <HideShowButton
                         variant="secondary-borderless"
-                        onClick={() => setType('text')}
-                        {...mapTestIdToProps(`${testId}-show-btn`)}
+                        onClick={() => setInputType('text')}
                       >
                         <img alt="show" src={show} />
                       </HideShowButton>
                     ) : (
                       <HideShowButton
-                        onClick={() => setType('password')}
+                        onClick={() => setInputType('password')}
                         variant="secondary-borderless"
-                        {...mapTestIdToProps(`${testId}-hide-btn`)}
                       >
                         <img alt="hide" src={hide} />
                       </HideShowButton>
@@ -222,12 +222,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   <CopyButton
                     $wasClicked={wasClicked}
                     variant="secondary-borderless"
-                    onClick={(e) => {
+                    onClick={(event) => {
                       setWasClicked(true)
-                      e.currentTarget.blur()
-                      onClickCopy(String(props.value))
+                      event.currentTarget.blur()
+                      onClickCopy(String(value))
                     }}
-                    {...mapTestIdToProps(`${testId}-copy-btn`)}
                   >
                     <img src={copy} alt="copy" />
                   </CopyButton>
@@ -236,8 +235,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           </InputButtonBlock>
         </Label>
-        {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
-        {errorMessage && <Error {...mapTestIdToProps(`${testId}-error`)}>{errorMessage}</Error>}
+        {shouldDisplayInfo && <Info>{info}</Info>}
+        {errorMessage && <Error>{errorMessage}</Error>}
       </InputContainer>
     )
   }
