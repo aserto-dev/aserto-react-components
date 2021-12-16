@@ -10,6 +10,7 @@ import hide from './hide.svg'
 import copy from './copy.svg'
 import { Button } from '../Button'
 import { Label } from '../Label'
+import { mapTestIdToProps } from '../../utils'
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   onChange?: FormControlProps['onChange']
@@ -164,6 +165,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const testId = props['data-testid']
+
     const [inputType, setInputType] = useState(type || 'text')
     const [wasClicked, setWasClicked] = useState(false)
 
@@ -235,8 +238,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           </InputButtonBlock>
         </Label>
-        {shouldDisplayInfo && <Info>{info}</Info>}
-        {errorMessage && <Error>{errorMessage}</Error>}
+        {shouldDisplayInfo && <Info {...mapTestIdToProps(`${testId}-info`)}>{info}</Info>}
+        {errorMessage && <Error {...mapTestIdToProps(`${testId}-error`)}>{errorMessage}</Error>}
       </InputContainer>
     )
   }
