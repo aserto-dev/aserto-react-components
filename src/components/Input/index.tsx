@@ -72,6 +72,15 @@ const AsertoInput = styled(FormControl)<{
 const InputContainer = styled.div<{ $block?: boolean }>`
   display: flex;
   flex-direction: column;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
   ${({ $block }) => ($block ? 'width: 100%' : '')};
 `
 

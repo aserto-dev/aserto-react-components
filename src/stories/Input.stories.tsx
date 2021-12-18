@@ -137,3 +137,12 @@ PrimaryWithCopyViewLabel.args = {
   label: 'Label',
   value: 'View and Hide',
 }
+
+export const PrimaryWithNumberType = Template.bind({})
+PrimaryWithNumberType.args = {
+  placeholder: 'JWT',
+  type: 'number',
+  label: 'Label',
+  value: 9809,
+  onClickCopy: null,
+}
