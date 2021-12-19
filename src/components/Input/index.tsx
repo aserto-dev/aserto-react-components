@@ -65,6 +65,13 @@ const AsertoInput = styled(FormControl)<{
     border-color: ${theme.grey20};
     opacity: 0.6;
   }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
   ${({ isValid, isInvalid, $isUnavailable }) =>
     getInputValueForState(isValid, isInvalid, $isUnavailable)};
 `
@@ -72,15 +79,6 @@ const AsertoInput = styled(FormControl)<{
 const InputContainer = styled.div<{ $block?: boolean }>`
   display: flex;
   flex-direction: column;
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  input[type='number'] {
-    -moz-appearance: textfield;
-  }
   ${({ $block }) => ($block ? 'width: 100%' : '')};
 `
 
