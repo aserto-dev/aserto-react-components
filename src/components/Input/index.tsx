@@ -65,6 +65,13 @@ const AsertoInput = styled(FormControl)<{
     border-color: ${theme.grey20};
     opacity: 0.6;
   }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
   ${({ isValid, isInvalid, $isUnavailable }) =>
     getInputValueForState(isValid, isInvalid, $isUnavailable)};
 `
