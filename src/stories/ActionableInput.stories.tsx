@@ -33,3 +33,13 @@ PrimaryWithHideShowAndLabel.args = {
   shouldShowHideShowButton: true,
   label: 'Label',
 }
+
+export const PrimaryDisabledWithHideShowAndValue = Template.bind({})
+PrimaryDisabledWithHideShowAndValue.args = {
+  placeholder: 'JWT',
+  shouldShowHideShowButton: true,
+  label: 'Label',
+  disabled: true,
+  type: 'password',
+  value: 'secretValue!123',
+}
