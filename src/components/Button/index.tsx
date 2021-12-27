@@ -3,7 +3,7 @@ import { ButtonProps as BootstrapButtonProps } from 'react-bootstrap'
 import { PrimaryButton, SecondaryButton, DangerButton, SecondaryBorderlessButton } from './styles'
 
 export type DisplayState = {
-  visible?: boolean,
+  visible?: boolean
   enabled?: boolean
 }
 
@@ -22,19 +22,17 @@ const getButtonFromVariant = (variant: string) => {
   return variantObj[variant] || variantObj.primary
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  displayState,
-  ...props
-}) => {
-  const ButtonComponent = getButtonFromVariant(variant)
-  if (!displayState) {
-    return <ButtonComponent { ...props } />
-  }
-  if (displayState.visible) {
-    if (displayState.enabled) {
-      return <ButtonComponent { ...props } />
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', displayState, ...props }, ref) => {
+    const ButtonComponent = getButtonFromVariant(variant)
+    if (!displayState) {
+      return <ButtonComponent ref={ref} {...props} />
     }
-    return <ButtonComponent disabled { ...props } />
+    if (displayState.visible) {
+      if (displayState.enabled) {
+        return <ButtonComponent ref={ref} {...props} />
+      }
+      return <ButtonComponent ref={ref} disabled {...props} />
+    }
   }
-}
+)
