@@ -16,7 +16,7 @@ const makeExternalPredicate = (externalArr) => {
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
 const config = {
-  input: ['src/index.tsx', 'src/components/**/index.tsx'],
+  input: ['src/index.tsx', 'src/components/**/index.tsx', 'src/glyphs/**/*.tsx'],
   preserveModules: false,
   output: [
     {

@@ -2,6 +2,7 @@ import React from 'react'
 import { Meta } from '@storybook/react/types-6-0'
 import { Button } from '../components/Button'
 import { PopoverMenu } from '../components/PopoverMenu'
+import { Ellipsis } from '../glyphs/Ellipsis'
 
 export default {
   title: 'Common/PopoverMenu',
@@ -9,9 +10,11 @@ export default {
 } as Meta
 
 const Template = () => (
-  <PopoverMenu.Container onSelect={(name) => alert(`Click item "${name}"`)}>
+  <PopoverMenu.Container onSelect={(name) => alert(`Clicked item "${name}"`)}>
     <PopoverMenu.Trigger>
-      <Button>Click me</Button>
+      <Button variant="secondary-borderless">
+        <Ellipsis />
+      </Button>
     </PopoverMenu.Trigger>
     <PopoverMenu>
       <PopoverMenu.Item name="a">A</PopoverMenu.Item>
