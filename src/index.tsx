@@ -38,6 +38,7 @@ import { SelectWithDots } from './components/SelectWithDots'
 import { EvaluateDisplayState } from './components/EvaluateDisplayState'
 import { Checkbox } from './components/Checkbox'
 import { TooltipDialog } from './components/TooltipDialog'
+import { PopoverMenu } from './components/PopoverMenu'
 
 export {
   PolicyCard,
@@ -73,4 +74,5 @@ export {
   Checkbox,
   TooltipDialog,
   theme,
+  PopoverMenu,
 }
