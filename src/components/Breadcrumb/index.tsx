@@ -13,6 +13,7 @@ export type BreadcrumbProps = {
 }
 
 const BreadcrumbContainer = styled.div`
+  width: 100%;
   font-size: 24px;
   color: ${theme.grey100};
   @media (max-width: 600px) {
