@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { Dropdown } from 'react-bootstrap'
 import styled from 'styled-components'
-import { theme } from '../..'
+import { theme } from '../../theme'
 
 const StyledMenu = styled(Dropdown.Menu)`
   width: 250px;
