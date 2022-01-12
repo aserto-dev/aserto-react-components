@@ -37,10 +37,11 @@ const groupedOptions = [
     ],
   },
   {
+    label: 'This is a label',
     options: [
       {
-        label: "I'm another group!",
-        value: 'another_group',
+        label: "I'm a labeled group!",
+        value: 'labeled_group',
       },
     ],
   },
