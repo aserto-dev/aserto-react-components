@@ -123,10 +123,10 @@ export const Select: React.ForwardRefExoticComponent<
             alignItems: 'center',
             margin: 0,
             height: 36,
-            backgroundColor: theme.lochivar60,
+            backgroundColor: theme.grey40,
             color: theme.grey100,
             fontSize: 14,
-            fontWeight: 'normal'
+            fontWeight: 'bold'
           }
         }
       },
