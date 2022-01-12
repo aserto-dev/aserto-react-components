@@ -39,6 +39,7 @@ import { EvaluateDisplayState } from './components/EvaluateDisplayState'
 import { Checkbox } from './components/Checkbox'
 import { TooltipDialog } from './components/TooltipDialog'
 import { PopoverMenu } from './components/PopoverMenu'
+import { Modal } from './components/Modal'
 
 export {
   PolicyCard,
@@ -49,6 +50,7 @@ export {
   CodeEditor,
   Input,
   Loading,
+  Modal,
   NavBar,
   PageHeader,
   PageTitle,
