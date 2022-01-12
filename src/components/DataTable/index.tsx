@@ -133,9 +133,10 @@ export const DataTable = <Data extends object>({
             prepareRow(row)
             const shouldShowSubRow = renderRowSubComponent !== undefined && row.isExpanded
             const Tr = rowComponent || RowComponent
+            const rowProps = row.getRowProps()
             return (
-              <>
-                <Tr isExpanded={row.isExpanded} {...row.getRowProps()}>
+              <React.Fragment key={rowProps.key}>
+                <Tr isExpanded={row.isExpanded} {...rowProps}>
                   {row.cells.map((cell) => {
                     const customCellProps = getCellProps ? getCellProps(cell) : {}
                     return (
@@ -184,7 +185,7 @@ export const DataTable = <Data extends object>({
                     </div>
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             )
           })}
         </Tbody>
