@@ -97,7 +97,7 @@ export const Select: React.ForwardRefExoticComponent<
             ? theme.grey20
             : theme.grey20,
           borderLeft: isSelected ? `5px solid ${theme.lochivarAccent3}` : '',
-          color: theme.grey100,
+          color: isFocused ? theme.grey100 : theme.grey70,
           height: 36,
           fontSize: 14,
           lineHeight: '20px',
