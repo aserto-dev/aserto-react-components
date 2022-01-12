@@ -35,17 +35,7 @@ export interface SelectProps
   disableLabel?: boolean
 }
 
-const groupLabelStyle = {
-  position: 'relative' as const,
-  marginTop: -8,
-  marginBottom: -3,
-  marginLeft: -11,
-  marginRight: -11,
-  height: 1,
-  backgroundColor: theme.grey,
-}
-
-const formatGroupLabel = () => <div style={groupLabelStyle} />
+const formatGroupLabel = (group: GroupBase<SelectOption>) => <div>{group.label}</div>
 
 export const Select: React.ForwardRefExoticComponent<
   SelectProps & React.RefAttributes<ReactSelectElement>
@@ -118,10 +108,32 @@ export const Select: React.ForwardRefExoticComponent<
           },
         }
       },
+      groupHeading: (styles, props) => {
+        if (!props.data.label) {
+          return {
+            ...styles,
+            height: 1,
+            backgroundColor: theme.grey,
+            margin: 0,
+          }
+        } else {
+          return {
+            ...styles,
+            display: 'flex',
+            alignItems: 'center',
+            margin: 0,
+            height: 36,
+            backgroundColor: theme.lochivar60,
+            color: theme.grey100,
+            fontSize: 14,
+            fontWeight: 'normal'
+          }
+        }
+      },
       group: (styles) => {
         return {
           ...styles,
-          paddingBottom: 0,
+          padding: 0,
         }
       },
       input: (styles) => {
@@ -164,6 +176,10 @@ export const Select: React.ForwardRefExoticComponent<
         ...styles,
         fontSize: 14,
       }),
+      noOptionsMessage: (styles) => ({
+        ...styles,
+        backgroundColor: theme.grey20,
+      })
     }
     return (
       <div style={style}>
