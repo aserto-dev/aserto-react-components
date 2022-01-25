@@ -71,6 +71,7 @@ export const Select: React.ForwardRefExoticComponent<
         return {
           ...styles,
           minHeight: 36,
+          height: '100%',
           backgroundColor: isDisabled ? theme.grey20 : theme.primaryBlack,
           color: isDisabled ? theme.grey40 : theme.grey100,
           borderColor: isFocused ? theme.lochivarAccent2 : theme.grey40,
@@ -98,7 +99,8 @@ export const Select: React.ForwardRefExoticComponent<
             : theme.grey20,
           borderLeft: isSelected ? `5px solid ${theme.lochivarAccent3}` : '',
           color: isFocused ? theme.grey100 : theme.grey70,
-          height: 36,
+          height: '100%',
+          minHeight: 36,
           fontSize: 14,
           lineHeight: '20px',
           cursor: isDisabled ? 'not-allowed' : 'default',
@@ -122,11 +124,12 @@ export const Select: React.ForwardRefExoticComponent<
             display: 'flex',
             alignItems: 'center',
             margin: 0,
-            height: 36,
+            minHeight: 36,
+            height: '100%',
             backgroundColor: theme.lochivar60,
             color: theme.grey100,
             fontSize: 14,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }
         }
       },
@@ -179,7 +182,7 @@ export const Select: React.ForwardRefExoticComponent<
       noOptionsMessage: (styles) => ({
         ...styles,
         backgroundColor: theme.grey20,
-      })
+      }),
     }
     return (
       <div style={style}>

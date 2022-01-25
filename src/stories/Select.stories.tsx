@@ -43,6 +43,11 @@ const groupedOptions = [
         label: "I'm a labeled group!",
         value: 'labeled_group',
       },
+      {
+        label:
+          "I'm a labeled group with a big size! This should be enought to have more than one line in small screens. If you are not seeing more than one line, please reduce the width of your browser",
+        value: 'labeled_group',
+      },
     ],
   },
   {
