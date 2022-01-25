@@ -32,6 +32,9 @@ export interface SelectProps
   label?: string
   value?: SelectOption | null
   style?: React.CSSProperties
+  modifyCustomStyle?: (
+    styles: StylesConfig<SelectOption, false>
+  ) => StylesConfig<SelectOption, false>
   disableLabel?: boolean
 }
 
@@ -40,7 +43,10 @@ const formatGroupLabel = (group: GroupBase<SelectOption>) => <div>{group.label}<
 export const Select: React.ForwardRefExoticComponent<
   SelectProps & React.RefAttributes<ReactSelectElement>
 > = React.forwardRef(
-  ({ onChange, label, disabled, style, value, disableLabel, name, ...props }, ref) => {
+  (
+    { onChange, label, disabled, style, value, disableLabel, name, modifyCustomStyle, ...props },
+    ref
+  ) => {
     const removeFocusBox = {
       outline: 'none',
       webkitBoxShadow: 'none',
@@ -126,7 +132,7 @@ export const Select: React.ForwardRefExoticComponent<
             backgroundColor: theme.lochivar60,
             color: theme.grey100,
             fontSize: 14,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }
         }
       },
@@ -179,7 +185,7 @@ export const Select: React.ForwardRefExoticComponent<
       noOptionsMessage: (styles) => ({
         ...styles,
         backgroundColor: theme.grey20,
-      })
+      }),
     }
     return (
       <div style={style}>
@@ -196,7 +202,7 @@ export const Select: React.ForwardRefExoticComponent<
           ref={ref}
           isDisabled={disabled}
           onChange={onChange}
-          styles={colourStyles}
+          styles={modifyCustomStyle ? modifyCustomStyle(colourStyles) : colourStyles}
           formatGroupLabel={formatGroupLabel}
           components={{ Option }}
         />
