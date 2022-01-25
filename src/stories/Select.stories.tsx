@@ -1,7 +1,6 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Select, SelectProps } from '../components/Select'
-import { theme } from '../theme'
 
 export default {
   title: 'Common/Select',
@@ -65,23 +64,6 @@ Primary.args = {
 export const PrimaryGrouped = Template.bind({})
 PrimaryGrouped.args = {
   options: groupedOptions,
-}
-
-export const PrimaryGroupedWithCustomStyles = Template.bind({})
-PrimaryGroupedWithCustomStyles.args = {
-  options: groupedOptions,
-  modifyCustomStyle: (style) => {
-    return {
-      ...style,
-      groupHeading: (styles, props) => {
-        return {
-          ...styles,
-          ...style.groupHeading(styles, props),
-          backgroundColor: theme.grey40,
-        }
-      },
-    }
-  },
 }
 
 export const PrimaryWithLabel = Template.bind({})
