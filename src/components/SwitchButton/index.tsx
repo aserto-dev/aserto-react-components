@@ -32,7 +32,7 @@ const SwitchLabel = styled.label`
 const SwitchInput = styled.input`
   width: 0;
   border: 1px solid #2a2a2a;
-
+  visibility: hidden !important;
   height: 0;
   overflow: hidden;
 `
