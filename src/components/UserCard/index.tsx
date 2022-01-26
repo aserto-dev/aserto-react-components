@@ -42,9 +42,12 @@ const CardContent = styled.div`
   overflow: hidden;
 `
 
-const CardText = styled.div<{ $bold?: boolean }>`
+const CardText = styled.div<{ $bold?: boolean, $small?: boolean }>`
   ${({ $bold }) => {
     return $bold ? 'font-weight: bold' : ''
+  }};
+  ${({ $small }) => {
+    return $small ? 'font-size: 12px; margin-top: 5px' : ''
   }};
 `
 
@@ -70,6 +73,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     <CardContent>
       <CardText $bold>{user.display_name}</CardText>
       <CardText>{user.email}</CardText>
+      <CardText $small>{user.id}</CardText>
     </CardContent>
   </CardContainer>
 )
