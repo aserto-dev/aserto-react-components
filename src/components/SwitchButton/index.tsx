@@ -107,7 +107,7 @@ export const SwitchButton = ({
     >
       <SwitchBackground
         style={{
-          backgroundColor: checked ? onColor || theme.lochivarAccent2 : offColor || theme.grey20,
+          backgroundColor: checked ? onColor || theme.lochivarAccent2 : offColor || theme.grey30,
         }}
       />
       <SwitchHandle
