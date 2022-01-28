@@ -198,15 +198,15 @@ export const Select: React.ForwardRefExoticComponent<
           </Label>
         )}
         <ReactSelect
-          {...props}
           name={name}
           inputId={name}
           value={value}
           ref={ref}
           isDisabled={disabled}
           onChange={onChange}
-          styles={modifyCustomStyle ? modifyCustomStyle(colourStyles) : colourStyles}
           formatGroupLabel={formatGroupLabel}
+          {...props}
+          styles={modifyCustomStyle ? modifyCustomStyle(colourStyles) : colourStyles}
           components={{ Option }}
         />
       </div>
