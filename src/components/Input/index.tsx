@@ -63,7 +63,6 @@ const AsertoInput = styled(FormControl)<{
     color: ${theme.grey70};
     background-color: ${theme.grey20};
     border-color: ${theme.grey20};
-    opacity: 0.6;
   }
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
